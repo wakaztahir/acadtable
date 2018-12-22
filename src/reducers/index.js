@@ -9,9 +9,11 @@ const TableListReducer = () => {
 };
 
 const SelectedTableReducer = (selectedTable = null, action) => {
-  if (action == "DISPLAY_TABLE") {
+  if (action === "DISPLAY_TABLE") {
     return selectedTable.id;
   }
+
+  return null;
 };
 
 export default combineReducers({
