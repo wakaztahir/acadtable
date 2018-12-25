@@ -1,22 +1,13 @@
 import { combineReducers } from "redux";
 
-const TableListReducer = () => {
-  return [
-    //Supposed Tables
-    { name: "Class Table", id: 123 },
-    { name: "West Table", id: 678 }
-  ];
-};
-
-const SelectedTableReducer = (selectedTable = null, action) => {
-  if (action === "DISPLAY_TABLE") {
-    return selectedTable.id;
-  }
-
-  return null;
-};
+import CoreReducer from "./CoreReducer";
+import TableReducer from "./TableReducer";
+import UserReducer from "./UserReducer";
+import SettingsReducer from "./SettingsReducer";
 
 export default combineReducers({
-  TableList: TableListReducer,
-  SelectedTableReducer: SelectedTableReducer
+  core: CoreReducer,
+  table: TableReducer,
+  user: UserReducer,
+  settings: SettingsReducer
 });

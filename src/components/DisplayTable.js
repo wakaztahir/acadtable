@@ -2,13 +2,13 @@ import React from "react";
 
 import { connect } from "react-redux";
 
-const DisplayTable = ({ tables }) => {
-  return <div className="display-table">Display Table</div>;
+const DisplayTable = selected => {
+  return <div className="display-table">{JSON.stringify(selected)}</div>;
 };
 
 const mapStateToProps = state => {
   return {
-    tables: state.TableList
+    table: state.table.selected
   };
 };
 
