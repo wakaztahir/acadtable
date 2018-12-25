@@ -7,8 +7,9 @@ const DisplayTable = selected => {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    table: state.table.selected
+    table: state.table.current
   };
 };
 

@@ -1,5 +1,7 @@
 import React from "react";
 
+import engine from "../classes/engine";
+
 import { connect } from "react-redux";
 
 import { listTables } from "../actions/CoreActions";
@@ -14,7 +16,7 @@ import {
 
 class TableList extends React.Component {
   componentDidMount() {
-    this.props.listTables();
+    this.props.listTables(engine.getTablesArray());
   }
   render() {
     return this.props.tables.map(table => {
@@ -31,28 +33,28 @@ class TableList extends React.Component {
             </button>
             <button
               onClick={() => {
-                return editTable(table.id);
+                this.props.editTable(table.id);
               }}
             >
               edit
             </button>
             <button
               onClick={() => {
-                renameTable(table.id);
+                this.props.renameTable(table.id);
               }}
             >
               rename
             </button>
             <button
               onClick={() => {
-                deleteTable(table.id);
+                this.props.deleteTable(table.id);
               }}
             >
               delete
             </button>
             <button
               onClick={() => {
-                exportTable(table.id);
+                this.props.exportTable(table.id);
               }}
             >
               export

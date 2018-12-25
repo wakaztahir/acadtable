@@ -2,6 +2,8 @@ import React from "react";
 import TableList from "./TableList";
 import UserMenu from "./UserMenu";
 import DisplayTable from "./DisplayTable";
+import Modal from "./Modal";
+
 class App extends React.Component {
   render() {
     return (
@@ -14,6 +16,7 @@ class App extends React.Component {
           </div>
           <DisplayTable />
         </div>
+        <Modal disabled={true} />
       </div>
     );
   }

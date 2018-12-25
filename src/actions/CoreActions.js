@@ -1,10 +1,20 @@
-export const listTables = () => {
-  let tableData = localStorage.getItem("tablesData");
-  if (tableData != null) {
-    tableData = JSON.parse(tableData);
+export const listTables = tables => {
+  let tablesData = tables;
+  if (tablesData == null) {
+    return [];
   }
   return {
     type: "LIST_TABLES",
-    payload: tableData
+    payload: tablesData
+  };
+};
+
+export const displayModal = (show, content) => {
+  return {
+    type: "DISPLAY_MODAL",
+    payload: {
+      show,
+      content
+    }
   };
 };
