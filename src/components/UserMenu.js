@@ -5,10 +5,13 @@ import { connect } from "react-redux";
 import { displayModal } from "../actions/CoreActions";
 
 class UserMenu extends React.Component {
+  handleForm(x) {
+    x.preventDefault();
+  }
   createTableModal() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleForm}>
           <label>Name : </label>
           <input type="text" />
           <input type="submit" />
