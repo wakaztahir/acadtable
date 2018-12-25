@@ -1,15 +1,19 @@
 import React from "react";
 
 import { connect } from "react-redux";
-
-const DisplayTable = selected => {
-  return <div className="display-table">{JSON.stringify(selected)}</div>;
-};
+class DisplayTable extends React.Component {
+  render() {
+    return (
+      <div className="display-table">
+        {JSON.stringify(this.props.selectedTable)}
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
-    table: state.table.current
+    table: state.selectedTable
   };
 };
 

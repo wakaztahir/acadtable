@@ -3,7 +3,8 @@ body {
   margin: 0;
 }
 
-.g-head {
+.g-head,
+label {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 300;
@@ -33,7 +34,8 @@ body {
   align-items: center;
   flex-shrink: 0;
 }
-button {
+button,
+input[type="submit"] {
   outline: 0;
   border: 0;
   color: #fff;
@@ -92,15 +94,67 @@ button {
   z-index: 99;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .modal-container.disabled {
   display: none;
 }
 
+.modal .modal-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgb(68, 84, 231);
+  color: white;
+  display: flex;
+  font-weight: 400;
+  line-height: 2rem;
+  cursor: pointer;
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.modal .modal-close:hover {
+  background: rgb(47, 62, 197);
+}
+.modal-close span {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-weight: 400;
+}
 .modal-container .modal {
 }
 
 .modal .modal-content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  font-weight: 400;
+}
+
+input[type="text"] {
+  width: 10rem;
+  height: 1.5rem;
+  border: 0;
+  border-radius: 2rem;
+  padding: 0rem 0.6rem;
+  outline: 0;
+  color: white;
+  background: rgb(68, 84, 231);
+}
+
+input[type="submit"] {
+  padding: 0.5rem;
+  background: rgb(68, 84, 231);
+  color: white;
+  margin: 5px;
+}
+input[type="submit"]:hover {
+  background: rgb(47, 62, 197);
 }

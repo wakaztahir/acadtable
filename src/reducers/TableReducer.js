@@ -1,18 +1,6 @@
-const TableReducer = (data = null, action) => {
-  switch (action.type) {
-    case "DISPLAY_TABLE":
-      return {
-        current: action.payload.table
-      };
-    default:
-      if (data === undefined || data === null) {
-        return {
-          current: null
-        };
-      } else {
-        return data;
-      }
+export const selectedTable = (data = null, action) => {
+  if (action.type === "DISPLAY_TABLE") {
+    return action.payload.table;
   }
+  return data;
 };
-
-export default TableReducer;

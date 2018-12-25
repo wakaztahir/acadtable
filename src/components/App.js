@@ -4,6 +4,8 @@ import UserMenu from "./UserMenu";
 import DisplayTable from "./DisplayTable";
 import Modal from "./Modal";
 
+import { connect } from "react-redux";
+
 class App extends React.Component {
   render() {
     return (
@@ -16,10 +18,19 @@ class App extends React.Component {
           </div>
           <DisplayTable />
         </div>
-        <Modal disabled={true} />
+        <Modal display={this.props.ModalDisplay}>
+          {this.props.ModalContent}
+        </Modal>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    ModalDisplay: state.Modal.display,
+    ModalContent: state.Modal.content
+  };
+};
+
+export default connect(mapStateToProps)(App);

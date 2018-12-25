@@ -68,7 +68,7 @@ class TableList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    tables: state.core.TableList
+    tables: state.Tables
   };
 };
 
