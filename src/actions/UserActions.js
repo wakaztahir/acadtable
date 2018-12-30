@@ -28,4 +28,9 @@ export const tableOptions = (name, id) => {
   };
 };
 
-//Settings Action Creator
+export const saveTables = () => {
+  return {
+    type:"SAVE_TABLES",
+    payload:{}
+  }
+}
