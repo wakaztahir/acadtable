@@ -1,12 +1,5 @@
 import { combineReducers } from "redux";
+import { MenuDisplay } from "./Menu";
+import { ScreenReducer as Screen } from "./Screen";
 
-import { Tables, Modal } from "./CoreReducer";
-import { selectedTable } from "./TableReducer";
-// import UserReducer from "./UserReducer";
-// import SettingsReducer from "./SettingsReducer";
-
-export default combineReducers({
-  Tables,
-  Modal,
-  selectedTable
-});
+export default combineReducers({ MenuDisplay, Screen });

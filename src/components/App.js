@@ -1,36 +1,25 @@
-import React from "react";
-import TableList from "./TableList";
-import UserMenu from "./UserMenu";
-import DisplayTable from "./DisplayTable";
-import Modal from "./Modal";
-
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Header from "./Header";
+import Menu from "./Menu";
+import Screen from "./Screen";
 import { connect } from "react-redux";
 
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
-      <div className="wrapper">
-        <UserMenu />
-        <div className="horizontal-wrapper">
-          <div className="table-list">
-            <h1 className="g-head">Table List</h1>
-            <TableList />
-          </div>
-          <DisplayTable />
+      <Router>
+        <div>
+          <Route path="/" component={Header} />
+          <Route path="/tables" component={Menu} />
+          <Route path="/" exact component={Screen} />
         </div>
-        <Modal display={this.props.ModalDisplay}>
-          {this.props.ModalContent}
-        </Modal>
-      </div>
+      </Router>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    ModalDisplay: state.Modal.display,
-    ModalContent: state.Modal.content
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default connect(
+  null,
+  {}
+)(App);
