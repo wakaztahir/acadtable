@@ -1,23 +1,27 @@
 import React, { Component } from "react";
+
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 
 class Header extends Component {
   render() {
     return (
-      <div>
-        <Link to="/">
-          <button>Main Page</button>
-        </Link>
-        <Link to="/tables">
-          <button>Tables</button>
-        </Link>
-      </div>
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/tables">Tables</Link>
+            </li>
+            <li>
+              <Link to="/batches">Batches</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
     );
   }
 }
 
-export default connect(
-  null,
-  {}
-)(Header);
+export default Header;

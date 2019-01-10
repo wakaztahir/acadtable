@@ -1,15 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import Reducers from "./reducers";
+
+import { BrowserRouter, Route } from "react-router-dom";
+
 import App from "./components/App";
 
-const store = createStore(Reducers);
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+import rootReducer from "./reducers";
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <Route path="/" exact component={App} />
+    </BrowserRouter>
   </Provider>,
   document.querySelector("#root")
 );
