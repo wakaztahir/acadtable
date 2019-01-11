@@ -1,0 +1,11 @@
+
+.icon-clock:before { content: '\e800'; } /* '' */
+.icon-clock-1:before { content: '\e801'; } /* '' */
+.icon-cancel-alt:before { content: '\e802'; } /* '' */
+.icon-info:before { content: '\e803'; } /* '' */
+.icon-book:before { content: '\e804'; } /* '' */
+.icon-cancel:before { content: '\e807'; } /* '' */
+.icon-cancel-1:before { content: '\e808'; } /* '' */
+.icon-bank:before { content: '\f19c'; } /* '' */
+.icon-graduation-cap:before { content: '\f19d'; } /* '' */
+.icon-calendar-times-o:before { content: '\f273'; } /* '' */
