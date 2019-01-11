@@ -7,17 +7,17 @@ class Header extends Component {
     return (
       <header>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/tables">Tables</Link>
-            </li>
-            <li>
-              <Link to="/batches">Batches</Link>
-            </li>
-          </ul>
+          <Link to="/">
+            <button>Home</button>
+          </Link>
+
+          <Link to="/tables">
+            <button>Tables</button>
+          </Link>
+
+          <Link to="/batches">
+            <button>Batches</button>
+          </Link>
         </nav>
       </header>
     );

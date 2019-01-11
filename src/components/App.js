@@ -7,12 +7,10 @@ import Header from "./Header";
 import Tables from "./tables";
 import CreateTable from "./tables/Create";
 import RenameTable from "./tables/Rename";
-import DeleteTable from "./tables/Delete";
 //Batches Import
 import Batches from "./batches";
 import CreateBatch from "./batches/Create";
 import RenameBatch from "./batches/Rename";
-import DeleteBatch from "./batches/Delete";
 
 class App extends Component {
   render() {
@@ -20,16 +18,15 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Route path="/" component={Header} />
+          <div className="wrapper">
+            <Route path="/tables" exact component={Tables} />
+            <Route path="/tables/create" exact component={CreateTable} />
+            <Route path="/tables/rename" exact component={RenameTable} />
 
-          <Route path="/tables" exact component={Tables} />
-          <Route path="/tables/create" exact component={CreateTable} />
-          <Route path="/tables/rename" exact component={RenameTable} />
-          <Route path="/tables/delete" exact component={DeleteTable} />
-
-          <Route path="/batches" exact component={Batches} />
-          <Route path="/batches/create" exact component={CreateBatch} />
-          <Route path="/batches/rename" exact component={RenameBatch} />
-          <Route path="/batches/delete" exact component={DeleteBatch} />
+            <Route path="/batches" exact component={Batches} />
+            <Route path="/batches/create" exact component={CreateBatch} />
+            <Route path="/batches/rename" exact component={RenameBatch} />
+          </div>
         </div>
       </BrowserRouter>
     );

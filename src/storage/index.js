@@ -1,52 +1,65 @@
 class storage {
-  static getList() {
-    let tablesList = sessionStorage.getItem("tables-list") || "[]";
-    try {
-      tablesList = JSON.parse(tablesList);
-    } catch (ex) {
-      tablesList = [];
+  constructor(focus) {
+    if (focus === "batch") {
+      this.focus = focus;
+      this.list = "batches-list";
+      this.data_prefix = "bt-";
+    } else if (focus === "table") {
+      this.focus = focus;
+      this.list = "tables-list";
+      this.data_prefix = "td-";
     }
-    return tablesList;
   }
-  static getTable(id) {
-    let tableData = sessionStorage.getItem("td-" + id);
-    tableData = JSON.parse(tableData);
-    if (tableData !== undefined && tableData !== null) {
-      return tableData;
+  getList() {
+    let list = sessionStorage.getItem(this.list) || "[]";
+    try {
+      list = JSON.parse(list);
+    } catch (ex) {
+      list = [];
+    }
+    return list;
+  }
+  getData(id) {
+    let data = sessionStorage.getItem(this.data_prefix + id);
+    data = JSON.parse(data);
+    if (data !== undefined && data !== null) {
+      return data;
     } else {
       return {};
     }
   }
-  static saveList(list = []) {
-    sessionStorage.setItem("tables-list", JSON.stringify(list));
+  saveList(list = []) {
+    sessionStorage.setItem(this.list, JSON.stringify(list));
   }
-  static saveTable(id, data = {}) {
-    sessionStorage.setItem("td-" + id, JSON.stringify(data));
+  saveData(id, data = {}) {
+    sessionStorage.setItem(this.data_prefix + id, JSON.stringify(data));
   }
-  static createTable(name, id) {
-    let list = storage.getList();
+  create(name, id) {
+    let session = new storage(this.focus);
+    let list = session.getList();
     let table = {
       name,
       id
     };
     list.push(table);
-    storage.saveList(list);
+    session.saveList(list);
   }
-  static renameTable(newname, id) {
-    let list = storage.getList();
+  rename(newname, id) {
+    let session = new storage(this.focus);
+    let list = session.getList();
     let newlist = list.map(item => {
       if (item.id === id) {
         item.name = newname;
       }
       return item;
     });
-    console.log("rename", list, newlist);
-    storage.saveList(newlist);
+    session.saveList(newlist);
   }
-  static deleteTable(id) {
-    let list = storage.getList();
+  delete(id) {
+    let session = new storage(this.focus);
+    let list = session.getList();
     let newlist = list.filter(item => item.id !== id);
-    storage.saveList(newlist);
+    session.saveList(newlist);
   }
 }
 

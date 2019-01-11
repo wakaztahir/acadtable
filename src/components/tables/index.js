@@ -29,13 +29,12 @@ class Tables extends Component {
   render() {
     return (
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/tables/create">Create Table</Link>
-            </li>
-          </ul>
-        </nav>
+        <h1>Tables</h1>
+        <ul>
+          <li>
+            <Link to="/tables/create">Create Table</Link>
+          </li>
+        </ul>
         {this.renderList()}
       </div>
     );

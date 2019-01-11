@@ -16,7 +16,8 @@ class RenameTable extends Component {
     if (this.props.location.id === undefined) {
       this.props.history.push("/tables");
     } else {
-      let table = storage
+      let session = new storage("table");
+      let table = session
         .getList()
         .filter(item => item.id === this.props.location.id)[0];
       const { Form, formProps } = Former("rename");

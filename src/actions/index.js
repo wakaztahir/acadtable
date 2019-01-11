@@ -1,20 +1,31 @@
 import storage from "../storage";
-import { CREATE_TABLE, RENAME_TABLE, DELETE_TABLE } from "./types";
+import {
+  CREATE_TABLE,
+  RENAME_TABLE,
+  DELETE_TABLE,
+  CREATE_BATCH,
+  RENAME_BATCH,
+  DELETE_BATCH
+} from "./types";
+
+let table = new storage("table");
+let batch = new storage("batch");
+
 export const createTableByName = name => {
   let id = Math.random()
     .toString()
     .split(".")[1]
     .substr(0, 5);
-  storage.createTable(name, id);
-  let list = storage.getList();
+  table.create(name, id);
+  let list = table.getList();
   return {
     type: CREATE_TABLE,
     list
   };
 };
 export const renameTableById = (newname, id) => {
-  storage.renameTable(newname, id);
-  let list = storage.getList();
+  table.rename(newname, id);
+  let list = table.getList();
   return {
     type: RENAME_TABLE,
     list
@@ -22,10 +33,40 @@ export const renameTableById = (newname, id) => {
 };
 
 export const deleteTableById = id => {
-  storage.deleteTable(id);
-  let list = storage.getList();
+  table.delete(id);
+  let list = table.getList();
   return {
     type: DELETE_TABLE,
+    list
+  };
+};
+
+export const createBatchByName = name => {
+  let id = Math.random()
+    .toString()
+    .split(".")[1]
+    .substr(0, 5);
+  batch.create(name, id);
+  let list = batch.getList();
+  return {
+    type: CREATE_BATCH,
+    list
+  };
+};
+export const renameBatchById = (newname, id) => {
+  batch.rename(newname, id);
+  let list = batch.getList();
+  return {
+    type: RENAME_BATCH,
+    list
+  };
+};
+
+export const deleteBatchById = id => {
+  batch.delete(id);
+  let list = batch.getList();
+  return {
+    type: DELETE_BATCH,
     list
   };
 };
