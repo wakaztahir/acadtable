@@ -8,9 +8,9 @@ class Batches extends Component {
   renderList() {
     return this.props.list.map(item => {
       return (
-        <div key={item.id}>
-          <div>{item.name}</div>
-          <div>
+        <div className="batch-card" key={item.id}>
+          <div className="card-title">{item.name}</div>
+          <div className="buttons-list blue">
             <button
               onClick={() => {
                 this.props.deleteBatchById(item.id);
@@ -30,12 +30,14 @@ class Batches extends Component {
     return (
       <div>
         <h1>Batches</h1>
-        <ul>
+        <ul className="buttons-list">
           <li>
-            <Link to="/batches/create">Create Batch</Link>
+            <Link to="/batches/create">
+              <button>Create A Batch</button>
+            </Link>
           </li>
         </ul>
-        {this.renderList()}
+        <div className="list-container">{this.renderList()}</div>
       </div>
     );
   }

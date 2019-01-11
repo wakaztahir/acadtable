@@ -8,9 +8,9 @@ class Tables extends Component {
   renderList() {
     return this.props.list.map(item => {
       return (
-        <div key={item.id}>
-          <div>{item.name}</div>
-          <div>
+        <div key={item.id} className="table-card">
+          <div className="card-title">{item.name}</div>
+          <div className="buttons-list blue">
             <button
               onClick={() => {
                 this.props.deleteTableById(item.id);
@@ -30,12 +30,14 @@ class Tables extends Component {
     return (
       <div>
         <h1>Tables</h1>
-        <ul>
+        <ul className="buttons-list">
           <li>
-            <Link to="/tables/create">Create Table</Link>
+            <Link to="/tables/create">
+              <button>Create A Table</button>
+            </Link>
           </li>
         </ul>
-        {this.renderList()}
+        <div className="list-container">{this.renderList()}</div>
       </div>
     );
   }
