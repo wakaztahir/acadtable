@@ -1,11 +1,20 @@
 {
+<<<<<<< HEAD
   "main.js": "/acadtable/static/js/main.d8a3e59f.chunk.js",
   "main.js.map": "/acadtable/static/js/main.d8a3e59f.chunk.js.map",
+=======
+  "main.js": "/acadtable/static/js/main.2c484ebf.chunk.js",
+  "main.js.map": "/acadtable/static/js/main.2c484ebf.chunk.js.map",
+>>>>>>> bd23694df679ff85ca8bff5c509b4f549a123332
   "static/js/1.9e235edf.chunk.js": "/acadtable/static/js/1.9e235edf.chunk.js",
   "static/js/1.9e235edf.chunk.js.map": "/acadtable/static/js/1.9e235edf.chunk.js.map",
   "runtime~main.js": "/acadtable/static/js/runtime~main.1d65f624.js",
   "runtime~main.js.map": "/acadtable/static/js/runtime~main.1d65f624.js.map",
   "index.html": "/acadtable/index.html",
+<<<<<<< HEAD
   "precache-manifest.186a9c24e9e07a1a651b1ff665c46807.js": "/acadtable/precache-manifest.186a9c24e9e07a1a651b1ff665c46807.js",
+=======
+  "precache-manifest.2b6110a65fea555baeefb0a77ff0e5a2.js": "/acadtable/precache-manifest.2b6110a65fea555baeefb0a77ff0e5a2.js",
+>>>>>>> bd23694df679ff85ca8bff5c509b4f549a123332
   "service-worker.js": "/acadtable/service-worker.js"
 }
