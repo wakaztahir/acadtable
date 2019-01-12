@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import Header from "./Header";
+
+import Display from "./display";
+
 //Tables Import
 import Tables from "./tables";
 import CreateTable from "./tables/Create";
@@ -19,6 +22,7 @@ class App extends Component {
         <div>
           <Route path="/" component={Header} />
           <div className="wrapper">
+            <Route path="/" exact component={Display} />
             <Route path="/tables" exact component={Tables} />
             <Route path="/tables/create" exact component={CreateTable} />
             <Route path="/tables/rename" exact component={RenameTable} />

@@ -53,6 +53,7 @@ export class Input extends Component {
         name={this.props.name}
         onChange={this.change}
         value={this.state.value}
+        className={this.props.className || null}
       />
     );
   }

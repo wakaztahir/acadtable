@@ -23,6 +23,7 @@ class storage {
     let data = sessionStorage.getItem(this.data_prefix + id);
     data = JSON.parse(data);
     if (data !== undefined && data !== null) {
+      console.log(data);
       return data;
     } else {
       return {};
@@ -34,15 +35,24 @@ class storage {
   saveData(id, data = {}) {
     sessionStorage.setItem(this.data_prefix + id, JSON.stringify(data));
   }
+  deleteData(id) {
+    sessionStorage.removeItem(this.data_prefix + id);
+  }
   create(name, id) {
     let session = new storage(this.focus);
     let list = session.getList();
-    let table = {
+    let creation = {
       name,
       id
     };
-    list.push(table);
+    let data = {
+      name,
+      id,
+      list: []
+    };
+    list.push(creation);
     session.saveList(list);
+    session.saveData(id, data);
   }
   rename(newname, id) {
     let session = new storage(this.focus);
@@ -60,6 +70,7 @@ class storage {
     let list = session.getList();
     let newlist = list.filter(item => item.id !== id);
     session.saveList(newlist);
+    session.deleteData(id);
   }
 }
 

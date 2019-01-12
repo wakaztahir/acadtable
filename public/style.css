@@ -80,6 +80,10 @@ header button {
   margin-right: 2px;
 }
 
+.selected-table {
+  background: rgb(141, 14, 14);
+}
+
 .table-card .card-title,
 .batch-card .card-title {
   display: inline-block;

@@ -1,6 +1,7 @@
 import storage from "../storage";
 import {
   CREATE_TABLE,
+  SELECT_TABLE,
   RENAME_TABLE,
   DELETE_TABLE,
   CREATE_BATCH,
@@ -23,6 +24,13 @@ export const createTableByName = name => {
     list
   };
 };
+export const selectTableById = id => {
+  let tableData = table.getData(id);
+  return {
+    type: SELECT_TABLE,
+    table: tableData
+  };
+};
 export const renameTableById = (newname, id) => {
   table.rename(newname, id);
   let list = table.getList();
@@ -37,6 +45,7 @@ export const deleteTableById = id => {
   let list = table.getList();
   return {
     type: DELETE_TABLE,
+    deleted: id,
     list
   };
 };
