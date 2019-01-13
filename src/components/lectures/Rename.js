@@ -9,29 +9,37 @@ import { renameLectureById } from "../../actions";
 
 class RenameLecture extends Component {
   handleSubmit = values => {
-    this.props.renameLectureById(values.newname, this.props.location.id);
-    this.props.history.push("/Lectures");
+    this.props.renameLectureById(values.newname, this.props.id);
+    this.props.cancel();
   };
   render() {
-    if (this.props.location.id === undefined) {
-      this.props.history.push("/Lectures");
-    } else {
-      let session = new storage("Lecture");
-      let table = session
-        .getList()
-        .filter(item => item.id === this.props.location.id)[0];
-      const { Form, formProps } = Former("rename");
-      return (
-        <div>
-          {table.name}
-          <Form onSubmit={this.handleSubmit}>
-            <Input name="newname" {...formProps} />
-            <Input type="submit" value="Rename" {...formProps} />
-          </Form>
-        </div>
-      );
+    let session = new storage("lecture");
+    let Lecture = session
+      .getList()
+      .filter(item => item.id === this.props.id)[0];
+    if (Lecture === undefined) {
+      return null;
     }
-    return null;
+    const { Form, formProps } = Former("rename");
+    return (
+      <div>
+        <Form onSubmit={this.handleSubmit} className="row-block">
+          <label htmlFor="newname" className="item">
+            New Name
+          </label>
+          <Input
+            name="newname"
+            className="item"
+            value={Lecture.name}
+            {...formProps}
+          />
+          <Input type="submit" className="item" value="Rename" {...formProps} />
+          <button onClick={this.props.cancel} className="item">
+            Cancel
+          </button>
+        </Form>
+      </div>
+    );
   }
 }
 

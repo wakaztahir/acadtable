@@ -1,14 +1,21 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+
+import Create from "./Create";
+import Rename from "./Rename";
 
 import { renameLectureById, deleteLectureById } from "../../actions";
 
 class Lectures extends Component {
+  state = {
+    showForm: false,
+    renameId: null,
+    showRenameForm: false
+  };
   renderList() {
     return this.props.list.map(item => {
       return (
-        <div className="lecture-card card-box" key={item.id}>
+        <div key={item.id} className={`lecture-card card-box`}>
           <div className="card-title">{item.name}</div>
           <div className="buttons-list blue">
             <button
@@ -18,25 +25,64 @@ class Lectures extends Component {
             >
               Delete
             </button>
-            <Link to={{ pathname: "/Lectures/rename", id: item.id }}>
-              <button>Rename</button>
-            </Link>
+            <button
+              onClick={() => {
+                this.setState({ renameId: item.id, showRenameForm: true });
+              }}
+            >
+              Rename
+            </button>
           </div>
         </div>
       );
     });
   }
   render() {
+    const CreateDialogue = () => {
+      if (this.state.showForm) {
+        return (
+          <Create
+            cancel={() => {
+              this.setState({ showForm: false });
+            }}
+          />
+        );
+      } else {
+        return (
+          <ul className="buttons-list">
+            <li>
+              <button
+                onClick={() => {
+                  this.setState({ showForm: true });
+                }}
+              >
+                Create A Lecture
+              </button>
+            </li>
+          </ul>
+        );
+      }
+    };
+
+    const RenameDialogue = () => {
+      if (this.state.renameId != null && this.state.showRenameForm) {
+        return (
+          <Rename
+            id={this.state.renameId}
+            cancel={() => {
+              this.setState({ showRenameForm: false, renameId: null });
+            }}
+          />
+        );
+      } else {
+        return null;
+      }
+    };
     return (
       <div>
         <h1>Lectures</h1>
-        <ul className="buttons-list">
-          <li>
-            <Link to="/Lectures/create">
-              <button>Create A Lecture</button>
-            </Link>
-          </li>
-        </ul>
+        <CreateDialogue />
+        <RenameDialogue />
         <div className="list-container">{this.renderList()}</div>
       </div>
     );
@@ -44,9 +90,9 @@ class Lectures extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
-    list: state.LectureList
+    list: state.LectureList,
+    selected: state.SelectedLecture
   };
 };
 

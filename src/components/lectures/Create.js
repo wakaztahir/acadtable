@@ -9,14 +9,26 @@ import { createLectureByName } from "../../actions";
 class CreateLecture extends Component {
   onFormSubmit = values => {
     this.props.createLectureByName(values["name"]);
-    this.props.history.push("/lectures");
+    this.props.cancel();
   };
   render() {
     const { Form, formProps } = Former("create");
     return (
-      <Form onSubmit={this.onFormSubmit}>
-        <Input name="name" {...formProps} />
-        <Input name="submit" type="submit" value="Submit" {...formProps} />
+      <Form onSubmit={this.onFormSubmit} className="row-block">
+        <label htmlFor="name" className="item">
+          Lecture
+        </label>
+        <Input name="name" className="item" {...formProps} />
+        <Input
+          name="submit"
+          className="item"
+          type="submit"
+          value="Submit"
+          {...formProps}
+        />
+        <button onClick={this.props.cancel} className="item">
+          Cancel
+        </button>
       </Form>
     );
   }

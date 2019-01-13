@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+
+import Create from "./Create";
+import Rename from "./Rename";
 
 import {
   selectTableById,
@@ -9,6 +11,11 @@ import {
 } from "../../actions";
 
 class Tables extends Component {
+  state = {
+    showForm: false,
+    renameId: null,
+    showRenameForm: false
+  };
   renderList() {
     return this.props.list.map(item => {
       let additional = "";
@@ -38,25 +45,64 @@ class Tables extends Component {
             >
               Delete
             </button>
-            <Link to={{ pathname: "/tables/rename", id: item.id }}>
-              <button>Rename</button>
-            </Link>
+            <button
+              onClick={() => {
+                this.setState({ renameId: item.id, showRenameForm: true });
+              }}
+            >
+              Rename
+            </button>
           </div>
         </div>
       );
     });
   }
   render() {
+    const CreateDialogue = () => {
+      if (this.state.showForm) {
+        return (
+          <Create
+            cancel={() => {
+              this.setState({ showForm: false });
+            }}
+          />
+        );
+      } else {
+        return (
+          <ul className="buttons-list">
+            <li>
+              <button
+                onClick={() => {
+                  this.setState({ showForm: true });
+                }}
+              >
+                Create A Table
+              </button>
+            </li>
+          </ul>
+        );
+      }
+    };
+
+    const RenameDialogue = () => {
+      if (this.state.renameId != null && this.state.showRenameForm) {
+        return (
+          <Rename
+            id={this.state.renameId}
+            cancel={() => {
+              this.setState({ showRenameForm: false, renameId: null });
+            }}
+          />
+        );
+      } else {
+        return null;
+      }
+    };
     return (
       <div>
         <h1>Tables</h1>
-        <ul className="buttons-list">
-          <li>
-            <Link to="/tables/create">
-              <button>Create A Table</button>
-            </Link>
-          </li>
-        </ul>
+        <CreateDialogue />
+        <RenameDialogue />
         <div className="list-container">{this.renderList()}</div>
       </div>
     );

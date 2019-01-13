@@ -29,7 +29,6 @@ class storage {
     let data = sessionStorage.getItem(this.data_prefix + id);
     data = JSON.parse(data);
     if (data !== undefined && data !== null) {
-      console.log(data);
       return data;
     } else {
       return {};
@@ -55,7 +54,6 @@ class storage {
       id,
       list: []
     };
-    console.log("list", list);
     list.push(creation);
     this.saveList(list);
     this.saveData(id, data);

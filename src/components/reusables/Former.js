@@ -13,6 +13,8 @@ function Former(name) {
         onSubmit={event => {
           FormSubmit(event, props.onSubmit);
         }}
+        style={props.style || null}
+        className={props.className || null}
       >
         {props.children}
       </form>
@@ -54,6 +56,7 @@ export class Input extends Component {
         onChange={this.change}
         value={this.state.value}
         className={this.props.className || null}
+        style={this.props.style || null}
       />
     );
   }
