@@ -71,8 +71,7 @@ header button {
   display: flex;
 }
 
-.table-card,
-.batch-card {
+.card-box {
   background: rgb(70, 70, 70);
   color: white;
   box-sizing: border-box;
@@ -84,12 +83,10 @@ header button {
   background: rgb(141, 14, 14);
 }
 
-.table-card .card-title,
-.batch-card .card-title {
+.card-box .card-title {
   display: inline-block;
 }
-.table-card .buttons-list,
-.batch-card .buttons-list {
+.card-box .buttons-list {
   display: inline-block;
   margin-left: 1em;
 }
