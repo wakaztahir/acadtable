@@ -2,23 +2,23 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { renameBatchById, deleteBatchById } from "../../actions";
+import { renameLectureById, deleteLectureById } from "../../actions";
 
-class Batches extends Component {
+class Lectures extends Component {
   renderList() {
     return this.props.list.map(item => {
       return (
-        <div className="batch-card card-box" key={item.id}>
+        <div className="lecture-card card-box" key={item.id}>
           <div className="card-title">{item.name}</div>
           <div className="buttons-list blue">
             <button
               onClick={() => {
-                this.props.deleteBatchById(item.id);
+                this.props.deleteLectureById(item.id);
               }}
             >
               Delete
             </button>
-            <Link to={{ pathname: "/batches/rename", id: item.id }}>
+            <Link to={{ pathname: "/Lectures/rename", id: item.id }}>
               <button>Rename</button>
             </Link>
           </div>
@@ -29,11 +29,11 @@ class Batches extends Component {
   render() {
     return (
       <div>
-        <h1>Batches</h1>
+        <h1>Lectures</h1>
         <ul className="buttons-list">
           <li>
-            <Link to="/batches/create">
-              <button>Create A Batch</button>
+            <Link to="/Lectures/create">
+              <button>Create A Lecture</button>
             </Link>
           </li>
         </ul>
@@ -44,15 +44,16 @@ class Batches extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    list: state.BatchList
+    list: state.LectureList
   };
 };
 
 export default connect(
   mapStateToProps,
   {
-    renameBatchById,
-    deleteBatchById
+    renameLectureById,
+    deleteLectureById
   }
-)(Batches);
+)(Lectures);

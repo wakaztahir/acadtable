@@ -6,3 +6,7 @@ export const DELETE_TABLE = "DELETE_TABLE";
 export const CREATE_BATCH = "CREATE_BATCH";
 export const RENAME_BATCH = "RENAME_BATCH";
 export const DELETE_BATCH = "DELETE_BATCH";
+
+export const CREATE_LECTURE = "CREATE_LECTURE";
+export const RENAME_LECTURE = "RENAME_LECTURE";
+export const DELETE_LECTURE = "DELETE_LECTURE";

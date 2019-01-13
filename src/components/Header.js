@@ -18,6 +18,10 @@ class Header extends Component {
           <Link to="/batches">
             <button>Batches</button>
           </Link>
+
+          <Link to="/lectures">
+            <button>Lectures</button>
+          </Link>
         </nav>
       </header>
     );

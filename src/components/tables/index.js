@@ -27,7 +27,7 @@ class Tables extends Component {
         };
       }
       return (
-        <div key={item.id} className={`table-card ${additional}`}>
+        <div key={item.id} className={`table-card card-box ${additional}`}>
           <div className="card-title">{item.name}</div>
           <div className="buttons-list blue">
             <SelectBtn />

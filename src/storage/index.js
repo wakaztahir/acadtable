@@ -1,13 +1,19 @@
 class storage {
   constructor(focus) {
-    if (focus === "batch") {
-      this.focus = focus;
-      this.list = "batches-list";
-      this.data_prefix = "bt-";
-    } else if (focus === "table") {
-      this.focus = focus;
-      this.list = "tables-list";
-      this.data_prefix = "td-";
+    switch (focus) {
+      case "table":
+      default:
+        this.list = "tables-list";
+        this.data_prefix = "td-";
+        break;
+      case "batch":
+        this.list = "batches-list";
+        this.data_prefix = "bt-";
+        break;
+      case "lecture":
+        this.list = "lectures-list";
+        this.data_prefix = "lt-";
+        break;
     }
   }
   getList() {
@@ -39,8 +45,7 @@ class storage {
     sessionStorage.removeItem(this.data_prefix + id);
   }
   create(name, id) {
-    let session = new storage(this.focus);
-    let list = session.getList();
+    let list = this.getList();
     let creation = {
       name,
       id
@@ -50,27 +55,26 @@ class storage {
       id,
       list: []
     };
+    console.log("list", list);
     list.push(creation);
-    session.saveList(list);
-    session.saveData(id, data);
+    this.saveList(list);
+    this.saveData(id, data);
   }
   rename(newname, id) {
-    let session = new storage(this.focus);
-    let list = session.getList();
+    let list = this.getList();
     let newlist = list.map(item => {
       if (item.id === id) {
         item.name = newname;
       }
       return item;
     });
-    session.saveList(newlist);
+    this.saveList(newlist);
   }
   delete(id) {
-    let session = new storage(this.focus);
-    let list = session.getList();
+    let list = this.getList();
     let newlist = list.filter(item => item.id !== id);
-    session.saveList(newlist);
-    session.deleteData(id);
+    this.saveList(newlist);
+    this.deleteData(id);
   }
 }
 
