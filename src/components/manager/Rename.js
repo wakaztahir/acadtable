@@ -3,21 +3,15 @@ import React, { Component } from "react";
 import storage from "../../storage";
 import Former, { Input } from "../reusables/Former";
 
-import { connect } from "react-redux";
-
-import { renameLectureById } from "../../actions";
-
-class RenameLecture extends Component {
+class RenameTable extends Component {
   handleSubmit = values => {
-    this.props.renameLectureById(values.newname, this.props.id);
+    this.props.action(values);
     this.props.cancel();
   };
   render() {
-    let session = new storage("lecture");
-    let Lecture = session
-      .getList()
-      .filter(item => item.id === this.props.id)[0];
-    if (Lecture === undefined) {
+    let session = new storage("table");
+    let table = session.getList().filter(item => item.id === this.props.id)[0];
+    if (table === undefined) {
       return null;
     }
     const { Form, formProps } = Former("rename");
@@ -30,7 +24,7 @@ class RenameLecture extends Component {
           <Input
             name="newname"
             className="item"
-            value={Lecture.name}
+            value={table.name}
             {...formProps}
           />
           <Input type="submit" className="item" value="Rename" {...formProps} />
@@ -43,9 +37,4 @@ class RenameLecture extends Component {
   }
 }
 
-export default connect(
-  null,
-  {
-    renameLectureById
-  }
-)(RenameLecture);
+export default RenameTable;

@@ -1,56 +1,52 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 
 import Create from "./Create";
 import Rename from "./Rename";
 
-import {
-  selectTableById,
-  renameTableById,
-  deleteTableById
-} from "../../actions";
+import { connect } from "react-redux";
 
-class Tables extends Component {
+class Manager extends Component {
   state = {
     showForm: false,
     renameId: null,
     showRenameForm: false
   };
   renderList() {
+    let CardButtons = id => {
+      let buttons = this.props.buttons == null ? [] : this.props.buttons;
+      return buttons.map(btn => (
+        <button
+          key={id}
+          onClick={() => {
+            btn.onClick(id);
+          }}
+        >
+          {btn.name}
+        </button>
+      ));
+    };
     return this.props.list.map(item => {
-      let additional = "";
-      let SelectBtn = () => {
-        return null;
-      };
-      if (this.props.selected !== null && this.props.selected.id === item.id) {
-        additional = "selected-table";
-      } else {
-        SelectBtn = () => {
-          return (
-            <button onClick={() => this.props.selectTableById(item.id)}>
-              Select
-            </button>
-          );
-        };
-      }
+      let selected =
+        this.props.selected == null ? { id: "" } : this.props.selected;
+      let addit_class = item.id === selected.id ? "selected-card" : "";
       return (
-        <div key={item.id} className={`table-card card-box ${additional}`}>
+        <div key={item.id} className={`table-card card-box ${addit_class}`}>
           <div className="card-title">{item.name}</div>
           <div className="buttons-list blue">
-            <SelectBtn />
+            {CardButtons(item.id)}
             <button
               onClick={() => {
-                this.props.deleteTableById(item.id);
+                this.props.delete(item.id);
               }}
             >
-              Delete
+              {this.props.deleteText || "Delete"}
             </button>
             <button
               onClick={() => {
                 this.setState({ renameId: item.id, showRenameForm: true });
               }}
             >
-              Rename
+              {this.props.renameText || "Rename"}
             </button>
           </div>
         </div>
@@ -65,6 +61,9 @@ class Tables extends Component {
             cancel={() => {
               this.setState({ showForm: false });
             }}
+            action={values => {
+              this.props.create(values.name);
+            }}
           />
         );
       } else {
@@ -76,7 +75,7 @@ class Tables extends Component {
                   this.setState({ showForm: true });
                 }}
               >
-                Create A Table
+                {this.props.createButtonText || "Create"}
               </button>
             </li>
           </ul>
@@ -89,6 +88,9 @@ class Tables extends Component {
         return (
           <Rename
             id={this.state.renameId}
+            action={values => {
+              this.props.rename(this.state.renameId, values.newname);
+            }}
             cancel={() => {
               this.setState({ showRenameForm: false, renameId: null });
             }}
@@ -100,7 +102,7 @@ class Tables extends Component {
     };
     return (
       <div>
-        <h1>Tables</h1>
+        <h1>{this.props.mainHeading || "MANAGER HEADING"}</h1>
         <CreateDialogue />
         <RenameDialogue />
         <div className="list-container">{this.renderList()}</div>
@@ -110,17 +112,7 @@ class Tables extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    list: state.TableList,
-    selected: state.SelectedTable
-  };
+  return { selected: state.SelectedTable };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    selectTableById,
-    renameTableById,
-    deleteTableById
-  }
-)(Tables);
+export default connect(mapStateToProps)(Manager);

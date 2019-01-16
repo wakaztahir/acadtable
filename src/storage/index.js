@@ -1,5 +1,6 @@
 class storage {
   constructor(focus) {
+    this.focus = focus;
     switch (focus) {
       case "table":
       default:
@@ -13,6 +14,14 @@ class storage {
       case "lecture":
         this.list = "lectures-list";
         this.data_prefix = "lt-";
+        break;
+      case "subject":
+        this.list = "subjects-list";
+        this.data_prefix = "st-";
+        break;
+      case "teacher":
+        this.list = "teachers-list";
+        this.data_prefix = "tr-";
         break;
     }
   }
@@ -43,7 +52,7 @@ class storage {
   deleteData(id) {
     sessionStorage.removeItem(this.data_prefix + id);
   }
-  create(name, id) {
+  create(name, id, createData = false) {
     let list = this.getList();
     let creation = {
       name,
@@ -56,7 +65,9 @@ class storage {
     };
     list.push(creation);
     this.saveList(list);
-    this.saveData(id, data);
+    if (this.focus === "table" && !createData) {
+      this.saveData(id, data);
+    }
   }
   rename(newname, id) {
     let list = this.getList();

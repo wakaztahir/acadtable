@@ -2,21 +2,17 @@ import React, { Component } from "react";
 
 import Former, { Input } from "../reusables/Former";
 
-import { connect } from "react-redux";
-
-import { createTableByName } from "../../actions";
-
 class CreateTable extends Component {
-  onFormSubmit = values => {
-    this.props.createTableByName(values["name"]);
+  handleSubmit = values => {
+    this.props.action(values);
     this.props.cancel();
   };
   render() {
     const { Form, formProps } = Former("create");
     return (
-      <Form onSubmit={this.onFormSubmit} className="row-block">
+      <Form onSubmit={this.handleSubmit} className="row-block">
         <label htmlFor="name" className="item">
-          Table
+          {this.props.fieldName || "Name : "}
         </label>
         <Input name="name" className="item" {...formProps} />
         <Input
@@ -34,9 +30,4 @@ class CreateTable extends Component {
   }
 }
 
-export default connect(
-  null,
-  {
-    createTableByName
-  }
-)(CreateTable);
+export default CreateTable;

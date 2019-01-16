@@ -7,11 +7,15 @@ import Header from "./Header";
 import Display from "./display";
 
 //Tables Import
-import Tables from "./tables";
+import Tables from "./Tables";
 //Batches Import
-import Batches from "./batches";
+import Batches from "./Batches";
 //Lectures Import
-import Lectures from "./lectures";
+import Lectures from "./Lectures";
+//Subjects Import
+import Subjects from "./Subjects";
+//Students Import
+import Teachers from "./Teachers";
 
 class App extends Component {
   render() {
@@ -27,6 +31,10 @@ class App extends Component {
             <Route path="/batches" exact component={Batches} />
 
             <Route path="/lectures" exact component={Lectures} />
+
+            <Route path="/subjects" exact component={Subjects} />
+
+            <Route path="/teachers" exact component={Teachers} />
           </div>
         </div>
       </Router>
