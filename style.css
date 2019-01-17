@@ -102,8 +102,11 @@ header button {
   margin: 5px;
 }
 
-.selected-table {
+.selected-card {
   background: rgb(141, 14, 14);
+}
+.selected-card .select-btn {
+  display: none;
 }
 
 .card-box .card-title {
