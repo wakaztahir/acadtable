@@ -1,4 +1,4 @@
-import storage from "../storage";
+import storage from "../engine/storage";
 import {
   CREATE_TABLE,
   SELECT_TABLE,
@@ -9,20 +9,10 @@ import {
   DELETE_BATCH,
   CREATE_LECTURE,
   RENAME_LECTURE,
-  DELETE_LECTURE,
-  CREATE_SUBJECT,
-  RENAME_SUBJECT,
-  DELETE_SUBJECT,
-  CREATE_TEACHER,
-  RENAME_TEACHER,
-  DELETE_TEACHER
+  DELETE_LECTURE
 } from "./types";
 
-let table = new storage("table");
-let batch = new storage("batch");
-let lecture = new storage("lecture");
-let subject = new storage("storage");
-let teacher = new storage("teacher");
+let session = new storage();
 
 //TABLE ACTIONS
 
@@ -31,31 +21,31 @@ export const createTableByName = name => {
     .toString()
     .split(".")[1]
     .substr(0, 5);
-  table.create(name, id);
-  let list = table.getList();
+  storage.create(name, id);
+  let list = storage.getList();
   return {
     type: CREATE_TABLE,
     list
   };
 };
 export const selectTableById = id => {
-  let tableData = table.getData(id);
+  session.init(id);
   return {
     type: SELECT_TABLE,
-    table: tableData
+    table: storage.getData(id)
   };
 };
 export const renameTableById = (id, newname) => {
-  table.rename(newname, id);
-  let list = table.getList();
+  storage.rename(id, newname);
+  let list = storage.getList();
   return {
     type: RENAME_TABLE,
     list
   };
 };
 export const deleteTableById = id => {
-  table.delete(id);
-  let list = table.getList();
+  storage.delete(id);
+  let list = storage.getList();
   return {
     type: DELETE_TABLE,
     deleted: id,
@@ -70,24 +60,24 @@ export const createBatchByName = name => {
     .toString()
     .split(".")[1]
     .substr(3, 8);
-  batch.create(name, id);
-  let list = batch.getList();
+  session.create(name, id);
+  let list = session.getBatchList();
   return {
     type: CREATE_BATCH,
     list
   };
 };
 export const renameBatchById = (newname, id) => {
-  batch.rename(newname, id);
-  let list = batch.getList();
+  session.renameBatch(newname, id);
+  let list = session.getBatchList();
   return {
     type: RENAME_BATCH,
     list
   };
 };
 export const deleteBatchById = id => {
-  batch.delete(id);
-  let list = batch.getList();
+  session.deleteBatch(id);
+  let list = session.getBatchList();
   return {
     type: DELETE_BATCH,
     list
@@ -101,8 +91,8 @@ export const createLectureByName = name => {
     .toString()
     .split(".")[1]
     .substr(4, 9);
-  lecture.create(name, id);
-  let list = lecture.getList();
+  session.createLecture(name, id);
+  let list = session.getLectureList();
   console.log(list);
   return {
     type: CREATE_LECTURE,
@@ -110,80 +100,18 @@ export const createLectureByName = name => {
   };
 };
 export const renameLectureById = (newname, id) => {
-  lecture.rename(newname, id);
-  let list = lecture.getList();
+  session.renameLecture(newname, id);
+  let list = session.getLectureList();
   return {
     type: RENAME_LECTURE,
     list
   };
 };
 export const deleteLectureById = id => {
-  lecture.delete(id);
-  let list = lecture.getList();
+  session.deleteLecture(id);
+  let list = session.getLectureList();
   return {
     type: DELETE_LECTURE,
-    list
-  };
-};
-
-//SUBJECT ACTIONS
-
-export const createSubjectByName = name => {
-  let id = Math.random()
-    .toString()
-    .split(".")[1]
-    .substr(3, 8);
-  subject.create(name, id);
-  let list = subject.getList();
-  return {
-    type: CREATE_SUBJECT,
-    list
-  };
-};
-export const renameSubjectById = (newname, id) => {
-  subject.rename(newname, id);
-  let list = subject.getList();
-  return {
-    type: RENAME_SUBJECT,
-    list
-  };
-};
-export const deleteSubjectById = id => {
-  subject.delete(id);
-  let list = subject.getList();
-  return {
-    type: DELETE_SUBJECT,
-    list
-  };
-};
-
-//TEACHER ACTIONS
-
-export const createTeacherByName = name => {
-  let id = Math.random()
-    .toString()
-    .split(".")[1]
-    .substr(3, 8);
-  teacher.create(name, id);
-  let list = teacher.getList();
-  return {
-    type: CREATE_TEACHER,
-    list
-  };
-};
-export const renameTeacherById = (newname, id) => {
-  teacher.rename(newname, id);
-  let list = teacher.getList();
-  return {
-    type: RENAME_TEACHER,
-    list
-  };
-};
-export const deleteTeacherById = id => {
-  teacher.delete(id);
-  let list = teacher.getList();
-  return {
-    type: DELETE_TEACHER,
     list
   };
 };

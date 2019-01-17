@@ -105,6 +105,9 @@ header button {
 .selected-card {
   background: rgb(141, 14, 14);
 }
+.selected-card .select-btn {
+  display: none;
+}
 
 .card-box .card-title {
   display: inline-block;

@@ -1,21 +1,14 @@
 import React, { Component } from "react";
 
 import { HashRouter as Router, Route } from "react-router-dom";
-
+//Header Import
 import Header from "./Header";
 
+//Display Import
 import Display from "./display";
 
 //Tables Import
-import Tables from "./Tables";
-//Batches Import
-import Batches from "./Batches";
-//Lectures Import
-import Lectures from "./Lectures";
-//Subjects Import
-import Subjects from "./Subjects";
-//Students Import
-import Teachers from "./Teachers";
+import Tables from "./tables";
 
 class App extends Component {
   render() {
@@ -27,14 +20,6 @@ class App extends Component {
             <Route path="/" exact component={Display} />
 
             <Route path="/tables" exact component={Tables} />
-
-            <Route path="/batches" exact component={Batches} />
-
-            <Route path="/lectures" exact component={Lectures} />
-
-            <Route path="/subjects" exact component={Subjects} />
-
-            <Route path="/teachers" exact component={Teachers} />
           </div>
         </div>
       </Router>

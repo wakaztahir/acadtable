@@ -14,20 +14,6 @@ class Header extends Component {
           <Link to="/tables">
             <button>Tables</button>
           </Link>
-
-          <Link to="/batches">
-            <button>Batches</button>
-          </Link>
-
-          <Link to="/lectures">
-            <button>Lectures</button>
-          </Link>
-          <Link to="/subjects">
-            <button>Subjects</button>
-          </Link>
-          <Link to="/teachers">
-            <button>Teachers</button>
-          </Link>
         </nav>
       </header>
     );

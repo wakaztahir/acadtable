@@ -1,9 +1,7 @@
 import { CREATE_TABLE, RENAME_TABLE, DELETE_TABLE } from "../actions/types";
-import storage from "../storage";
+import storage from "../engine/storage";
 
-let session = new storage("table");
-
-export default (state = session.getList(), action) => {
+export default (state = storage.getList(), action) => {
   switch (action.type) {
     case CREATE_TABLE:
     case RENAME_TABLE:
