@@ -1,13 +1,5 @@
 class storage {
-  constructor(id = null) {
-    this.init(id);
-  }
-  init(id) {
-    if (id != null) {
-      this.id = id;
-    }
-  }
-  static create(name, id) {
+  static create(id, name) {
     let list = storage.getList();
     let creation = {
       name,
@@ -15,10 +7,7 @@ class storage {
     };
     let data = {
       name,
-      id,
-      blockList: [],
-      batchesList: [],
-      lecturesList: []
+      id
     };
     list.push(creation);
     storage.saveList(list);
@@ -68,26 +57,49 @@ class storage {
 
   //Main User Functions
 
-  getBatchList() {}
-  createBatch(name) {
-    console.log("batch", "create", name);
-  }
-  renameBatch(batchID, newname) {
-    console.log("batch", "rename", batchID, newname);
-  }
-  deleteBatch(batchID) {
-    console.log("batch", "delete", batchID);
-  }
-
-  getLectureList() {}
-  createLecture(name) {
-    console.log("lecture", "create", name);
-  }
-  renameLecture(lectureID, newname) {
-    console.log("lecture", "rename", lectureID, newname);
-  }
-  deleteLecture(lectureID) {
-    console.log("lecture", "delete", lectureID);
+  static list(id, type) {
+    let tableData = storage.getData(id);
+    if (tableData) {
+      if (!tableData[type]) {
+        tableData[type] = [];
+        storage.saveData(id, tableData);
+      }
+      let ListFunctions = {
+        all: function() {
+          let tableData = storage.getData(this.id);
+          let list = tableData[this.type];
+          return list;
+        },
+        getItem: function(itemID) {
+          let tableData = storage.getData(this.id);
+          let list = tableData[this.type];
+          let items = list.filter(item => item.id === itemID);
+          return items[0];
+        },
+        createItem: function(itemID, data) {
+          let tableData = storage.getData(this.id);
+          let list = tableData[this.type];
+          let item = {
+            id: itemID
+          };
+          Object.assign(item, data);
+          list.push(item);
+          storage.saveData(this.id, tableData);
+          return item;
+        },
+        deleteItem: function(itemID) {
+          let tableData = storage.getData(this.id);
+          let list = tableData[this.type];
+          tableData[this.type] = list.filter(item => item.id !== itemID);
+          storage.saveData(this.id, tableData);
+        }
+      };
+      ListFunctions.id = id;
+      ListFunctions.type = type;
+      return ListFunctions;
+    } else {
+      return null;
+    }
   }
 }
 

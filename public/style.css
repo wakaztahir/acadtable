@@ -116,3 +116,9 @@ header button {
   display: inline-block;
   margin-left: 1em;
 }
+
+table,
+tr,
+td {
+  border: 1px solid black;
+}
