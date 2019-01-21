@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-
+import CollectionsList from "./CollectionsList";
+import SelectedCollection from "./SelectedCollection";
 import TablesList from "./TablesList";
-import SelectedTable from "./SelectedTable";
 import PlacesList from "./PlacesList";
 import DaysList from "./DaysList";
 import TimesList from "./TimesList";
@@ -10,8 +10,9 @@ import SubjectsList from "./SubjectsList";
 import TeachersList from "./TeachersList";
 
 export default combineReducers({
+  CollectionsList,
+  SelectedCollection,
   TablesList,
-  SelectedTable,
   PlacesList,
   DaysList,
   TimesList,

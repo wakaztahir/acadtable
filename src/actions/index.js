@@ -1,8 +1,10 @@
 import storage from "../engine/storage";
 import {
+  CREATE_COLLECTION,
+  SELECT_COLLECTION,
+  RENAME_COLLECTION,
+  DELETE_COLLECTION,
   CREATE_TABLE,
-  SELECT_TABLE,
-  RENAME_TABLE,
   DELETE_TABLE,
   CREATE_BLOCK,
   DELETE_BLOCK,
@@ -30,138 +32,268 @@ const rand = (operator = "x", start = 0, end = 7) => {
   return operator + id;
 };
 
-//TABLE ACTIONS
+//COLLECTION ACTIONS
 
-export const createTableByName = name => {
+export const createCollectionByName = name => {
   let id = rand("t", 0, 5);
   storage.create(id, name);
   let list = storage.getList();
   return {
-    type: CREATE_TABLE,
-    list
+    type: CREATE_COLLECTION,
+    payload: {
+      collections: list
+    }
   };
 };
-export const selectTableById = id => {
+export const selectCollectionById = id => {
   return {
-    type: SELECT_TABLE,
-    table: storage.getData(id)
+    type: SELECT_COLLECTION,
+    payload: {
+      selectedCollection: storage.getData(id),
+      tables: storage.list(id, "tables"),
+      days: storage.list(id, "days"),
+      places: storage.list(id, "places"),
+      times: storage.list(id, "times"),
+      blocks: storage.list(id, "blocks"),
+      batches: storage.list(id, "batches"),
+      subjects: storage.list(id, "subjects"),
+      teachers: storage.list(id, "teachers")
+    }
   };
 };
-export const renameTableById = (id, newname) => {
+export const renameCollectionById = (id, newname) => {
   storage.rename(id, newname);
   let list = storage.getList();
   return {
-    type: RENAME_TABLE,
-    list
+    type: RENAME_COLLECTION,
+    payload: {
+      collections: list
+    }
   };
 };
-export const deleteTableById = id => {
+export const deleteCollectionById = id => {
+  let deleted = storage.getData(id);
   storage.delete(id);
   let list = storage.getList();
   return {
+    type: DELETE_COLLECTION,
+    payload: {
+      collections: list,
+      deleted
+    }
+  };
+};
+
+//TABLE ACTIONS
+
+export const createTable = (collectionID, data) => {
+  let tableID = rand("tl", 1, 9);
+  let tables = storage.list(collectionID, "tables");
+  tables.createItem(tableID, data);
+  tables = storage.list(collectionID, "tables");
+  return {
+    type: CREATE_TABLE,
+    payload: {
+      tables
+    }
+  };
+};
+export const deleteTableById = (collectionID, tableID) => {
+  let tables = storage.list(collectionID, "tables");
+  tables.deleteItem(tableID);
+  tables = storage.list(collectionID, "tables");
+  return {
     type: DELETE_TABLE,
-    deleted: id,
-    list
+    payload: {
+      tables
+    }
   };
 };
 
 //BLOCK ACTIONS
 
-export const createBlock = (tableID, data) => {
-  let blockID = rand("bl", 1, 9);
-  let blocks = storage.list(tableID, "blocks");
+export const createBlock = (collectionID, data) => {
+  let blockID = rand("bk", 1, 9);
+  let blocks = storage.list(collectionID, "blocks");
   blocks.createItem(blockID, data);
-  blocks = storage.list(tableID, "blocks");
+  blocks = storage.list(collectionID, "blocks");
   return {
     type: CREATE_BLOCK,
-    blocks
+    payload: {
+      blocks
+    }
   };
 };
-
-export const deleteBlockById = (tableID, blockID) => {
-  let blocks = storage.list(tableID, "blocks");
+export const deleteBlockById = (collectionID, blockID) => {
+  let blocks = storage.list(collectionID, "blocks");
   blocks.deleteItem(blockID);
-  blocks = storage.list(tableID, "blocks");
+  blocks = storage.list(collectionID, "blocks");
   return {
     type: DELETE_BLOCK,
-    blocks
+    payload: {
+      blocks
+    }
   };
 };
 
-export const createDay = (tableID, data) => {
-  let days = storage.list(tableID, "days");
+//DAY ACTIONS
+
+export const createDay = (collectionID, data) => {
+  let days = storage.list(collectionID, "days");
   days.createItem(rand("dy"), Object.assign(data, { no: days.all().length }));
-  days = storage.list(tableID, "days");
+  days = storage.list(collectionID, "days");
   return {
     type: CREATE_DAY,
-    days
+    payload: {
+      days
+    }
   };
 };
-export const deleteDayById = () => {};
+export const deleteDayById = (collectionID, dayID) => {
+  let days = storage.list(collectionID, "days");
+  days.deleteItem(dayID);
+  days = storage.list(collectionID, "days");
+  return {
+    type: DELETE_DAY,
+    payload: {
+      days
+    }
+  };
+};
 
-export const createTime = (tableID, data) => {
-  let times = storage.list(tableID, "times");
-  times.createItem(rand("bl"), Object.assign(data, { no: times.all().length }));
-  times = storage.list(tableID, "times");
+//TIME ACTIONS
+
+export const createTime = (collectionID, data) => {
+  let times = storage.list(collectionID, "times");
+  times.createItem(rand("tm"), Object.assign(data, { no: times.all().length }));
+  times = storage.list(collectionID, "times");
   return {
     type: CREATE_TIME,
-    times
+    payload: {
+      times
+    }
   };
 };
-export const deleteTimeById = () => {};
+export const deleteTimeById = (collectionID, timeID) => {
+  let times = storage.list(collectionID, "times");
+  times.deleteItem(timeID);
+  times = storage.list(collectionID, "times");
+  return {
+    type: DELETE_TIME,
+    payload: {
+      times
+    }
+  };
+};
 
-export const createPlace = (tableID, data) => {
-  let places = storage.list(tableID, "places");
+//PLACE ACTIONS
+
+export const createPlace = (collectionID, data) => {
+  let places = storage.list(collectionID, "places");
   places.createItem(
     rand("pl"),
     Object.assign(data, { no: places.all().length })
   );
-  places = storage.list(tableID, "places");
+  places = storage.list(collectionID, "places");
   return {
     type: CREATE_PLACE,
-    places
+    payload: {
+      places
+    }
   };
 };
-export const deletePlaceById = () => {};
+export const deletePlaceById = (collectionID, placeID) => {
+  let places = storage.list(collectionID, "places");
+  places.deleteItem(placeID);
+  places = storage.list(collectionID, "places");
+  return {
+    type: DELETE_PLACE,
+    payload: {
+      places
+    }
+  };
+};
 
-export const createBatch = (tableID, data) => {
-  let batches = storage.list(tableID, "batches");
+//BATCH ACTIONS
+
+export const createBatch = (collectionID, data) => {
+  let batches = storage.list(collectionID, "batches");
   batches.createItem(
     rand("bh"),
     Object.assign(data, { no: batches.all().length })
   );
-  batches = storage.list(tableID, "batches");
+  batches = storage.list(collectionID, "batches");
   return {
     type: CREATE_BATCH,
-    batches
+    payload: {
+      batches
+    }
   };
 };
-export const deleteBatchById = () => {};
+export const deleteBatchById = (collectionID, batchID) => {
+  let batches = storage.list(collectionID, "batches");
+  batches.deleteItem(batchID);
+  batches = storage.list(collectionID, "batches");
+  return {
+    type: DELETE_BATCH,
+    payload: {
+      batches
+    }
+  };
+};
 
-export const createSubject = (tableID, data) => {
-  let subjects = storage.list(tableID, "subjects");
+//SUBJECT ACTIONS
+
+export const createSubject = (collectionID, data) => {
+  let subjects = storage.list(collectionID, "subjects");
   subjects.createItem(
     rand("st"),
     Object.assign(data, { no: subjects.all().length })
   );
-  subjects = storage.list(tableID, "subjects");
+  subjects = storage.list(collectionID, "subjects");
   return {
     type: CREATE_SUBJECT,
-    subjects
+    payload: {
+      subjects
+    }
   };
 };
-export const deleteSubjectById = () => {};
+export const deleteSubjectById = (collectionID, subjectID) => {
+  let subjects = storage.list(collectionID, "subjects");
+  subjects.deleteItem(subjectID);
+  subjects = storage.list(collectionID, "subjects");
+  return {
+    type: DELETE_SUBJECT,
+    payload: {
+      subjects
+    }
+  };
+};
 
-export const createTeacher = (tableID, data) => {
-  let teachers = storage.list(tableID, "teachers");
+//TEACHER ACTIONS
+
+export const createTeacher = (collectionID, data) => {
+  let teachers = storage.list(collectionID, "teachers");
   teachers.createItem(
     rand("tr"),
     Object.assign(data, { no: teachers.all().length })
   );
-  teachers = storage.list(tableID, "teachers");
+  teachers = storage.list(collectionID, "teachers");
   return {
     type: CREATE_TEACHER,
-    teachers
+    payload: {
+      teachers
+    }
   };
 };
-export const deleteTeacherById = () => {};
+export const deleteTeacherById = (collectionID, teacherID) => {
+  let teachers = storage.list(collectionID, "teachers");
+  teachers.deleteItem(teacherID);
+  teachers = storage.list(collectionID, "teachers");
+  return {
+    type: DELETE_TEACHER,
+    payload: {
+      teachers
+    }
+  };
+};

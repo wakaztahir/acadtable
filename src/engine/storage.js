@@ -14,7 +14,7 @@ class storage {
     storage.saveData(id, data);
   }
   static getList() {
-    let list = sessionStorage.getItem("tables-list") || "[]";
+    let list = sessionStorage.getItem("collections") || "[]";
     try {
       list = JSON.parse(list);
     } catch (ex) {
@@ -23,11 +23,11 @@ class storage {
     return list;
   }
   static saveList(list = []) {
-    sessionStorage.setItem("tables-list", JSON.stringify(list));
+    sessionStorage.setItem("collections", JSON.stringify(list));
   }
 
   static getData(id) {
-    let data = sessionStorage.getItem("td-" + id);
+    let data = sessionStorage.getItem("c-" + id);
     data = JSON.parse(data);
     if (data !== undefined && data !== null) {
       return data;
@@ -36,7 +36,7 @@ class storage {
     }
   }
   static saveData(id, data = {}) {
-    sessionStorage.setItem("td-" + id, JSON.stringify(data));
+    sessionStorage.setItem("c-" + id, JSON.stringify(data));
   }
   static rename(id, newname) {
     let list = storage.getList();
@@ -52,7 +52,7 @@ class storage {
     let list = storage.getList();
     let newlist = list.filter(item => item.id !== id);
     storage.saveList(newlist);
-    sessionStorage.removeItem("td-" + id);
+    sessionStorage.removeItem("c-" + id);
   }
 
   //Main User Functions

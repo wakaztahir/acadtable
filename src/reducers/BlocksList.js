@@ -1,13 +1,10 @@
-import { SELECT_TABLE, CREATE_BLOCK } from "../actions/types";
-import storage from "../engine/storage";
+import { SELECT_COLLECTION, CREATE_BLOCK } from "../actions/types";
 
 export default (state = [], action) => {
   switch (action.type) {
-    case SELECT_TABLE:
-      let list = storage.list(action.table.id, "blocks");
-      return list.all();
+    case SELECT_COLLECTION:
     case CREATE_BLOCK:
-      return action.blocks.all();
+      return action.payload.blocks.all();
     default:
       return state;
   }

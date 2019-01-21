@@ -1,13 +1,10 @@
-import { SELECT_TABLE, CREATE_DAY } from "../actions/types";
-import storage from "../engine/storage";
+import { SELECT_COLLECTION, CREATE_DAY } from "../actions/types";
 
 export default (state = [], action) => {
   switch (action.type) {
-    case SELECT_TABLE:
-      let list = storage.list(action.table.id, "days");
-      return list.all();
+    case SELECT_COLLECTION:
     case CREATE_DAY:
-      return action.days.all();
+      return action.payload.days.all();
     default:
       return state;
   }

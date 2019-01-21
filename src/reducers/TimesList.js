@@ -1,13 +1,10 @@
-import { SELECT_TABLE, CREATE_TIME } from "../actions/types";
-import storage from "../engine/storage";
+import { SELECT_COLLECTION, CREATE_TIME } from "../actions/types";
 
 export default (state = [], action) => {
   switch (action.type) {
-    case SELECT_TABLE:
-      let list = storage.list(action.table.id, "times");
-      return list.all();
+    case SELECT_COLLECTION:
     case CREATE_TIME:
-      return action.times.all();
+      return action.payload.times.all();
     default:
       return state;
   }

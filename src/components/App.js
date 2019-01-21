@@ -8,7 +8,7 @@ import Header from "./Header";
 import Display from "./display";
 
 //Tables Import
-import Tables from "./tables";
+import Collections from "./collections";
 
 class App extends Component {
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
           <div className="wrapper">
             <Route path="/" exact component={Display} />
 
-            <Route path="/tables" exact component={Tables} />
+            <Route path="/collections" exact component={Collections} />
           </div>
         </div>
       </Router>

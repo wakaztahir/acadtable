@@ -1,12 +1,10 @@
-import { CREATE_TABLE, RENAME_TABLE, DELETE_TABLE } from "../actions/types";
-import storage from "../engine/storage";
+import { SELECT_COLLECTION, CREATE_TABLE } from "../actions/types";
 
-export default (state = storage.getList(), action) => {
+export default (state = [], action) => {
   switch (action.type) {
+    case SELECT_COLLECTION:
     case CREATE_TABLE:
-    case RENAME_TABLE:
-    case DELETE_TABLE:
-      return action.list;
+      return action.payload.tables.all();
     default:
       return state;
   }

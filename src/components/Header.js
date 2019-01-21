@@ -11,8 +11,8 @@ class Header extends Component {
             <button>Home</button>
           </Link>
 
-          <Link to="/tables">
-            <button>Tables</button>
+          <Link to="/collections">
+            <button>Collections</button>
           </Link>
         </nav>
       </header>

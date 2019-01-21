@@ -8,9 +8,9 @@ class Welcome extends Component {
       <div>
         <span>Welcome !</span>
         <p>
-          You have't created any tables
+          You have't created any collections
           <br />
-          <Link to="/tables">Click Here</Link>
+          <Link to="/collections">Click Here</Link>
         </p>
       </div>
     );

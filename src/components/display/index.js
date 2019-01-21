@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import Welcome from "./Welcome";
 
 import {
-  selectTableById,
+  selectCollectionById,
   createBlock,
   createBatch,
   createDay,
@@ -17,21 +16,6 @@ import {
 } from "../../actions";
 
 class Display extends Component {
-  welcomeMessage() {
-    return <Welcome />;
-  }
-  nothingSelected() {
-    if (this.props.list.length === 1) {
-      this.props.select(this.props.list[0].id);
-    }
-    return (
-      <div>
-        <span>You have't selected a table</span>
-        <br />
-        <Link to="/tables">Click Here</Link>
-      </div>
-    );
-  }
   screen() {
     //Tables , Rows , Columns : Table Items
     let tables = this.props.days;
@@ -140,7 +124,7 @@ class Display extends Component {
       }
     };
 
-    const AllTables = () => {
+    const Tables = () => {
       return tables.map(table => {
         return (
           <div key={"t" + table.no}>
@@ -220,15 +204,19 @@ class Display extends Component {
     return (
       <div>
         <h1>Acadtable</h1>
-        <AllTables />
+        <Tables />
       </div>
     );
   }
   render() {
-    if (this.props.list.length === 0) {
-      return this.welcomeMessage();
+    if (this.props.collections.length === 0) {
+      return <Welcome />;
     } else if (this.props.selected === null) {
-      return this.nothingSelected();
+      return (
+        <div>
+          <span>Please select a collection</span>
+        </div>
+      );
     }
 
     return this.screen();
@@ -237,10 +225,11 @@ class Display extends Component {
 
 const mapStateToProps = state => {
   return {
-    list: state.TablesList,
-    selected: state.SelectedTable,
-    places: state.PlacesList,
+    collections: state.CollectionsList,
+    selected: state.SelectedCollection,
+    tables: state.TablesList,
     days: state.DaysList,
+    places: state.PlacesList,
     times: state.TimesList,
     blocks: state.BlocksList,
     batches: state.BatchesList,
@@ -259,6 +248,6 @@ export default connect(
     createPlace,
     createTeacher,
     createSubject,
-    select: selectTableById
+    select: selectCollectionById
   }
 )(Display);
