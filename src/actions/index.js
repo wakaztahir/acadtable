@@ -5,20 +5,28 @@ import {
   RENAME_COLLECTION,
   DELETE_COLLECTION,
   CREATE_TABLE,
+  UPDATE_TABLE,
   DELETE_TABLE,
   CREATE_BLOCK,
+  UPDATE_BLOCK,
   DELETE_BLOCK,
   CREATE_DAY,
+  UPDATE_DAY,
   DELETE_DAY,
   CREATE_TIME,
+  UPDATE_TIME,
   DELETE_TIME,
   CREATE_PLACE,
+  UPDATE_PLACE,
   DELETE_PLACE,
   CREATE_BATCH,
+  UPDATE_BATCH,
   DELETE_BATCH,
   CREATE_SUBJECT,
+  UPDATE_SUBJECT,
   DELETE_SUBJECT,
   CREATE_TEACHER,
+  UPDATE_TEACHER,
   DELETE_TEACHER
 } from "./types";
 
@@ -98,6 +106,17 @@ export const createTable = (collectionID, data) => {
     }
   };
 };
+export const updateTable = (collectionID, tableID, data) => {
+  let tables = storage.list(collectionID, "tables");
+  tables.updateItem(tableID, data);
+  tables = storage.list(collectionID, "tables");
+  return {
+    type: UPDATE_TABLE,
+    payload: {
+      tables
+    }
+  };
+};
 export const deleteTableById = (collectionID, tableID) => {
   let tables = storage.list(collectionID, "tables");
   tables.deleteItem(tableID);
@@ -124,7 +143,18 @@ export const createBlock = (collectionID, data) => {
     }
   };
 };
-export const deleteBlockById = (collectionID, blockID) => {
+export const updateBlock = (collectionID, blockID, data) => {
+  let blocks = storage.list(collectionID, "blocks");
+  blocks.updateItem(blockID, data);
+  blocks = storage.list(collectionID, "blocks");
+  return {
+    type: UPDATE_BLOCK,
+    payload: {
+      blocks
+    }
+  };
+};
+export const deleteBlock = (collectionID, blockID) => {
   let blocks = storage.list(collectionID, "blocks");
   blocks.deleteItem(blockID);
   blocks = storage.list(collectionID, "blocks");
@@ -149,7 +179,18 @@ export const createDay = (collectionID, data) => {
     }
   };
 };
-export const deleteDayById = (collectionID, dayID) => {
+export const updateDay = (collectionID, dayID, data) => {
+  let days = storage.list(collectionID, "days");
+  days.updateItem(dayID, data);
+  days = storage.list(collectionID, "days");
+  return {
+    type: UPDATE_DAY,
+    payload: {
+      days
+    }
+  };
+};
+export const deleteDay = (collectionID, dayID) => {
   let days = storage.list(collectionID, "days");
   days.deleteItem(dayID);
   days = storage.list(collectionID, "days");
@@ -174,7 +215,18 @@ export const createTime = (collectionID, data) => {
     }
   };
 };
-export const deleteTimeById = (collectionID, timeID) => {
+export const updateTime = (collectionID, timeID, data) => {
+  let times = storage.list(collectionID, "times");
+  times.updateItem(timeID, data);
+  times = storage.list(collectionID, "times");
+  return {
+    type: UPDATE_TIME,
+    payload: {
+      times
+    }
+  };
+};
+export const deleteTime = (collectionID, timeID) => {
   let times = storage.list(collectionID, "times");
   times.deleteItem(timeID);
   times = storage.list(collectionID, "times");
@@ -202,7 +254,18 @@ export const createPlace = (collectionID, data) => {
     }
   };
 };
-export const deletePlaceById = (collectionID, placeID) => {
+export const updatePlace = (collectionID, placeID, data) => {
+  let places = storage.list(collectionID, "places");
+  places.updateItem(placeID, data);
+  places = storage.list(collectionID, "places");
+  return {
+    type: UPDATE_PLACE,
+    payload: {
+      places
+    }
+  };
+};
+export const deletePlace = (collectionID, placeID) => {
   let places = storage.list(collectionID, "places");
   places.deleteItem(placeID);
   places = storage.list(collectionID, "places");
@@ -230,7 +293,18 @@ export const createBatch = (collectionID, data) => {
     }
   };
 };
-export const deleteBatchById = (collectionID, batchID) => {
+export const updateBatch = (collectionID, batchID, data) => {
+  let batches = storage.list(collectionID, "batches");
+  batches.updateItem(batchID, data);
+  batches = storage.list(collectionID, "batches");
+  return {
+    type: UPDATE_BATCH,
+    payload: {
+      batches
+    }
+  };
+};
+export const deleteBatch = (collectionID, batchID) => {
   let batches = storage.list(collectionID, "batches");
   batches.deleteItem(batchID);
   batches = storage.list(collectionID, "batches");
@@ -258,7 +332,18 @@ export const createSubject = (collectionID, data) => {
     }
   };
 };
-export const deleteSubjectById = (collectionID, subjectID) => {
+export const updateSubject = (collectionID, subjectID, data) => {
+  let subjects = storage.list(collectionID, "subjects");
+  subjects.updateItem(subjectID, data);
+  subjects = storage.list(collectionID, "subjects");
+  return {
+    type: UPDATE_SUBJECT,
+    payload: {
+      subjects
+    }
+  };
+};
+export const deleteSubject = (collectionID, subjectID) => {
   let subjects = storage.list(collectionID, "subjects");
   subjects.deleteItem(subjectID);
   subjects = storage.list(collectionID, "subjects");
@@ -286,7 +371,18 @@ export const createTeacher = (collectionID, data) => {
     }
   };
 };
-export const deleteTeacherById = (collectionID, teacherID) => {
+export const updateTeacher = (collectionID, teacherID, data) => {
+  let teachers = storage.list(collectionID, "teachers");
+  teachers.updateItem(teacherID, data);
+  teachers = storage.list(collectionID, "teachers");
+  return {
+    type: UPDATE_TEACHER,
+    payload: {
+      teachers
+    }
+  };
+};
+export const deleteTeacher = (collectionID, teacherID) => {
   let teachers = storage.list(collectionID, "teachers");
   teachers.deleteItem(teacherID);
   teachers = storage.list(collectionID, "teachers");

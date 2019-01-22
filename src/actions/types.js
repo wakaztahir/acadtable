@@ -4,25 +4,33 @@ export const RENAME_COLLECTION = "RENAME_COLLECTION";
 export const DELETE_COLLECTION = "DELETE_COLLECTION";
 
 export const CREATE_TABLE = "CREATE_TABLE";
+export const UPDATE_TABLE = "UPDATE_TABLE";
 export const DELETE_TABLE = "DELETE_TABLE";
 
 export const CREATE_BLOCK = "CREATE_BLOCK";
+export const UPDATE_BLOCK = "UPDATE_BLOCK";
 export const DELETE_BLOCK = "DELETE_BLOCK";
 
 export const CREATE_DAY = "CREATE_DAY";
+export const UPDATE_DAY = "UPDATE_DAY";
 export const DELETE_DAY = "DELETE_DAY";
 
 export const CREATE_TIME = "CREATE_TIME";
+export const UPDATE_TIME = "UPDATE_TIME";
 export const DELETE_TIME = "DELETE_TIME";
 
 export const CREATE_PLACE = "CREATE_PLACE";
+export const UPDATE_PLACE = "UPDATE_PLACE";
 export const DELETE_PLACE = "DELETE_PLACE";
 
 export const CREATE_BATCH = "CREATE_BATCH";
+export const UPDATE_BATCH = "UPDATE_BATCH";
 export const DELETE_BATCH = "DELETE_BATCH";
 
 export const CREATE_SUBJECT = "CREATE_SUBJECT";
+export const UPDATE_SUBJECT = "UPDATE_SUBJECT";
 export const DELETE_SUBJECT = "DELETE_SUBJECT";
 
 export const CREATE_TEACHER = "CREATE_TEACHER";
+export const UPDATE_TEACHER = "UPDATE_TEACHER";
 export const DELETE_TEACHER = "DELETE_TEACHER";

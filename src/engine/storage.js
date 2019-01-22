@@ -1,15 +1,23 @@
 class storage {
   static create(id, name) {
     let list = storage.getList();
-    let creation = {
+    let collection = {
       name,
       id
     };
     let data = {
       name,
-      id
+      id,
+      tables: [],
+      blocks: [],
+      days: [],
+      times: [],
+      places: [],
+      batches: [],
+      subjects: [],
+      teachers: []
     };
-    list.push(creation);
+    list.push(collection);
     storage.saveList(list);
     storage.saveData(id, data);
   }

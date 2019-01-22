@@ -4,13 +4,16 @@ class Area extends Component {
   state = {
     array: this.props.array,
     name: this.props.name,
-    keys: [],
-    vals: []
+    heading: this.props.heading,
+    keys: this.props.keys
   };
+  addProperty() {}
+  addKey(property) {}
+  addValue(property, key, value) {}
   render() {
     return (
       <div>
-        {this.state.name}
+        {this.state.heading}
         <ul>
           {this.state.array.map(obj => {
             return (
@@ -23,8 +26,14 @@ class Area extends Component {
               </li>
             );
           })}
-          <li>+</li>
         </ul>
+        <button
+          onClick={() => {
+            this.addProperty();
+          }}
+        >
+          +
+        </button>
       </div>
     );
   }
