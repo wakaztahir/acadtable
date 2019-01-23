@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Welcome from "./Welcome";
 
 import {
-  selectCollectionById,
+  selectCollection,
   createBlock,
   createBatch,
   createDay,
@@ -248,6 +248,6 @@ export default connect(
     createPlace,
     createTeacher,
     createSubject,
-    select: selectCollectionById
+    selectCollection
   }
 )(Display);

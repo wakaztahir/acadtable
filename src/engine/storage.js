@@ -84,16 +84,12 @@ class storage {
           let items = list.filter(item => item.id === itemID);
           return items[0];
         },
-        createItem: function(itemID, data) {
+        createItem: function(data) {
           let tableData = storage.getData(this.id);
           let list = tableData[this.type];
-          let item = {
-            id: itemID
-          };
-          Object.assign(item, data);
-          list.push(item);
+          list.push(data);
           storage.saveData(this.id, tableData);
-          return item;
+          return data;
         },
         deleteItem: function(itemID) {
           let tableData = storage.getData(this.id);

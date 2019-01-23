@@ -7,11 +7,13 @@ import Edit from "./Edit";
 import { connect } from "react-redux";
 
 import {
-  createCollectionByName,
-  selectCollectionById,
-  renameCollectionById,
-  deleteCollectionById
+  createCollection,
+  selectCollection,
+  renameCollection,
+  deleteCollection
 } from "../../actions";
+
+import { rand } from "../../actions/helpers";
 
 class Collections extends Component {
   state = {
@@ -26,7 +28,7 @@ class Collections extends Component {
     buttons.push({
       name: "select",
       action: id => {
-        this.props.select(id);
+        this.props.selectCollection(id);
       },
       selected: true
     });
@@ -41,7 +43,7 @@ class Collections extends Component {
     buttons.push({
       name: "delete",
       action: id => {
-        this.props.delete(id);
+        this.props.deleteCollection(id);
       }
     });
 
@@ -66,7 +68,7 @@ class Collections extends Component {
             this.setState({ createForm: true });
           }}
           submit={values => {
-            this.props.create(values.name);
+            this.props.createCollection(rand("collection"), values.name);
             this.setState({ createForm: false });
           }}
           cancel={() => {
@@ -89,27 +91,16 @@ class Collections extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedCollection: state.SelectedCollection,
     collections: state.CollectionsList,
-    tables: state.TablesList,
-    days: state.DaysList,
-    places: state.PlacesList,
-    times: state.TimesList,
-    blocks: state.BlocksList,
-    batches: state.BatchesList,
-    subjects: state.SubjectsList,
-    teachers: state.TeachersList
+    selectedCollection: state.SelectedCollection
   };
 };
-
-const mapDispatchToProps = {
-  create: createCollectionByName,
-  select: selectCollectionById,
-  rename: renameCollectionById,
-  delete: deleteCollectionById
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    createCollection,
+    selectCollection,
+    renameCollection,
+    deleteCollection
+  }
 )(Collections);

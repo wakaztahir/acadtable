@@ -30,20 +30,9 @@ import {
   DELETE_TEACHER
 } from "./types";
 
-//HELPER FUNCTIONS
-
-const rand = (operator = "x", start = 0, end = 7) => {
-  let id = Math.random()
-    .toString()
-    .split(".")[1]
-    .substr(start, end);
-  return operator + id;
-};
-
 //COLLECTION ACTIONS
 
-export const createCollectionByName = name => {
-  let id = rand("t", 0, 5);
+export const createCollection = (id, name) => {
   storage.create(id, name);
   let list = storage.getList();
   return {
@@ -53,7 +42,7 @@ export const createCollectionByName = name => {
     }
   };
 };
-export const selectCollectionById = id => {
+export const selectCollection = id => {
   return {
     type: SELECT_COLLECTION,
     payload: {
@@ -69,7 +58,7 @@ export const selectCollectionById = id => {
     }
   };
 };
-export const renameCollectionById = (id, newname) => {
+export const renameCollection = (id, newname) => {
   storage.rename(id, newname);
   let list = storage.getList();
   return {
@@ -79,7 +68,7 @@ export const renameCollectionById = (id, newname) => {
     }
   };
 };
-export const deleteCollectionById = id => {
+export const deleteCollection = id => {
   let deleted = storage.getData(id);
   storage.delete(id);
   let list = storage.getList();
@@ -95,9 +84,8 @@ export const deleteCollectionById = id => {
 //TABLE ACTIONS
 
 export const createTable = (collectionID, data) => {
-  let tableID = rand("tl", 1, 9);
   let tables = storage.list(collectionID, "tables");
-  tables.createItem(tableID, data);
+  tables.createItem(data);
   tables = storage.list(collectionID, "tables");
   return {
     type: CREATE_TABLE,
@@ -132,9 +120,8 @@ export const deleteTableById = (collectionID, tableID) => {
 //BLOCK ACTIONS
 
 export const createBlock = (collectionID, data) => {
-  let blockID = rand("bk", 1, 9);
   let blocks = storage.list(collectionID, "blocks");
-  blocks.createItem(blockID, data);
+  blocks.createItem(data);
   blocks = storage.list(collectionID, "blocks");
   return {
     type: CREATE_BLOCK,
@@ -170,7 +157,7 @@ export const deleteBlock = (collectionID, blockID) => {
 
 export const createDay = (collectionID, data) => {
   let days = storage.list(collectionID, "days");
-  days.createItem(rand("dy"), Object.assign(data, { no: days.all().length }));
+  days.createItem(data);
   days = storage.list(collectionID, "days");
   return {
     type: CREATE_DAY,
@@ -206,7 +193,7 @@ export const deleteDay = (collectionID, dayID) => {
 
 export const createTime = (collectionID, data) => {
   let times = storage.list(collectionID, "times");
-  times.createItem(rand("tm"), Object.assign(data, { no: times.all().length }));
+  times.createItem(data);
   times = storage.list(collectionID, "times");
   return {
     type: CREATE_TIME,
@@ -242,10 +229,7 @@ export const deleteTime = (collectionID, timeID) => {
 
 export const createPlace = (collectionID, data) => {
   let places = storage.list(collectionID, "places");
-  places.createItem(
-    rand("pl"),
-    Object.assign(data, { no: places.all().length })
-  );
+  places.createItem(data);
   places = storage.list(collectionID, "places");
   return {
     type: CREATE_PLACE,
@@ -281,10 +265,7 @@ export const deletePlace = (collectionID, placeID) => {
 
 export const createBatch = (collectionID, data) => {
   let batches = storage.list(collectionID, "batches");
-  batches.createItem(
-    rand("bh"),
-    Object.assign(data, { no: batches.all().length })
-  );
+  batches.createItem(data);
   batches = storage.list(collectionID, "batches");
   return {
     type: CREATE_BATCH,
@@ -320,10 +301,7 @@ export const deleteBatch = (collectionID, batchID) => {
 
 export const createSubject = (collectionID, data) => {
   let subjects = storage.list(collectionID, "subjects");
-  subjects.createItem(
-    rand("st"),
-    Object.assign(data, { no: subjects.all().length })
-  );
+  subjects.createItem(data);
   subjects = storage.list(collectionID, "subjects");
   return {
     type: CREATE_SUBJECT,
@@ -359,10 +337,7 @@ export const deleteSubject = (collectionID, subjectID) => {
 
 export const createTeacher = (collectionID, data) => {
   let teachers = storage.list(collectionID, "teachers");
-  teachers.createItem(
-    rand("tr"),
-    Object.assign(data, { no: teachers.all().length })
-  );
+  teachers.createItem(data);
   teachers = storage.list(collectionID, "teachers");
   return {
     type: CREATE_TEACHER,

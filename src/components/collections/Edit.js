@@ -30,39 +30,6 @@ class EditCollection extends Component {
         <div>
           {
             <Area
-              array={this.state.blocks}
-              createActionCreator={data => {
-                this.props.createBlock(this.state.id, data);
-              }}
-              deleteActionCreator={data => {
-                this.props.deleteBlock(this.state.id, data);
-              }}
-              name="block"
-              heading="blocks"
-              keys={[
-                {
-                  name: "text",
-                  required: true,
-                  locked: true
-                },
-                {
-                  name: "name",
-                  required: true
-                },
-                { name: "customText" },
-                { name: "day" },
-                { name: "place" },
-                { name: "time" },
-                { name: "batch" },
-                { name: "subject" },
-                { name: "teacher" }
-              ]}
-            />
-          }
-        </div>
-        <div>
-          {
-            <Area
               array={this.state.tables}
               createActionCreator={data => {
                 this.props.createTable(this.state.id, data);
@@ -113,7 +80,7 @@ class EditCollection extends Component {
                   required: true
                 },
                 {
-                  name: "integer",
+                  name: "number",
                   required: true
                 },
                 { name: "date" }
@@ -139,7 +106,7 @@ class EditCollection extends Component {
                   required: true
                 },
                 {
-                  name: "integer",
+                  name: "number",
                   required: true
                 },
                 { name: "time" }
@@ -165,7 +132,7 @@ class EditCollection extends Component {
                   required: true
                 },
                 {
-                  name: "integer",
+                  name: "number",
                   required: true
                 }
               ]}
@@ -191,7 +158,7 @@ class EditCollection extends Component {
                   locked: false
                 },
                 {
-                  name: "integer",
+                  name: "number",
                   required: true,
                   locked: false
                 }
@@ -218,7 +185,7 @@ class EditCollection extends Component {
                   locked: false
                 },
                 {
-                  name: "integer",
+                  name: "number",
                   required: true,
                   locked: false
                 }
@@ -245,10 +212,43 @@ class EditCollection extends Component {
                   locked: false
                 },
                 {
-                  name: "integer",
+                  name: "number",
                   required: true,
                   locked: false
                 }
+              ]}
+            />
+          }
+        </div>
+        <div>
+          {
+            <Area
+              array={this.state.blocks}
+              createActionCreator={data => {
+                this.props.createBlock(this.state.id, data);
+              }}
+              deleteActionCreator={data => {
+                this.props.deleteBlock(this.state.id, data);
+              }}
+              name="block"
+              heading="blocks"
+              keys={[
+                {
+                  name: "text",
+                  required: true,
+                  locked: true
+                },
+                {
+                  name: "name",
+                  required: true
+                },
+                { name: "customText" },
+                { name: "day" },
+                { name: "place" },
+                { name: "time" },
+                { name: "batch" },
+                { name: "subject" },
+                { name: "teacher" }
               ]}
             />
           }
