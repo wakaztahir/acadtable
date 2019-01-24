@@ -91,6 +91,18 @@ class storage {
           storage.saveData(this.id, tableData);
           return data;
         },
+        updateItem: function(itemID, data) {
+          let tableData = storage.getData(this.id);
+          let list = tableData[this.type];
+          list = list.map(item => {
+            if (item.id === itemID) {
+              return data;
+            }
+            return item;
+          });
+          tableData[this.type] = list;
+          storage.saveData(this.id, tableData);
+        },
         deleteItem: function(itemID) {
           let tableData = storage.getData(this.id);
           let list = tableData[this.type];

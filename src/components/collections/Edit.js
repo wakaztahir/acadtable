@@ -7,13 +7,29 @@ import { connect } from "react-redux";
 
 import {
   createBlock,
+  updateBlock,
+  deleteBlock,
   createTable,
+  updateTable,
+  deleteTable,
   createDay,
+  updateDay,
+  deleteDay,
   createTime,
+  updateTime,
+  deleteTime,
   createPlace,
+  updatePlace,
+  deletePlace,
   createBatch,
+  updateBatch,
+  deleteBatch,
   createSubject,
-  createTeacher
+  updateSubject,
+  deleteSubject,
+  createTeacher,
+  updateTeacher,
+  deleteTeacher
 } from "../../actions";
 
 class EditCollection extends Component {
@@ -34,8 +50,11 @@ class EditCollection extends Component {
               createActionCreator={data => {
                 this.props.createTable(this.state.id, data);
               }}
-              deleteActionCreator={data => {
-                this.props.deleteTable(this.state.id, data);
+              updateActionCreator={(propID, data) => {
+                this.props.updateTable(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deleteTable(this.state.id, propID);
               }}
               name="table"
               heading="tables"
@@ -69,8 +88,11 @@ class EditCollection extends Component {
               createActionCreator={data => {
                 this.props.createDay(this.state.id, data);
               }}
-              deleteActionCreator={data => {
-                this.props.deleteDay(this.state.id, data);
+              updateActionCreator={(propID, data) => {
+                this.props.updateDay(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deleteDay(this.state.id, propID);
               }}
               name="day"
               heading="days"
@@ -95,8 +117,11 @@ class EditCollection extends Component {
               createActionCreator={data => {
                 this.props.createTime(this.state.id, data);
               }}
-              deleteActionCreator={data => {
-                this.props.deleteTime(this.state.id, data);
+              updateActionCreator={(propID, data) => {
+                this.props.updateTime(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deleteTime(this.state.id, propID);
               }}
               name="time"
               heading="times"
@@ -121,8 +146,11 @@ class EditCollection extends Component {
               createActionCreator={data => {
                 this.props.createPlace(this.state.id, data);
               }}
-              deleteActionCreator={data => {
-                this.props.deletePlace(this.state.id, data);
+              updateActionCreator={(propID, data) => {
+                this.props.updatePlace(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deletePlace(this.state.id, propID);
               }}
               name="place"
               heading="places"
@@ -146,8 +174,11 @@ class EditCollection extends Component {
               createActionCreator={data => {
                 this.props.createBatch(this.state.id, data);
               }}
-              deleteActionCreator={data => {
-                this.props.deleteBatch(this.state.id, data);
+              updateActionCreator={(propID, data) => {
+                this.props.updateBatch(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deleteBatch(this.state.id, propID);
               }}
               name="batch"
               heading="batches"
@@ -173,8 +204,11 @@ class EditCollection extends Component {
               createActionCreator={data => {
                 this.props.createSubject(this.state.id, data);
               }}
-              deleteActionCreator={data => {
-                this.props.deleteSubject(this.state.id, data);
+              updateActionCreator={(propID, data) => {
+                this.props.updateSubject(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deleteSubject(this.state.id, propID);
               }}
               name="subject"
               heading="subjects"
@@ -200,8 +234,11 @@ class EditCollection extends Component {
               createActionCreator={data => {
                 this.props.createTeacher(this.state.id, data);
               }}
-              deleteActionCreator={data => {
-                this.props.deleteTeacher(this.state.id, data);
+              updateActionCreator={(propID, data) => {
+                this.props.updateTeacher(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deleteTeacher(this.state.id, propID);
               }}
               name="teacher"
               heading="teachers"
@@ -227,8 +264,11 @@ class EditCollection extends Component {
               createActionCreator={data => {
                 this.props.createBlock(this.state.id, data);
               }}
-              deleteActionCreator={data => {
-                this.props.deleteBlock(this.state.id, data);
+              updateActionCreator={(propID, data) => {
+                this.props.updateBlock(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deleteBlock(this.state.id, propID);
               }}
               name="block"
               heading="blocks"
@@ -265,12 +305,28 @@ export default connect(
   null,
   {
     createBlock,
+    updateBlock,
+    deleteBlock,
     createTable,
+    updateTable,
+    deleteTable,
     createDay,
+    updateDay,
+    deleteDay,
     createTime,
+    updateTime,
+    deleteTime,
     createPlace,
+    updatePlace,
+    deletePlace,
     createBatch,
+    updateBatch,
+    deleteBatch,
     createSubject,
-    createTeacher
+    updateSubject,
+    deleteSubject,
+    createTeacher,
+    updateTeacher,
+    deleteTeacher
   }
 )(EditCollection);

@@ -30,6 +30,7 @@ h4 {
 }
 
 button,
+input[type="button"],
 input[type="submit"] {
   border: 0;
   background: rgb(18, 54, 102);

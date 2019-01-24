@@ -31,50 +31,50 @@ class Display extends Component {
     let ColsBlockKey = "time";
 
     // tables = [
-    //   { no: 1, text: "Monday" },
-    //   { no: 2, text: "Tuesday" },
-    //   { no: 3, text: "Wednesday" }
+    //   { number: 1, text: "Monday" },
+    //   { number: 2, text: "Tuesday" },
+    //   { number: 3, text: "Wednesday" }
     // ];
     // rows = [
-    //   { no: 1, text: "Room 1" },
-    //   { no: 2, text: "Room 2" },
-    //   { no: 3, text: "Room 3" }
+    //   { number: 1, text: "Room 1" },
+    //   { number: 2, text: "Room 2" },
+    //   { number: 3, text: "Room 3" }
     // ];
     // cols = [
-    //   { no: 1, text: "8:00" },
-    //   { no: 2, text: "9:00" },
-    //   { no: 3, text: "10:00" }
+    //   { number: 1, text: "8:00" },
+    //   { number: 2, text: "9:00" },
+    //   { number: 3, text: "10:00" }
     // ];
     // subjects = [
-    //   { no: 1, text: "Functional English" },
-    //   { no: 2, text: "Basic Electronics" },
-    //   { no: 3, text: "Thomas Calculus" }
+    //   { number: 1, text: "Functional English" },
+    //   { number: 2, text: "Basic Electronics" },
+    //   { number: 3, text: "Thomas Calculus" }
     // ];
     // teachers = [
-    //   { no: 1, text: "Mr Nadeed" },
-    //   { no: 2, text: "Mis Sabiha" },
-    //   { no: 3, text: "Thomas Himself" }
+    //   { number: 1, text: "Mr Nadeed" },
+    //   { number: 2, text: "Mis Sabiha" },
+    //   { number: 3, text: "Thomas Himself" }
     // ];
 
     //Default Display if there is no default display available
-    if (tables.length === 0) {
-      tables[0] = {
-        no: 1,
-        text: TablesBlockKey + "1"
-      };
-    }
-    if (rows.length === 0) {
-      rows[0] = {
-        no: 1,
-        text: RowsBlockKey + "1"
-      };
-    }
-    if (cols.length === 0) {
-      cols[0] = {
-        no: 1,
-        text: ColsBlockKey + "1"
-      };
-    }
+    // if (tables.length === 0) {
+    //   tables[0] = {
+    //     number: 1,
+    //     text: TablesBlockKey + "1"
+    //   };
+    // }
+    // if (rows.length === 0) {
+    //   rows[0] = {
+    //     number: 1,
+    //     text: RowsBlockKey + "1"
+    //   };
+    // }
+    // if (cols.length === 0) {
+    //   cols[0] = {
+    //     number: 1,
+    //     text: ColsBlockKey + "1"
+    //   };
+    // }
 
     const userCreate = (x, userParams) => {
       switch (x) {
@@ -93,32 +93,32 @@ class Display extends Component {
           break;
         case "batch":
           this.props.createBatch(this.props.selected.id, {
-            text: "batch"
+            name: "batch"
           });
           break;
         case "day":
           this.props.createDay(this.props.selected.id, {
-            text: "day"
+            name: "day"
           });
           break;
         case "time":
           this.props.createTime(this.props.selected.id, {
-            text: "time"
+            name: "time"
           });
           break;
         case "place":
           this.props.createPlace(this.props.selected.id, {
-            text: "place"
+            name: "place"
           });
           break;
         case "subject":
           this.props.createSubject(this.props.selected.id, {
-            text: "subject"
+            name: "subject"
           });
           break;
         case "teacher":
           this.props.createTeacher(this.props.selected.id, {
-            text: "teacher"
+            name: "teacher"
           });
           break;
       }
@@ -127,13 +127,13 @@ class Display extends Component {
     const Tables = () => {
       return tables.map(table => {
         return (
-          <div key={"t" + table.no}>
+          <div key={"t" + table.number}>
             <table>
               <thead>
                 <tr>
-                  <td>{table.text}</td>
+                  <td>{table.name}</td>
                   {cols.map(col => {
-                    return <td key={"c" + col.no}>{col.text}</td>;
+                    return <td key={"c" + col.number}>{col.name}</td>;
                   })}
                   <td
                     onClick={() => {
@@ -147,32 +147,34 @@ class Display extends Component {
               <tbody>
                 {rows.map(row => {
                   return (
-                    <tr key={"r" + row.no}>
-                      <td>{row.text}</td>
+                    <tr key={"r" + row.number}>
+                      <td>{row.name}</td>
                       {cols.map(col => {
                         let block = blocks.filter(
                           block =>
-                            block[TablesBlockKey] === table.no &&
-                            block[RowsBlockKey] === row.no &&
-                            block[ColsBlockKey] === col.no
+                            block[TablesBlockKey] === table.number &&
+                            block[RowsBlockKey] === row.number &&
+                            block[ColsBlockKey] === col.number
                         );
                         if (block.length === 0) {
                           return (
                             <td
                               onClick={() => {
                                 let params = {};
-                                params[TablesBlockKey] = table.no;
-                                params[RowsBlockKey] = row.no;
-                                params[ColsBlockKey] = col.no;
+                                params[TablesBlockKey] = table.number;
+                                params[RowsBlockKey] = row.number;
+                                params[ColsBlockKey] = col.number;
                                 userCreate("block", params);
                               }}
-                              key={"b" + col.no}
+                              key={"b" + col.number}
                             >
                               +
                             </td>
                           );
                         } else {
-                          return <td key={"b" + col.no}>{block[0].text}</td>;
+                          return (
+                            <td key={"b" + col.number}>{block[0].text}</td>
+                          );
                         }
                       })}
                     </tr>

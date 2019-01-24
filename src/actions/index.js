@@ -105,7 +105,7 @@ export const updateTable = (collectionID, tableID, data) => {
     }
   };
 };
-export const deleteTableById = (collectionID, tableID) => {
+export const deleteTable = (collectionID, tableID) => {
   let tables = storage.list(collectionID, "tables");
   tables.deleteItem(tableID);
   tables = storage.list(collectionID, "tables");
