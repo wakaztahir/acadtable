@@ -42,7 +42,7 @@ class EditCollection extends Component {
         <div className="buttons-list">
           <button onClick={this.props.cancel}>Back</button>
         </div>
-        <div>Name : {this.state.name}</div>
+        <h1>Collection : {this.state.name}</h1>
         <div>
           {
             <Area
@@ -57,26 +57,53 @@ class EditCollection extends Component {
                 this.props.deleteTable(this.state.id, propID);
               }}
               name="table"
-              heading="tables"
+              heading="Tables"
               keys={[
                 {
                   name: "name",
                   required: true
                 },
-                {
-                  name: "base",
-                  required: true
-                },
-                {
-                  name: "rows",
-                  required: true
-                },
-                {
-                  name: "columns",
-                  required: true
-                },
+                { name: "base" },
+                { name: "rows" },
+                { name: "columns" },
                 { name: "options" },
                 { name: "settings" }
+              ]}
+            />
+          }
+        </div>
+        <div>
+          {
+            <Area
+              array={this.state.blocks}
+              createActionCreator={data => {
+                this.props.createBlock(this.state.id, data);
+              }}
+              updateActionCreator={(propID, data) => {
+                this.props.updateBlock(this.state.id, propID, data);
+              }}
+              deleteActionCreator={propID => {
+                this.props.deleteBlock(this.state.id, propID);
+              }}
+              name="block"
+              heading="Lectures"
+              keys={[
+                {
+                  name: "text",
+                  required: true,
+                  locked: true
+                },
+                {
+                  name: "name",
+                  required: true
+                },
+                { name: "customText" },
+                { name: "day" },
+                { name: "place" },
+                { name: "time" },
+                { name: "batch" },
+                { name: "subject" },
+                { name: "teacher" }
               ]}
             />
           }
@@ -95,7 +122,7 @@ class EditCollection extends Component {
                 this.props.deleteDay(this.state.id, propID);
               }}
               name="day"
-              heading="days"
+              heading="Days"
               keys={[
                 {
                   name: "name",
@@ -104,8 +131,7 @@ class EditCollection extends Component {
                 {
                   name: "number",
                   required: true
-                },
-                { name: "date" }
+                }
               ]}
             />
           }
@@ -124,7 +150,7 @@ class EditCollection extends Component {
                 this.props.deleteTime(this.state.id, propID);
               }}
               name="time"
-              heading="times"
+              heading="Times"
               keys={[
                 {
                   name: "name",
@@ -133,8 +159,7 @@ class EditCollection extends Component {
                 {
                   name: "number",
                   required: true
-                },
-                { name: "time" }
+                }
               ]}
             />
           }
@@ -153,7 +178,7 @@ class EditCollection extends Component {
                 this.props.deletePlace(this.state.id, propID);
               }}
               name="place"
-              heading="places"
+              heading="Places"
               keys={[
                 {
                   name: "name",
@@ -181,7 +206,7 @@ class EditCollection extends Component {
                 this.props.deleteBatch(this.state.id, propID);
               }}
               name="batch"
-              heading="batches"
+              heading="Batches"
               keys={[
                 {
                   name: "name",
@@ -211,7 +236,7 @@ class EditCollection extends Component {
                 this.props.deleteSubject(this.state.id, propID);
               }}
               name="subject"
-              heading="subjects"
+              heading="Subjects"
               keys={[
                 {
                   name: "name",
@@ -241,7 +266,7 @@ class EditCollection extends Component {
                 this.props.deleteTeacher(this.state.id, propID);
               }}
               name="teacher"
-              heading="teachers"
+              heading="Teachers"
               keys={[
                 {
                   name: "name",
@@ -256,45 +281,6 @@ class EditCollection extends Component {
               ]}
             />
           }
-        </div>
-        <div>
-          {
-            <Area
-              array={this.state.blocks}
-              createActionCreator={data => {
-                this.props.createBlock(this.state.id, data);
-              }}
-              updateActionCreator={(propID, data) => {
-                this.props.updateBlock(this.state.id, propID, data);
-              }}
-              deleteActionCreator={propID => {
-                this.props.deleteBlock(this.state.id, propID);
-              }}
-              name="block"
-              heading="blocks"
-              keys={[
-                {
-                  name: "text",
-                  required: true,
-                  locked: true
-                },
-                {
-                  name: "name",
-                  required: true
-                },
-                { name: "customText" },
-                { name: "day" },
-                { name: "place" },
-                { name: "time" },
-                { name: "batch" },
-                { name: "subject" },
-                { name: "teacher" }
-              ]}
-            />
-          }
-        </div>
-        <div className="buttons-list">
-          <button>Save</button>
         </div>
       </div>
     );

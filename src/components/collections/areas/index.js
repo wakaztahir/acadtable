@@ -2,23 +2,25 @@ import React, { Component } from "react";
 
 import { rand } from "../../../actions/helpers";
 
+import FormEditor from "./FormEditor";
+
 class Area extends Component {
   state = {
     array: this.props.array,
     name: this.props.name,
     heading: this.props.heading,
-    property: {},
-    keys: this.props.keys
+    editor: this.props.editor || "FormEditor",
+    showEditorFor: null
   };
   addProperty() {
     let property = {};
-    this.state.keys.map(k => {
-      if (k.name === "name") {
-        property[k.name] = this.state.name + this.state.array.length;
-      } else if (k.name === "number") {
-        property[k.name] = this.state.array.length;
+    this.props.keys.map(key => {
+      if (key.name === "name") {
+        property[key.name] = this.state.name + this.state.array.length;
+      } else if (key.name === "number") {
+        property[key.name] = this.state.array.length;
       } else {
-        property[k.name] = k.default == null ? null : k.default;
+        property[key.name] = key.default == null ? null : key.default;
       }
       return null;
     });
@@ -26,43 +28,51 @@ class Area extends Component {
     this.setState({ array: [...this.state.array, property] });
     this.props.createActionCreator(property);
   }
-  componentDidUpdate() {
-    this.save();
-  }
-  componentWillUnmount() {
-    this.save();
-  }
-  save = x => {
-    if (x) {
-      x.preventDefault();
+  editor = obj => {
+    if (this.state.showEditorFor === obj) {
+      switch (this.state.editor) {
+        case "FormEditor":
+        default:
+          return (
+            <FormEditor
+              property={obj}
+              keys={this.props.keys}
+              save={this.save}
+            />
+          );
+      }
+    } else {
+      return null;
     }
-    this.props.updateActionCreator(this.state.property.id, this.state.property);
   };
-  delete = x => {
-    this.props.deleteActionCreator(this.state.property.id);
-    let array = this.state.array.filter(
-      item => item.id !== this.state.property.id
-    );
-    this.setState({ array, property: {} });
+  deleteProperty = obj => {
+    this.props.deleteActionCreator(obj.id);
+    let array = this.state.array.filter(item => item.id !== obj.id);
+    this.setState({ array: array });
+  };
+  save = obj => {
+    console.log("Saving Changes into Storage");
+    this.props.updateActionCreator(obj.id, obj);
+    if (this.state.showEditorFor === obj) {
+      this.setState({ showEditorFor: null });
+    }
   };
   render() {
     return (
       <div>
         <div>
-          {this.state.heading}
+          <h2>{this.state.heading}</h2>
           <div>
             <button
               onClick={() => {
                 this.addProperty();
               }}
+              className="btn-red"
             >
-              +
+              Add
             </button>
-            <ul>
+            <ul style={{ padding: "0px" }}>
               {this.state.array.map(obj => {
-                if (this.state.property === {}) {
-                  this.setState({ property: obj });
-                }
                 return (
                   <li
                     key={obj.id}
@@ -71,48 +81,38 @@ class Area extends Component {
                         property: obj
                       })
                     }
+                    className="area-item"
                   >
-                    {obj.name}
+                    <div style={{ width: "100%", display: "flex" }}>
+                      <div>
+                        <h3>{obj.name}</h3>
+                      </div>
+                      <div
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "flex-end"
+                        }}
+                      >
+                        <div className="buttons-list">
+                          <button
+                            onClick={() => {
+                              this.setState({ showEditorFor: obj });
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button onClick={() => this.deleteProperty(obj)}>
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {this.editor(obj)}
                   </li>
                 );
               })}
             </ul>
-          </div>
-          <div>
-            <form onSubmit={this.save}>
-              <ul>
-                {Object.keys(this.state.property).map(k => {
-                  if (k === "id" || k === "number") {
-                    return null;
-                  }
-                  return (
-                    <li key={this.state.property.id + k}>
-                      <label htmlFor={k}>{k}</label>
-                      <input
-                        name={k}
-                        type="text"
-                        onChange={x => {
-                          let newstate = this.state;
-                          newstate.property[k] = x.target.value;
-                          this.setState(newstate);
-                        }}
-                        value={
-                          this.state.property[k] == null
-                            ? ""
-                            : this.state.property[k]
-                        }
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-              {Object.keys(this.state.property).length > 0 ? (
-                <div>
-                  <input type="submit" value="Save" />
-                  <input type="button" value="Delete" onClick={this.delete} />
-                </div>
-              ) : null}
-            </form>
           </div>
         </div>
       </div>
