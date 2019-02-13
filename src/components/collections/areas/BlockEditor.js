@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class FormEditor extends Component {
+class BlockEditor extends Component {
   state = {
     property: this.props.property,
     keys: this.props.keys
@@ -27,7 +27,8 @@ class FormEditor extends Component {
             }}
           >
             {this.state.keys.map(key => {
-              if (key.show != null && !key.show) {
+              let show = key.show == null ? true : key.show;
+              if (!show) {
                 return null;
               }
               return (
@@ -73,5 +74,4 @@ class FormEditor extends Component {
     );
   }
 }
-
-export default FormEditor;
+export default BlockEditor;

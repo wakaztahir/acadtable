@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { rand } from "../../../actions/helpers";
 
 import FormEditor from "./FormEditor";
+import BlockEditor from "./BlockEditor";
+import TableEditor from "./TableEditor";
 
 class Area extends Component {
   state = {
@@ -35,6 +37,23 @@ class Area extends Component {
         default:
           return (
             <FormEditor
+              property={obj}
+              keys={this.props.keys}
+              save={this.save}
+            />
+          );
+        case "TableEditor":
+          return (
+            <TableEditor
+              property={obj}
+              items={this.props.items}
+              keys={this.props.keys}
+              save={this.save}
+            />
+          );
+        case "BlockEditor":
+          return (
+            <BlockEditor
               property={obj}
               keys={this.props.keys}
               save={this.save}
