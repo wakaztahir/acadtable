@@ -9,6 +9,55 @@ class FormEditor extends Component {
     this.props.save(this.state.property);
   }
   render() {
+    const field = (keyType, key) => {
+      switch (keyType) {
+        case "input":
+        default:
+          return (
+            <input
+              key={key.name + "inp"}
+              type="text"
+              onChange={x => {
+                let newvalue = x.target.value;
+                let property = this.state.property;
+                property[key.name] = newvalue;
+                this.setState({ property });
+              }}
+              disabled={key.locked == null ? false : key.locked}
+              required={key.required == null ? false : key.required}
+              value={
+                this.state.property[key.name] == null
+                  ? ""
+                  : this.state.property[key.name]
+              }
+              style={{ display: "table-cell" }}
+            />
+          );
+        case "select":
+          return (
+            <select
+              defaultValue={
+                this.state.property[key.name] != null
+                  ? this.state.property[key.name]
+                  : null
+              }
+              onChange={x => {
+                let property = this.state.property;
+                property[key.name] = x.target.value;
+                this.setState({ property });
+              }}
+            >
+              {key.list.map(item => {
+                return (
+                  <option value={item.id} key={item.id}>
+                    {item.name}
+                  </option>
+                );
+              })}
+            </select>
+          );
+      }
+    };
     return (
       <div
         style={{
@@ -30,6 +79,7 @@ class FormEditor extends Component {
               if (key.show != null && !key.show) {
                 return null;
               }
+              let keyType = key.type != null ? key.type : "input";
               return (
                 <div key={key.name + key.id} style={{ display: "table-row" }}>
                   <label
@@ -38,24 +88,7 @@ class FormEditor extends Component {
                   >
                     {key.name}
                   </label>
-                  <input
-                    name={key.name + key.id + "inp"}
-                    type="text"
-                    onChange={x => {
-                      let newvalue = x.target.value;
-                      let property = this.state.property;
-                      property[key.name] = newvalue;
-                      this.setState({ property });
-                    }}
-                    disabled={key.locked == null ? false : key.locked}
-                    required={key.required == null ? false : key.required}
-                    value={
-                      this.state.property[key.name] == null
-                        ? ""
-                        : this.state.property[key.name]
-                    }
-                    style={{ marginBottom: "5px", display: "table-cell" }}
-                  />
+                  {field(keyType, key)}
                 </div>
               );
             })}

@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import {
   createCollection,
   selectCollection,
+  copyCollection,
   renameCollection,
   deleteCollection
 } from "../../actions";
@@ -31,6 +32,12 @@ class Collections extends Component {
         this.props.selectCollection(id);
       },
       selected: true
+    });
+    buttons.push({
+      name: "copy",
+      action: id => {
+        this.props.copyCollection(id, rand("collection"));
+      }
     });
     buttons.push({
       name: "edit",
@@ -100,6 +107,7 @@ export default connect(
   {
     createCollection,
     selectCollection,
+    copyCollection,
     renameCollection,
     deleteCollection
   }

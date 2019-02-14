@@ -58,6 +58,20 @@ export const selectCollection = id => {
     }
   };
 };
+export const copyCollection = (id, newid) => {
+  let data = storage.getData(id);
+  data.id = newid;
+  data.name += " Copy";
+  storage.create(newid, data.name);
+  storage.saveData(newid, data);
+  let list = storage.getList();
+  return {
+    type: RENAME_COLLECTION,
+    payload: {
+      collections: list
+    }
+  };
+};
 export const renameCollection = (id, newname) => {
   storage.rename(id, newname);
   let list = storage.getList();

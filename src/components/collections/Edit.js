@@ -35,7 +35,7 @@ import {
 class EditCollection extends Component {
   state = {
     ...storage.getData(this.props.collectionID),
-    editArea: "tables"
+    editArea: "lectures"
   };
   updateState = () => {
     this.setState({ ...storage.getData(this.props.collectionID) });
@@ -111,12 +111,12 @@ class EditCollection extends Component {
                   required: true
                 },
                 { name: "customText" },
-                { name: "day" },
-                { name: "place" },
-                { name: "time" },
-                { name: "batch" },
-                { name: "subject" },
-                { name: "teacher" }
+                { name: "day", type: "select", list: this.state.days },
+                { name: "place", type: "select", list: this.state.places },
+                { name: "time", type: "select", list: this.state.times },
+                { name: "batch", type: "select", list: this.state.batches },
+                { name: "subject", type: "select", list: this.state.subjects },
+                { name: "teacher", type: "select", list: this.state.teachers }
               ]}
             />
           );
