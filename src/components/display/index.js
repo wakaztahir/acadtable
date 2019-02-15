@@ -21,10 +21,9 @@ class Display extends Component {
     mode: "edit"
   };
   screen() {
-    //Tables , Rows , Columns : Table Items
-    let tables = this.props.tables;
     //Blocks , Subjects , Teachers : Info Containers
     let {
+      tables,
       blocks,
       batches,
       days,
@@ -33,7 +32,16 @@ class Display extends Component {
       subjects,
       teachers
     } = this.props;
-    let objector = { blocks, batches, days, times, places, subjects, teachers };
+    let objector = {
+      tables,
+      blocks,
+      batches,
+      days,
+      times,
+      places,
+      subjects,
+      teachers
+    };
 
     let getBlockKey = listName => {
       switch (listName) {
@@ -74,6 +82,7 @@ class Display extends Component {
           return (
             <Table
               id={table.id}
+              key={table.id}
               mode={this.state.mode}
               base={base}
               baseBlockKey={getBlockKey(table.base)}

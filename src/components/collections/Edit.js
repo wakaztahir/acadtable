@@ -148,6 +148,12 @@ class EditCollection extends Component {
                   type: "select",
                   list: this.state.teachers,
                   required: true
+                },
+                {
+                  name: "display",
+                  type: "textarea",
+                  required: true,
+                  default: "%batch%\n%subject%\n%teacher%"
                 }
               ]}
             />

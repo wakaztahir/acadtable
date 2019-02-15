@@ -28,7 +28,7 @@ class TableEditor extends Component {
   };
   componentWillUnmount() {
     if (!this.props.nounmount) {
-      this.props.saveTable();
+      this.saveTable();
     }
   }
   render() {

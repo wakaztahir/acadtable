@@ -49,7 +49,8 @@ button:hover {
   background: rgb(20, 70, 136);
 }
 
-input[type="text"] {
+input[type="text"],
+textarea {
   padding: 5px 10px;
   width: 12rem;
   height: 1.5rem;
@@ -60,6 +61,10 @@ input[type="text"] {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   border-radius: 2px;
   outline: 0;
+}
+textarea {
+  padding: 1rem;
+  height: 4rem;
 }
 
 input[type="text"]:disabled {

@@ -17,6 +17,13 @@ class FormEditor extends Component {
               ? k.list[0].id
               : null;
         }
+      } else if (k.type && k.type === "textarea") {
+        property[k.name] =
+          this.state.property[k.name] != null
+            ? this.state.property[k.name]
+            : k.default != null
+            ? k.default
+            : null;
       }
       return null;
     });
@@ -78,6 +85,29 @@ class FormEditor extends Component {
                 );
               })}
             </select>
+          );
+        case "textarea":
+          return (
+            <textarea
+              key={key.name + "txt"}
+              onChange={x => {
+                console.log(x.target.value);
+                let newvalue = x.target.value;
+                let property = this.state.property;
+                property[key.name] = newvalue;
+                this.setState({ property });
+              }}
+              disabled={key.locked == null ? false : key.locked}
+              required={key.required == null ? false : key.required}
+              style={{ display: "table-cell" }}
+              value={
+                this.state.property[key.name] == null
+                  ? key.default != null
+                    ? key.default
+                    : ""
+                  : this.state.property[key.name]
+              }
+            />
           );
       }
     };

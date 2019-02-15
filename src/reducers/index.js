@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import CollectionsList from "./CollectionsList";
 import SelectedCollection from "./SelectedCollection";
 import TablesList from "./TablesList";
+import BatchesList from "./BatchesList";
 import PlacesList from "./PlacesList";
 import DaysList from "./DaysList";
 import TimesList from "./TimesList";
@@ -14,6 +15,7 @@ export default combineReducers({
   SelectedCollection,
   TablesList,
   PlacesList,
+  BatchesList,
   DaysList,
   TimesList,
   BlocksList,

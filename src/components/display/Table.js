@@ -47,7 +47,7 @@ class Table extends Component {
                           }}
                           key={"b" + col.id}
                         >
-                          +
+                          <button>+</button>
                         </td>
                       );
                     } else {
