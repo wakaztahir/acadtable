@@ -9,6 +9,7 @@ class Table extends Component {
     let cols = this.props.cols;
     let ColsBlockKey = this.props.colsBlockKey;
     let blocks = this.props.blocks;
+    let mode = this.props.mode;
     return (
       <div key={this.props.id}>
         <table>
@@ -33,6 +34,9 @@ class Table extends Component {
                         block[ColsBlockKey] === col.id
                     );
                     if (block.length === 0) {
+                      if (mode === "print") {
+                        return <td />;
+                      }
                       return (
                         <td
                           onClick={() => {

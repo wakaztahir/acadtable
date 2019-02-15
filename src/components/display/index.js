@@ -17,6 +17,9 @@ import {
 } from "../../actions";
 
 class Display extends Component {
+  state = {
+    mode: "edit"
+  };
   screen() {
     //Tables , Rows , Columns : Table Items
     let tables = this.props.tables;
@@ -44,6 +47,24 @@ class Display extends Component {
     return (
       <div>
         <h1>Acadtable</h1>
+        <div>
+          <button
+            onClick={() => {
+              this.setState({ mode: "edit" });
+            }}
+            className={this.state.mode === "edit" ? "btn-red" : ""}
+          >
+            edit
+          </button>
+          <button
+            onClick={() => {
+              this.setState({ mode: "print" });
+            }}
+            className={this.state.mode === "print" ? "btn-red" : ""}
+          >
+            print
+          </button>
+        </div>
         {tables.map(table => {
           let base = objector[table.base].filter(
             i => i.id === table.baseValue
@@ -53,6 +74,7 @@ class Display extends Component {
           return (
             <Table
               id={table.id}
+              mode={this.state.mode}
               base={base}
               baseBlockKey={getBlockKey(table.base)}
               rows={rows}
