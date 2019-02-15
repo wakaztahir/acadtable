@@ -11,6 +11,7 @@ class Area extends Component {
     name: this.props.name,
     heading: this.props.heading,
     editor: this.props.editor || "FormEditor",
+    showCreator: false,
     showEditorFor: null
   };
   editor = (obj, bypass = false, create) => {
@@ -61,18 +62,33 @@ class Area extends Component {
     }
   };
   creator = () => {
-    let keys = {};
-    this.props.keys.map(k => {
-      keys[k.name] = null;
+    if (this.state.showCreator) {
+      let keys = {};
+      this.props.keys.map(k => {
+        keys[k.name] = null;
+        return null;
+      });
+      return this.editor(keys, true, this.create);
+    } else {
       return null;
-    });
-    return this.editor(keys, true, this.create);
+    }
   };
   render() {
     return (
       <div>
         <div>
           <h2>{this.state.heading}</h2>
+          <div>{this.props.children}</div>
+          <div>
+            <button
+              onClick={() => {
+                this.setState({ showCreator: !this.state.showCreator });
+              }}
+              className={this.state.showCreator ? "" : "btn-red"}
+            >
+              {this.state.showCreator ? "Cancel" : "Create"}
+            </button>
+          </div>
           <div>
             {this.creator()}
             <ul style={{ padding: "0px" }}>

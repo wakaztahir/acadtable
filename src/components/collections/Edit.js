@@ -5,6 +5,8 @@ import Area from "./areas";
 
 import { connect } from "react-redux";
 
+import UserDays from "./user/Days.js";
+
 import {
   createBlock,
   updateBlock,
@@ -174,7 +176,14 @@ class EditCollection extends Component {
                   required: true
                 }
               ]}
-            />
+            >
+              <UserDays
+                create={data => {
+                  this.props.createDay(this.state.id, data);
+                  this.updateState();
+                }}
+              />
+            </Area>
           );
         case "times":
           return (
