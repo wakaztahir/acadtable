@@ -6,6 +6,8 @@ import Edit from "./Edit";
 
 import { connect } from "react-redux";
 
+import Modal from "../Modal";
+
 import {
   createCollection,
   selectCollection,
@@ -19,8 +21,13 @@ import { rand } from "../../actions/helpers";
 class Collections extends Component {
   state = {
     createForm: false,
-    editCollection: null
+    editCollection: null,
+    modalDisplay: false,
+    deleteFunction: () => {}
   };
+  displayDeleteModal() {
+    this.setState({ modalDisplay: true });
+  }
   render() {
     let list = this.props.collections;
 
@@ -50,7 +57,12 @@ class Collections extends Component {
     buttons.push({
       name: "delete",
       action: id => {
-        this.props.deleteCollection(id);
+        this.setState({
+          modalDisplay: true,
+          deleteFunction: () => {
+            this.props.deleteCollection(id);
+          }
+        });
       }
     });
 
@@ -90,6 +102,15 @@ class Collections extends Component {
           }
           list={list}
           buttons={buttons}
+        />
+        <Modal
+          display={this.state.modalDisplay}
+          type="confirm"
+          yes={() => {
+            this.state.deleteFunction();
+            this.setState({ modalDisplay: false });
+          }}
+          cancel={() => this.setState({ modalDisplay: false })}
         />
       </div>
     );
