@@ -153,7 +153,7 @@ class EditCollection extends Component {
                   name: "display",
                   type: "textarea",
                   required: true,
-                  default: "%batch%\n%subject%\n%teacher%"
+                  default: "%batch%%subject%%teacher%"
                 }
               ]}
             />

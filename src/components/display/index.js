@@ -6,14 +6,14 @@ import Welcome from "./Welcome";
 import Table from "./Table";
 
 import {
-  selectCollection,
-  createBlock,
-  createBatch,
-  createDay,
-  createTime,
-  createPlace,
-  createSubject,
-  createTeacher
+  selectCollection
+  // createBlock,
+  // createBatch,
+  // createDay,
+  // createTime,
+  // createPlace,
+  // createSubject,
+  // createTeacher
 } from "../../actions";
 
 class Display extends Component {
@@ -21,7 +21,6 @@ class Display extends Component {
     mode: "edit"
   };
   screen() {
-    //Blocks , Subjects , Teachers : Info Containers
     let {
       tables,
       blocks,
@@ -133,13 +132,13 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    createBlock,
-    createBatch,
-    createDay,
-    createTime,
-    createPlace,
-    createTeacher,
-    createSubject,
+    // createBlock,
+    // createBatch,
+    // createDay,
+    // createTime,
+    // createPlace,
+    // createTeacher,
+    // createSubject,
     selectCollection
   }
 )(Display);

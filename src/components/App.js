@@ -15,10 +15,9 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/" component={Header} />
+          <Header />
           <div className="wrapper">
             <Route path="/" exact component={Display} />
-
             <Route path="/collections" exact component={Collections} />
           </div>
         </div>

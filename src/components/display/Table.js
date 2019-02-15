@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import Block from "./Block";
+
 class Table extends Component {
   render() {
     let base = this.props.base;
@@ -35,7 +37,7 @@ class Table extends Component {
                     );
                     if (block.length === 0) {
                       if (mode === "print") {
-                        return <td />;
+                        return <td key={"emp" + row.id} />;
                       }
                       return (
                         <td
@@ -51,7 +53,11 @@ class Table extends Component {
                         </td>
                       );
                     } else {
-                      return <td key={"b" + col.id}>{block[0].text}</td>;
+                      return (
+                        <td key={"b" + col.id} className="table-block">
+                          <Block block={block[0]} />
+                        </td>
+                      );
                     }
                   })}
                 </tr>
