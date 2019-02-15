@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { rand } from "../../../actions/helpers";
 
 import FormEditor from "./FormEditor";
-import BlockEditor from "./BlockEditor";
 import TableEditor from "./TableEditor";
 
 class Area extends Component {
@@ -14,24 +13,9 @@ class Area extends Component {
     editor: this.props.editor || "FormEditor",
     showEditorFor: null
   };
-  addProperty() {
-    let property = {};
-    this.props.keys.map(key => {
-      if (key.name === "name") {
-        property[key.name] = this.state.name + this.state.array.length;
-      } else if (key.name === "number") {
-        property[key.name] = this.state.array.length;
-      } else {
-        property[key.name] = key.default == null ? null : key.default;
-      }
-      return null;
-    });
-    property.id = rand(this.state.name);
-    this.setState({ array: [...this.state.array, property] });
-    this.props.createActionCreator(property);
-  }
-  editor = obj => {
-    if (this.state.showEditorFor === obj) {
+  editor = (obj, bypass = false, create) => {
+    if (this.state.showEditorFor === obj || bypass) {
+      let saveFunction = bypass ? create : this.save;
       switch (this.state.editor) {
         case "FormEditor":
         default:
@@ -39,7 +23,8 @@ class Area extends Component {
             <FormEditor
               property={obj}
               keys={this.props.keys}
-              save={this.save}
+              save={saveFunction}
+              nounmount={bypass}
             />
           );
         case "TableEditor":
@@ -48,15 +33,8 @@ class Area extends Component {
               property={obj}
               items={this.props.items}
               keys={this.props.keys}
-              save={this.save}
-            />
-          );
-        case "BlockEditor":
-          return (
-            <BlockEditor
-              property={obj}
-              keys={this.props.keys}
-              save={this.save}
+              save={saveFunction}
+              nounmount={bypass}
             />
           );
       }
@@ -69,6 +47,12 @@ class Area extends Component {
     let array = this.state.array.filter(item => item.id !== obj.id);
     this.setState({ array: array });
   };
+  create = obj => {
+    console.log("Creating In Storage");
+    console.log(obj);
+    obj.id = rand(this.state.name);
+    this.props.createActionCreator(obj);
+  };
   save = obj => {
     console.log("Saving Changes into Storage");
     this.props.updateActionCreator(obj.id, obj);
@@ -76,20 +60,21 @@ class Area extends Component {
       this.setState({ showEditorFor: null });
     }
   };
+  creator = () => {
+    let keys = {};
+    this.props.keys.map(k => {
+      keys[k.name] = null;
+      return null;
+    });
+    return this.editor(keys, true, this.create);
+  };
   render() {
     return (
       <div>
         <div>
           <h2>{this.state.heading}</h2>
           <div>
-            <button
-              onClick={() => {
-                this.addProperty();
-              }}
-              className="btn-red"
-            >
-              Add
-            </button>
+            {this.creator()}
             <ul style={{ padding: "0px" }}>
               {this.state.array.map(obj => {
                 return (

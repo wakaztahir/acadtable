@@ -5,8 +5,27 @@ class FormEditor extends Component {
     property: this.props.property,
     keys: this.props.keys
   };
+  saveForm = () => {
+    let property = this.state.property;
+    this.state.keys.map(k => {
+      if (k.type && k.type === "select") {
+        if (property[k.name] === null) {
+          property[k.name] =
+            this.state.property[k.name] != null
+              ? this.state.property[k.name]
+              : k.list.length > 0
+              ? k.list[0].id
+              : null;
+        }
+      }
+      return null;
+    });
+    this.props.save(property);
+  };
   componentWillUnmount() {
-    this.props.save(this.state.property);
+    if (!this.props.nounmount) {
+      this.saveForm();
+    }
   }
   render() {
     const field = (keyType, key) => {
@@ -39,6 +58,8 @@ class FormEditor extends Component {
               defaultValue={
                 this.state.property[key.name] != null
                   ? this.state.property[key.name]
+                  : key.list.length > 0
+                  ? key.list[0].id
                   : null
               }
               onChange={x => {
@@ -46,6 +67,8 @@ class FormEditor extends Component {
                 property[key.name] = x.target.value;
                 this.setState({ property });
               }}
+              disabled={key.locked == null ? false : key.locked}
+              required={key.required == null ? false : key.required}
             >
               {key.list.map(item => {
                 return (
@@ -72,7 +95,7 @@ class FormEditor extends Component {
           <form
             onSubmit={x => {
               x.preventDefault();
-              this.props.save(this.state.property);
+              this.saveForm();
             }}
           >
             {this.state.keys.map(key => {
@@ -92,6 +115,7 @@ class FormEditor extends Component {
                 </div>
               );
             })}
+            {this.props.children}
             <div style={{ display: "table-row" }}>
               <div style={{ display: "table-cell" }} />
               <input

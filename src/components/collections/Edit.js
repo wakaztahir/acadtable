@@ -63,12 +63,12 @@ class EditCollection extends Component {
               editor="TableEditor"
               heading="Tables"
               items={[
-                { name: "days", list: this.state.days },
-                { name: "times", list: this.state.times },
-                { name: "batches", list: this.state.batches },
-                { name: "places", list: this.state.places },
-                { name: "subjects", list: this.state.subjects },
-                { name: "teachers", list: this.state.teachers }
+                { name: "days", list: this.state.days, required: true },
+                { name: "times", list: this.state.times, required: true },
+                { name: "batches", list: this.state.batches, required: true },
+                { name: "places", list: this.state.places, required: true },
+                { name: "subjects", list: this.state.subjects, required: true },
+                { name: "teachers", list: this.state.teachers, required: true }
               ]}
               keys={[
                 {
@@ -111,12 +111,42 @@ class EditCollection extends Component {
                   required: true
                 },
                 { name: "customText" },
-                { name: "day", type: "select", list: this.state.days },
-                { name: "place", type: "select", list: this.state.places },
-                { name: "time", type: "select", list: this.state.times },
-                { name: "batch", type: "select", list: this.state.batches },
-                { name: "subject", type: "select", list: this.state.subjects },
-                { name: "teacher", type: "select", list: this.state.teachers }
+                {
+                  name: "day",
+                  type: "select",
+                  list: this.state.days,
+                  required: true
+                },
+                {
+                  name: "place",
+                  type: "select",
+                  list: this.state.places,
+                  required: true
+                },
+                {
+                  name: "time",
+                  type: "select",
+                  list: this.state.times,
+                  required: true
+                },
+                {
+                  name: "batch",
+                  type: "select",
+                  list: this.state.batches,
+                  required: true
+                },
+                {
+                  name: "subject",
+                  type: "select",
+                  list: this.state.subjects,
+                  required: true
+                },
+                {
+                  name: "teacher",
+                  type: "select",
+                  list: this.state.teachers,
+                  required: true
+                }
               ]}
             />
           );

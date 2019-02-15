@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Welcome from "./Welcome";
+import Table from "./Table";
 
 import {
   selectCollection,
@@ -18,195 +19,50 @@ import {
 class Display extends Component {
   screen() {
     //Tables , Rows , Columns : Table Items
-    let tables = this.props.days;
-    let rows = this.props.places;
-    let cols = this.props.times;
+    let tables = this.props.tables;
     //Blocks , Subjects , Teachers : Info Containers
-    let blocks = this.props.blocks;
-    let subjects = this.props.subjects;
-    let teachers = this.props.teachers;
-    //Whats in the tables,rows,columns
-    let TablesBlockKey = "day";
-    let RowsBlockKey = "place";
-    let ColsBlockKey = "time";
+    let {
+      blocks,
+      batches,
+      days,
+      times,
+      places,
+      subjects,
+      teachers
+    } = this.props;
+    let objector = { blocks, batches, days, times, places, subjects, teachers };
 
-    // tables = [
-    //   { number: 1, text: "Monday" },
-    //   { number: 2, text: "Tuesday" },
-    //   { number: 3, text: "Wednesday" }
-    // ];
-    // rows = [
-    //   { number: 1, text: "Room 1" },
-    //   { number: 2, text: "Room 2" },
-    //   { number: 3, text: "Room 3" }
-    // ];
-    // cols = [
-    //   { number: 1, text: "8:00" },
-    //   { number: 2, text: "9:00" },
-    //   { number: 3, text: "10:00" }
-    // ];
-    // subjects = [
-    //   { number: 1, text: "Functional English" },
-    //   { number: 2, text: "Basic Electronics" },
-    //   { number: 3, text: "Thomas Calculus" }
-    // ];
-    // teachers = [
-    //   { number: 1, text: "Mr Nadeed" },
-    //   { number: 2, text: "Mis Sabiha" },
-    //   { number: 3, text: "Thomas Himself" }
-    // ];
-
-    //Default Display if there is no default display available
-    // if (tables.length === 0) {
-    //   tables[0] = {
-    //     number: 1,
-    //     text: TablesBlockKey + "1"
-    //   };
-    // }
-    // if (rows.length === 0) {
-    //   rows[0] = {
-    //     number: 1,
-    //     text: RowsBlockKey + "1"
-    //   };
-    // }
-    // if (cols.length === 0) {
-    //   cols[0] = {
-    //     number: 1,
-    //     text: ColsBlockKey + "1"
-    //   };
-    // }
-
-    const userCreate = (x, userParams) => {
-      switch (x) {
-        case "block":
+    let getBlockKey = listName => {
+      switch (listName) {
+        case "batches":
+          return "batch";
         default:
-          let params = {
-            batch: 0,
-            day: 0,
-            time: 0,
-            subject: 0,
-            teacher: 0,
-            text: "block"
-          };
-          Object.assign(params, userParams);
-          this.props.createBlock(this.props.selected.id, params);
-          break;
-        case "batch":
-          this.props.createBatch(this.props.selected.id, {
-            name: "batch"
-          });
-          break;
-        case "day":
-          this.props.createDay(this.props.selected.id, {
-            name: "day"
-          });
-          break;
-        case "time":
-          this.props.createTime(this.props.selected.id, {
-            name: "time"
-          });
-          break;
-        case "place":
-          this.props.createPlace(this.props.selected.id, {
-            name: "place"
-          });
-          break;
-        case "subject":
-          this.props.createSubject(this.props.selected.id, {
-            name: "subject"
-          });
-          break;
-        case "teacher":
-          this.props.createTeacher(this.props.selected.id, {
-            name: "teacher"
-          });
-          break;
+          return listName.substr(0, listName.length - 1);
       }
-    };
-
-    const Tables = () => {
-      return tables.map(table => {
-        return (
-          <div key={"t" + table.number}>
-            <table>
-              <thead>
-                <tr>
-                  <td>{table.name}</td>
-                  {cols.map(col => {
-                    return <td key={"c" + col.number}>{col.name}</td>;
-                  })}
-                  <td
-                    onClick={() => {
-                      userCreate(ColsBlockKey);
-                    }}
-                  >
-                    +
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map(row => {
-                  return (
-                    <tr key={"r" + row.number}>
-                      <td>{row.name}</td>
-                      {cols.map(col => {
-                        let block = blocks.filter(
-                          block =>
-                            block[TablesBlockKey] === table.number &&
-                            block[RowsBlockKey] === row.number &&
-                            block[ColsBlockKey] === col.number
-                        );
-                        if (block.length === 0) {
-                          return (
-                            <td
-                              onClick={() => {
-                                let params = {};
-                                params[TablesBlockKey] = table.number;
-                                params[RowsBlockKey] = row.number;
-                                params[ColsBlockKey] = col.number;
-                                userCreate("block", params);
-                              }}
-                              key={"b" + col.number}
-                            >
-                              +
-                            </td>
-                          );
-                        } else {
-                          return (
-                            <td key={"b" + col.number}>{block[0].text}</td>
-                          );
-                        }
-                      })}
-                    </tr>
-                  );
-                })}
-                <tr>
-                  <td
-                    onClick={() => {
-                      userCreate(RowsBlockKey);
-                    }}
-                  >
-                    +
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <button
-              onClick={() => {
-                userCreate(TablesBlockKey);
-              }}
-            >
-              +
-            </button>
-          </div>
-        );
-      });
     };
 
     return (
       <div>
         <h1>Acadtable</h1>
-        <Tables />
+        {tables.map(table => {
+          let base = objector[table.base].filter(
+            i => i.id === table.baseValue
+          )[0];
+          let rows = objector[table.rows];
+          let cols = objector[table.cols];
+          return (
+            <Table
+              id={table.id}
+              base={base}
+              baseBlockKey={getBlockKey(table.base)}
+              rows={rows}
+              rowsBlockKey={getBlockKey(table.rows)}
+              cols={cols}
+              colsBlockKey={getBlockKey(table.cols)}
+              blocks={blocks}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -214,6 +70,9 @@ class Display extends Component {
     if (this.props.collections.length === 0) {
       return <Welcome />;
     } else if (this.props.selected === null) {
+      if (this.props.collections.length === 1) {
+        this.props.selectCollection(this.props.collections[0].id);
+      }
       return (
         <div>
           <span>Please select a collection</span>
