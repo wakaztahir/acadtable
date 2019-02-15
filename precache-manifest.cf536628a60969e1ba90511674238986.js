@@ -4,15 +4,15 @@ self.__precacheManifest = [
     "url": "/acadtable/static/js/runtime~main.1d65f624.js"
   },
   {
-    "revision": "82486ef9b9a73409aba1",
-    "url": "/acadtable/static/js/main.82486ef9.chunk.js"
+    "revision": "688da50ff8915454b4e3",
+    "url": "/acadtable/static/js/main.688da50f.chunk.js"
   },
   {
     "revision": "2d73d30475ae14173c71",
     "url": "/acadtable/static/js/1.2d73d304.chunk.js"
   },
   {
-    "revision": "9b89d9814ebbbf8c330d47f9b773a992",
+    "revision": "44d0089aed1fe154566500a5c92387ec",
     "url": "/acadtable/index.html"
   }
 ];
