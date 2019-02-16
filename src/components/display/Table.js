@@ -37,7 +37,7 @@ class Table extends Component {
                     );
                     if (block.length === 0) {
                       if (mode === "print") {
-                        return <td key={"emp" + row.id} />;
+                        return <td key={"emp" + col.id} />;
                       }
                       return (
                         <td

@@ -5,16 +5,7 @@ import { connect } from "react-redux";
 import Welcome from "./Welcome";
 import Table from "./Table";
 
-import {
-  selectCollection
-  // createBlock,
-  // createBatch,
-  // createDay,
-  // createTime,
-  // createPlace,
-  // createSubject,
-  // createTeacher
-} from "../../actions";
+import { selectCollection } from "../../actions";
 
 class Display extends Component {
   state = {
@@ -132,13 +123,6 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    // createBlock,
-    // createBatch,
-    // createDay,
-    // createTime,
-    // createPlace,
-    // createTeacher,
-    // createSubject,
     selectCollection
   }
 )(Display);
