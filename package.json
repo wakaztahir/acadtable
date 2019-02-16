@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://wakaztahir.github.io/acadtable/",
   "dependencies": {
+    "dom-to-image": "^2.6.0",
+    "jspdf": "^1.5.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
