@@ -1,5 +1,6 @@
 import storage from "../engine/storage";
 import {
+  EXAMPLE_COLLECTION,
   CREATE_COLLECTION,
   SELECT_COLLECTION,
   RENAME_COLLECTION,
@@ -27,10 +28,24 @@ import {
   DELETE_SUBJECT,
   CREATE_TEACHER,
   UPDATE_TEACHER,
-  DELETE_TEACHER
+  DELETE_TEACHER,
+  COPY_COLLECTION
 } from "./types";
 
+import Example from "./example.json";
+
 //COLLECTION ACTIONS
+export const exampleCollection = () => {
+  storage.create("example", "Example");
+  let list = storage.getList();
+  storage.saveData("example", Example);
+  return {
+    type: EXAMPLE_COLLECTION,
+    payload: {
+      collections: list
+    }
+  };
+};
 
 export const createCollection = (id, name) => {
   storage.create(id, name);
@@ -66,7 +81,7 @@ export const copyCollection = (id, newid) => {
   storage.saveData(newid, data);
   let list = storage.getList();
   return {
-    type: RENAME_COLLECTION,
+    type: COPY_COLLECTION,
     payload: {
       collections: list
     }
