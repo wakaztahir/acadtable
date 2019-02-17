@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import Block from "./Block";
 
+import { connect } from "react-redux";
+
 class Table extends Component {
   render() {
     let base = this.props.base;
@@ -43,9 +45,10 @@ class Table extends Component {
                         <td
                           onClick={() => {
                             let params = {};
-                            params[BaseBlockKey] = this.props.id;
+                            params[BaseBlockKey] = base.id;
                             params[RowsBlockKey] = row.id;
                             params[ColsBlockKey] = col.id;
+                            this.props.displayAddModal(params);
                           }}
                           key={"b" + col.id}
                         >
@@ -70,4 +73,8 @@ class Table extends Component {
   }
 }
 
-export default Table;
+const mapStateToProps = state => {
+  return { blocks: state.BlocksList };
+};
+
+export default connect(mapStateToProps)(Table);

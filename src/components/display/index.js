@@ -5,16 +5,23 @@ import { connect } from "react-redux";
 import Welcome from "./Welcome";
 import Table from "./Table";
 
+import Modal from "../Modal";
+import FormEditor from "../collections/areas/FormEditor";
+
 import jsPDF from "jspdf";
 import domtoimage from "dom-to-image";
 
-import { selectCollection } from "../../actions";
+import { selectCollection, createBlock } from "../../actions";
+
+import { rand } from "../../actions/helpers";
 
 class Display extends Component {
   state = {
     mode: "edit",
     download: false,
-    downloadType: "pdf"
+    downloadType: "pdf",
+    addModal: false,
+    addModalParams: {}
   };
   downloadPDF() {
     let screen = this.refs.screen;
@@ -68,6 +75,96 @@ class Display extends Component {
       }
     }
   }
+  addModal() {
+    let params = this.state.addModalParams;
+    if (this.state.addModal) {
+      let keys = [
+        {
+          name: "text",
+          required: true,
+          locked: true,
+          show: false
+        },
+        {
+          name: "name",
+          required: true
+        },
+        { name: "customText" },
+        {
+          name: "day",
+          type: "select",
+          list: this.props.days,
+          required: true
+        },
+        {
+          name: "place",
+          type: "select",
+          list: this.props.places,
+          required: true
+        },
+        {
+          name: "time",
+          type: "select",
+          list: this.props.times,
+          required: true
+        },
+        {
+          name: "batch",
+          type: "select",
+          list: this.props.batches,
+          required: true
+        },
+        {
+          name: "subject",
+          type: "select",
+          list: this.props.subjects,
+          required: true
+        },
+        {
+          name: "teacher",
+          type: "select",
+          list: this.props.teachers,
+          required: true
+        },
+        {
+          name: "display",
+          type: "textarea",
+          required: true,
+          default: "%batch%%subject%%teacher%"
+        }
+      ];
+      Object.keys(params).forEach(p => {
+        if (params[p] !== null) {
+          keys.forEach(k => {
+            if (k != null && k.name === p) {
+              console.log("default", params[p]);
+              k.default = params[p];
+              k.show = false;
+            }
+          });
+        }
+      });
+      return (
+        <Modal
+          type="content"
+          display={true}
+          cancel={() => {
+            this.setState({ addModal: false, addModalParams: {} });
+          }}
+        >
+          <FormEditor
+            property={{ id: rand("block") }}
+            keys={keys}
+            save={data => {
+              this.props.createBlock(this.props.selected.id, data);
+              this.setState({ addModal: false, addModalParams: {} });
+            }}
+            nounmount={true}
+          />
+        </Modal>
+      );
+    }
+  }
   screen() {
     let {
       tables,
@@ -102,6 +199,7 @@ class Display extends Component {
     return (
       <div>
         <h1>Acadtable</h1>
+        <div>{this.addModal()}</div>
         <div>
           <button
             onClick={() => {
@@ -174,6 +272,20 @@ class Display extends Component {
                 cols={cols}
                 colsBlockKey={getBlockKey(table.cols)}
                 blocks={blocks}
+                displayAddModal={params => {
+                  Object.keys(objector).map(listName => {
+                    let key = getBlockKey(listName);
+                    if (
+                      params[key] == null &&
+                      key !== "table" &&
+                      key !== "block"
+                    ) {
+                      params[key] = null;
+                    }
+                    return null;
+                  });
+                  this.setState({ addModal: true, addModalParams: params });
+                }}
               />
             );
           })}
@@ -217,6 +329,7 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    selectCollection
+    selectCollection,
+    createBlock
   }
 )(Display);

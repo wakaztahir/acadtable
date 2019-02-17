@@ -7,7 +7,14 @@ class Modal extends Component {
   contentModal(content) {
     return (
       <div className="modal" display={this.state.display ? "block" : "none"}>
-        <div className="modal-inside">{content}</div>
+        <div className="modal-inside">
+          {this.props.cancel != null ? (
+            <div onClick={this.props.cancel} className="modal-x">
+              X
+            </div>
+          ) : null}
+          {content}
+        </div>
       </div>
     );
   }

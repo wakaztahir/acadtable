@@ -179,8 +179,15 @@ td {
   background: #fff;
   padding: 2em;
   border-radius: 5px;
+  position: relative;
 }
 
 .table-block {
   text-align: center;
+}
+
+.modal-x {
+  position: absolute;
+  top: 0.5em;
+  right: 1em;
 }

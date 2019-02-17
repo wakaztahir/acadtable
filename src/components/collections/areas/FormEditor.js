@@ -7,12 +7,23 @@ class FormEditor extends Component {
   };
   saveForm = () => {
     let property = this.state.property;
-    this.state.keys.map(k => {
-      if (k.type && k.type === "select") {
-        if (property[k.name] === null) {
+    this.state.keys.forEach(k => {
+      if (!k.type || k.type === "input") {
+        if (property[k.name] == null) {
           property[k.name] =
             this.state.property[k.name] != null
               ? this.state.property[k.name]
+              : k.default != null
+              ? k.default
+              : null;
+        }
+      } else if (k.type && k.type === "select") {
+        if (property[k.name] == null) {
+          property[k.name] =
+            this.state.property[k.name] != null
+              ? this.state.property[k.name]
+              : k.default != null
+              ? k.default
               : k.list.length > 0
               ? k.list[0].id
               : null;
@@ -25,7 +36,6 @@ class FormEditor extends Component {
             ? k.default
             : null;
       }
-      return null;
     });
     this.props.save(property);
   };
@@ -52,9 +62,11 @@ class FormEditor extends Component {
               disabled={key.locked == null ? false : key.locked}
               required={key.required == null ? false : key.required}
               value={
-                this.state.property[key.name] == null
-                  ? ""
-                  : this.state.property[key.name]
+                this.state.property[key.name] != null
+                  ? this.state.property[key.name]
+                  : key.default != null
+                  ? key.default
+                  : ""
               }
               style={{ display: "table-cell" }}
             />
@@ -65,6 +77,8 @@ class FormEditor extends Component {
               defaultValue={
                 this.state.property[key.name] != null
                   ? this.state.property[key.name]
+                  : key.default != null
+                  ? key.default
                   : key.list.length > 0
                   ? key.list[0].id
                   : null
@@ -91,7 +105,6 @@ class FormEditor extends Component {
             <textarea
               key={key.name + "txt"}
               onChange={x => {
-                console.log(x.target.value);
                 let newvalue = x.target.value;
                 let property = this.state.property;
                 property[key.name] = newvalue;
