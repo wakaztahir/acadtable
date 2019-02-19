@@ -1,4 +1,4 @@
-export const rand = (operator = "x", start = 3, end = 7) => {
+export const random = (operator = "x", start = 3, end = 7) => {
   switch (operator) {
     case "collection":
       operator = "cn";
@@ -35,4 +35,22 @@ export const rand = (operator = "x", start = 3, end = 7) => {
     .split(".")[1]
     .substr(start, end);
   return operator + id;
+};
+
+export const keyList = keyName => {
+  switch (keyName) {
+    case "batch":
+      return "batches";
+    default:
+      return keyName + "s";
+  }
+};
+
+export const listKey = listName => {
+  switch (listName) {
+    case "batches":
+      return "batch";
+    default:
+      return listName.substr(0, listName.length - 1);
+  }
 };

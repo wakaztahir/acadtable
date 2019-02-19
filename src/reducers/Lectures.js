@@ -1,9 +1,9 @@
-import { SELECT_COLLECTION, CREATE_BLOCK } from "../actions/types";
+import types from "../actions/types";
 
 export default (state = [], action) => {
   switch (action.type) {
-    case SELECT_COLLECTION:
-    case CREATE_BLOCK:
+    case types.SELECT_COLLECTION:
+    case types.CREATE_BLOCK:
       return action.payload.blocks.all();
     default:
       return state;

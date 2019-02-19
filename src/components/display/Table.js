@@ -4,7 +4,12 @@ import Block from "./Block";
 
 import { connect } from "react-redux";
 
+import { deleteBlock } from "../../actions";
+
 class Table extends Component {
+  state = {
+    blocks: this.props.blocks
+  };
   render() {
     let base = this.props.base;
     let BaseBlockKey = this.props.baseBlockKey;
@@ -12,7 +17,7 @@ class Table extends Component {
     let RowsBlockKey = this.props.rowsBlockKey;
     let cols = this.props.cols;
     let ColsBlockKey = this.props.colsBlockKey;
-    let blocks = this.props.blocks;
+    let blocks = this.state.blocks;
     let mode = this.props.mode;
     return (
       <div key={this.props.id}>
@@ -58,7 +63,15 @@ class Table extends Component {
                     } else {
                       return (
                         <td key={"b" + col.id} className="table-block">
-                          <Block block={block[0]} />
+                          <Block
+                            block={block[0]}
+                            delete={id =>
+                              this.props.deleteBlock(
+                                this.props.collectionID,
+                                id
+                              )
+                            }
+                          />
                         </td>
                       );
                     }
@@ -77,4 +90,9 @@ const mapStateToProps = state => {
   return { blocks: state.BlocksList };
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(
+  mapStateToProps,
+  {
+    deleteBlock
+  }
+)(Table);

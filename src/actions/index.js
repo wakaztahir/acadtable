@@ -1,399 +1,223 @@
-import storage from "../engine/storage";
-import {
-  EXAMPLE_COLLECTION,
-  CREATE_COLLECTION,
-  SELECT_COLLECTION,
-  RENAME_COLLECTION,
-  DELETE_COLLECTION,
-  CREATE_TABLE,
-  UPDATE_TABLE,
-  DELETE_TABLE,
-  CREATE_BLOCK,
-  UPDATE_BLOCK,
-  DELETE_BLOCK,
-  CREATE_DAY,
-  UPDATE_DAY,
-  DELETE_DAY,
-  CREATE_TIME,
-  UPDATE_TIME,
-  DELETE_TIME,
-  CREATE_PLACE,
-  UPDATE_PLACE,
-  DELETE_PLACE,
-  CREATE_BATCH,
-  UPDATE_BATCH,
-  DELETE_BATCH,
-  CREATE_SUBJECT,
-  UPDATE_SUBJECT,
-  DELETE_SUBJECT,
-  CREATE_TEACHER,
-  UPDATE_TEACHER,
-  DELETE_TEACHER,
-  COPY_COLLECTION
-} from "./types";
+import types from "./types";
 
-import Example from "./example.json";
+// import Example from "./example.json";
+
+import storage from "./storage";
+
+let user = new storage();
 
 //COLLECTION ACTIONS
 export const exampleCollection = () => {
-  storage.create("example", "Example");
-  let list = storage.getList();
-  storage.saveData("example", Example);
   return {
-    type: EXAMPLE_COLLECTION,
-    payload: {
-      collections: list
-    }
+    type: types.EXAMPLE_COLLECTION,
+    payload: {}
   };
 };
 
-export const createCollection = (id, name) => {
-  storage.create(id, name);
-  let list = storage.getList();
+export const createCollection = (data = {}) => {
+  user.init();
+  let collection = user.set(data);
   return {
-    type: CREATE_COLLECTION,
-    payload: {
-      collections: list
-    }
+    type: types.CREATE_COLLECTION,
+    payload: collection
   };
 };
 export const selectCollection = id => {
+  user.init(id);
   return {
-    type: SELECT_COLLECTION,
-    payload: {
-      selectedCollection: storage.getData(id),
-      tables: storage.list(id, "tables"),
-      days: storage.list(id, "days"),
-      places: storage.list(id, "places"),
-      times: storage.list(id, "times"),
-      blocks: storage.list(id, "blocks"),
-      batches: storage.list(id, "batches"),
-      subjects: storage.list(id, "subjects"),
-      teachers: storage.list(id, "teachers")
-    }
+    type: types.SELECT_COLLECTION,
+    payload: {}
   };
 };
-export const copyCollection = (id, newid) => {
-  let data = storage.getData(id);
-  data.id = newid;
-  data.name += " Copy";
-  storage.create(newid, data.name);
-  storage.saveData(newid, data);
-  let list = storage.getList();
+export const copyCollection = id => {
+  user.init();
+  let collection = user.get(id);
+  collection.name += " Copy";
+  collection = user.set(collection);
   return {
-    type: COPY_COLLECTION,
-    payload: {
-      collections: list
-    }
+    type: types.COPY_COLLECTION,
+    payload: collection
   };
 };
 export const renameCollection = (id, newname) => {
-  storage.rename(id, newname);
-  let list = storage.getList();
   return {
-    type: RENAME_COLLECTION,
-    payload: {
-      collections: list
-    }
+    type: types.RENAME_COLLECTION,
+    payload: {}
   };
 };
 export const deleteCollection = id => {
-  let deleted = storage.getData(id);
-  storage.delete(id);
-  let list = storage.getList();
+  user.init(id);
+  let deleted = user.delete();
   return {
-    type: DELETE_COLLECTION,
-    payload: {
-      collections: list,
-      deleted
-    }
+    type: types.DELETE_COLLECTION,
+    payload: deleted
   };
 };
 
 //TABLE ACTIONS
 
 export const createTable = (collectionID, data) => {
-  let tables = storage.list(collectionID, "tables");
-  tables.createItem(data);
-  tables = storage.list(collectionID, "tables");
   return {
-    type: CREATE_TABLE,
-    payload: {
-      tables
-    }
+    type: types.CREATE_TABLE,
+    payload: {}
   };
 };
 export const updateTable = (collectionID, tableID, data) => {
-  let tables = storage.list(collectionID, "tables");
-  tables.updateItem(tableID, data);
-  tables = storage.list(collectionID, "tables");
   return {
-    type: UPDATE_TABLE,
-    payload: {
-      tables
-    }
+    type: types.UPDATE_TABLE,
+    payload: {}
   };
 };
 export const deleteTable = (collectionID, tableID) => {
-  let tables = storage.list(collectionID, "tables");
-  tables.deleteItem(tableID);
-  tables = storage.list(collectionID, "tables");
   return {
-    type: DELETE_TABLE,
-    payload: {
-      tables
-    }
+    type: types.DELETE_TABLE,
+    payload: {}
   };
 };
 
 //BLOCK ACTIONS
 
 export const createBlock = (collectionID, data) => {
-  let blocks = storage.list(collectionID, "blocks");
-  blocks.createItem(data);
-  blocks = storage.list(collectionID, "blocks");
   return {
-    type: CREATE_BLOCK,
-    payload: {
-      blocks
-    }
+    type: types.CREATE_BLOCK,
+    payload: {}
   };
 };
 export const updateBlock = (collectionID, blockID, data) => {
-  let blocks = storage.list(collectionID, "blocks");
-  blocks.updateItem(blockID, data);
-  blocks = storage.list(collectionID, "blocks");
   return {
-    type: UPDATE_BLOCK,
-    payload: {
-      blocks
-    }
+    type: types.UPDATE_BLOCK,
+    payload: {}
   };
 };
 export const deleteBlock = (collectionID, blockID) => {
-  let blocks = storage.list(collectionID, "blocks");
-  blocks.deleteItem(blockID);
-  blocks = storage.list(collectionID, "blocks");
   return {
-    type: DELETE_BLOCK,
-    payload: {
-      blocks
-    }
+    type: types.DELETE_BLOCK,
+    payload: {}
   };
 };
 
 //DAY ACTIONS
 
 export const createDay = (collectionID, data) => {
-  let days = storage.list(collectionID, "days");
-  days.createItem(data);
-  days = storage.list(collectionID, "days");
   return {
-    type: CREATE_DAY,
-    payload: {
-      days
-    }
+    type: types.CREATE_DAY,
+    payload: {}
   };
 };
 export const updateDay = (collectionID, dayID, data) => {
-  let days = storage.list(collectionID, "days");
-  days.updateItem(dayID, data);
-  days = storage.list(collectionID, "days");
   return {
-    type: UPDATE_DAY,
-    payload: {
-      days
-    }
+    type: types.UPDATE_DAY,
+    payload: {}
   };
 };
 export const deleteDay = (collectionID, dayID) => {
-  let days = storage.list(collectionID, "days");
-  days.deleteItem(dayID);
-  days = storage.list(collectionID, "days");
   return {
-    type: DELETE_DAY,
-    payload: {
-      days
-    }
+    type: types.DELETE_DAY,
+    payload: {}
   };
 };
 
 //TIME ACTIONS
 
 export const createTime = (collectionID, data) => {
-  let times = storage.list(collectionID, "times");
-  times.createItem(data);
-  times = storage.list(collectionID, "times");
   return {
-    type: CREATE_TIME,
-    payload: {
-      times
-    }
+    type: types.CREATE_TIME,
+    payload: {}
   };
 };
 export const updateTime = (collectionID, timeID, data) => {
-  let times = storage.list(collectionID, "times");
-  times.updateItem(timeID, data);
-  times = storage.list(collectionID, "times");
   return {
-    type: UPDATE_TIME,
-    payload: {
-      times
-    }
+    type: types.UPDATE_TIME,
+    payload: {}
   };
 };
 export const deleteTime = (collectionID, timeID) => {
-  let times = storage.list(collectionID, "times");
-  times.deleteItem(timeID);
-  times = storage.list(collectionID, "times");
   return {
-    type: DELETE_TIME,
-    payload: {
-      times
-    }
+    type: types.DELETE_TIME,
+    payload: {}
   };
 };
 
 //PLACE ACTIONS
 
 export const createPlace = (collectionID, data) => {
-  let places = storage.list(collectionID, "places");
-  places.createItem(data);
-  places = storage.list(collectionID, "places");
   return {
-    type: CREATE_PLACE,
-    payload: {
-      places
-    }
+    type: types.CREATE_PLACE,
+    payload: {}
   };
 };
 export const updatePlace = (collectionID, placeID, data) => {
-  let places = storage.list(collectionID, "places");
-  places.updateItem(placeID, data);
-  places = storage.list(collectionID, "places");
   return {
-    type: UPDATE_PLACE,
-    payload: {
-      places
-    }
+    type: types.UPDATE_PLACE,
+    payload: {}
   };
 };
 export const deletePlace = (collectionID, placeID) => {
-  let places = storage.list(collectionID, "places");
-  places.deleteItem(placeID);
-  places = storage.list(collectionID, "places");
   return {
-    type: DELETE_PLACE,
-    payload: {
-      places
-    }
+    type: types.DELETE_PLACE,
+    payload: {}
   };
 };
 
 //BATCH ACTIONS
 
 export const createBatch = (collectionID, data) => {
-  let batches = storage.list(collectionID, "batches");
-  batches.createItem(data);
-  batches = storage.list(collectionID, "batches");
   return {
-    type: CREATE_BATCH,
-    payload: {
-      batches
-    }
+    type: types.CREATE_BATCH,
+    payload: {}
   };
 };
 export const updateBatch = (collectionID, batchID, data) => {
-  let batches = storage.list(collectionID, "batches");
-  batches.updateItem(batchID, data);
-  batches = storage.list(collectionID, "batches");
   return {
-    type: UPDATE_BATCH,
-    payload: {
-      batches
-    }
+    type: types.UPDATE_BATCH,
+    payload: {}
   };
 };
 export const deleteBatch = (collectionID, batchID) => {
-  let batches = storage.list(collectionID, "batches");
-  batches.deleteItem(batchID);
-  batches = storage.list(collectionID, "batches");
   return {
-    type: DELETE_BATCH,
-    payload: {
-      batches
-    }
+    type: types.DELETE_BATCH,
+    payload: {}
   };
 };
 
 //SUBJECT ACTIONS
 
 export const createSubject = (collectionID, data) => {
-  let subjects = storage.list(collectionID, "subjects");
-  subjects.createItem(data);
-  subjects = storage.list(collectionID, "subjects");
   return {
-    type: CREATE_SUBJECT,
-    payload: {
-      subjects
-    }
+    type: types.CREATE_SUBJECT,
+    payload: {}
   };
 };
 export const updateSubject = (collectionID, subjectID, data) => {
-  let subjects = storage.list(collectionID, "subjects");
-  subjects.updateItem(subjectID, data);
-  subjects = storage.list(collectionID, "subjects");
   return {
-    type: UPDATE_SUBJECT,
-    payload: {
-      subjects
-    }
+    type: types.UPDATE_SUBJECT,
+    payload: {}
   };
 };
 export const deleteSubject = (collectionID, subjectID) => {
-  let subjects = storage.list(collectionID, "subjects");
-  subjects.deleteItem(subjectID);
-  subjects = storage.list(collectionID, "subjects");
   return {
-    type: DELETE_SUBJECT,
-    payload: {
-      subjects
-    }
+    type: types.DELETE_SUBJECT,
+    payload: {}
   };
 };
 
 //TEACHER ACTIONS
 
 export const createTeacher = (collectionID, data) => {
-  let teachers = storage.list(collectionID, "teachers");
-  teachers.createItem(data);
-  teachers = storage.list(collectionID, "teachers");
   return {
-    type: CREATE_TEACHER,
-    payload: {
-      teachers
-    }
+    type: types.CREATE_TEACHER,
+    payload: {}
   };
 };
 export const updateTeacher = (collectionID, teacherID, data) => {
-  let teachers = storage.list(collectionID, "teachers");
-  teachers.updateItem(teacherID, data);
-  teachers = storage.list(collectionID, "teachers");
   return {
-    type: UPDATE_TEACHER,
-    payload: {
-      teachers
-    }
+    type: types.UPDATE_TEACHER,
+    payload: {}
   };
 };
 export const deleteTeacher = (collectionID, teacherID) => {
-  let teachers = storage.list(collectionID, "teachers");
-  teachers.deleteItem(teacherID);
-  teachers = storage.list(collectionID, "teachers");
   return {
-    type: DELETE_TEACHER,
-    payload: {
-      teachers
-    }
+    type: types.DELETE_TEACHER,
+    payload: {}
   };
 };

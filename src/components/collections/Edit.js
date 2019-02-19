@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import storage from "../../engine/storage";
 
 import Area from "./areas";
 
@@ -36,11 +35,7 @@ import {
 
 class EditCollection extends Component {
   state = {
-    ...storage.getData(this.props.collectionID),
     editArea: "lectures"
-  };
-  updateState = () => {
-    this.setState({ ...storage.getData(this.props.collectionID) });
   };
   render() {
     const UserArea = () => {

@@ -1,24 +1,24 @@
 import { combineReducers } from "redux";
-import CollectionsList from "./CollectionsList";
-import SelectedCollection from "./SelectedCollection";
-import TablesList from "./TablesList";
-import BatchesList from "./BatchesList";
-import PlacesList from "./PlacesList";
-import DaysList from "./DaysList";
-import TimesList from "./TimesList";
-import BlocksList from "./BlocksList";
-import SubjectsList from "./SubjectsList";
-import TeachersList from "./TeachersList";
+import User from "./User";
+import Collections from "./Collections";
+import Tables from "./Tables";
+import Batches from "./Batches";
+import Places from "./Places";
+import Days from "./Days";
+import Times from "./Times";
+import Lectures from "./Lectures";
+import Subjects from "./Subjects";
+import Teachers from "./Teachers";
 
 export default combineReducers({
-  CollectionsList,
-  SelectedCollection,
-  TablesList,
-  PlacesList,
-  BatchesList,
-  DaysList,
-  TimesList,
-  BlocksList,
-  SubjectsList,
-  TeachersList
+  User,
+  Collections,
+  Tables,
+  Places,
+  Batches,
+  Days,
+  Times,
+  Lectures,
+  Subjects,
+  Teachers
 });

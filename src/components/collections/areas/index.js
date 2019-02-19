@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import { rand } from "../../../actions/helpers";
-
 import FormEditor from "./FormEditor";
 import TableEditor from "./TableEditor";
 
@@ -51,7 +49,6 @@ class Area extends Component {
   create = obj => {
     console.log("Creating In Storage");
     console.log(obj);
-    obj.id = rand(this.state.name);
     this.props.createActionCreator(obj);
   };
   save = obj => {

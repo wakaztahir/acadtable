@@ -16,8 +16,6 @@ import {
   deleteCollection
 } from "../../actions";
 
-import { rand } from "../../actions/helpers";
-
 class Collections extends Component {
   state = {
     createForm: false,
@@ -43,7 +41,7 @@ class Collections extends Component {
     buttons.push({
       name: "copy",
       action: id => {
-        this.props.copyCollection(id, rand("collection"));
+        this.props.copyCollection(id);
       }
     });
     buttons.push({
@@ -87,7 +85,7 @@ class Collections extends Component {
             this.setState({ createForm: true });
           }}
           submit={values => {
-            this.props.createCollection(rand("collection"), values.name);
+            this.props.createCollection(values.name);
             this.setState({ createForm: false });
           }}
           cancel={() => {
@@ -119,8 +117,7 @@ class Collections extends Component {
 
 const mapStateToProps = state => {
   return {
-    collections: state.CollectionsList,
-    selectedCollection: state.SelectedCollection
+    collections: Object.values(state.Collections)
   };
 };
 export default connect(

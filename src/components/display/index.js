@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import Welcome from "./Welcome";
 import Table from "./Table";
 
 import Modal from "../Modal";
@@ -12,8 +11,6 @@ import jsPDF from "jspdf";
 import domtoimage from "dom-to-image";
 
 import { selectCollection, createBlock } from "../../actions";
-
-import { rand } from "../../actions/helpers";
 
 class Display extends Component {
   state = {
@@ -137,7 +134,6 @@ class Display extends Component {
         if (params[p] !== null) {
           keys.forEach(k => {
             if (k != null && k.name === p) {
-              console.log("default", params[p]);
               k.default = params[p];
               k.show = false;
             }
@@ -153,7 +149,7 @@ class Display extends Component {
           }}
         >
           <FormEditor
-            property={{ id: rand("block") }}
+            property={{}}
             keys={keys}
             save={data => {
               this.props.createBlock(this.props.selected.id, data);
@@ -185,15 +181,6 @@ class Display extends Component {
       places,
       subjects,
       teachers
-    };
-
-    let getBlockKey = listName => {
-      switch (listName) {
-        case "batches":
-          return "batch";
-        default:
-          return listName.substr(0, listName.length - 1);
-      }
     };
 
     return (
@@ -266,15 +253,12 @@ class Display extends Component {
                 key={table.id}
                 mode={this.state.mode}
                 base={base}
-                baseBlockKey={getBlockKey(table.base)}
                 rows={rows}
-                rowsBlockKey={getBlockKey(table.rows)}
                 cols={cols}
-                colsBlockKey={getBlockKey(table.cols)}
                 blocks={blocks}
                 displayAddModal={params => {
                   Object.keys(objector).map(listName => {
-                    let key = getBlockKey(listName);
+                    let key = listName;
                     if (
                       params[key] == null &&
                       key !== "table" &&
@@ -294,35 +278,22 @@ class Display extends Component {
     );
   }
   render() {
-    if (this.props.collections.length === 0) {
-      return <Welcome />;
-    } else if (this.props.selected === null) {
-      if (this.props.collections.length === 1) {
-        this.props.selectCollection(this.props.collections[0].id);
-      }
-      return (
-        <div>
-          <span>Please select a collection</span>
-        </div>
-      );
-    }
-
     return this.screen();
   }
 }
 
 const mapStateToProps = state => {
   return {
-    collections: state.CollectionsList,
-    selected: state.SelectedCollection,
-    tables: state.TablesList,
-    days: state.DaysList,
-    places: state.PlacesList,
-    times: state.TimesList,
-    blocks: state.BlocksList,
-    batches: state.BatchesList,
-    subjects: state.SubjectsList,
-    teachers: state.TeachersList
+    collections: state.Collections,
+    selected: state.User,
+    tables: state.Tables,
+    days: state.Days,
+    places: state.Places,
+    times: state.Times,
+    blocks: state.Blocks,
+    batches: state.Batches,
+    subjects: state.Subjects,
+    teachers: state.Teachers
   };
 };
 

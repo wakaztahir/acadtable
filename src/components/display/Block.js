@@ -39,6 +39,13 @@ class Block extends Component {
         {pattern.map(p => {
           return <div key={"blp" + p}>{this.getTextFor(p, block)}</div>;
         })}
+        <button
+          onClick={() => {
+            this.props.delete(block.id);
+          }}
+        >
+          -
+        </button>
       </div>
     );
   }
@@ -46,6 +53,7 @@ class Block extends Component {
 
 const mapStateToProps = state => {
   return {
+    selected: state.SelectedCollection,
     tables: state.TablesList,
     days: state.DaysList,
     places: state.PlacesList,

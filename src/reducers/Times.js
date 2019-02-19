@@ -1,9 +1,9 @@
-import { SELECT_COLLECTION, CREATE_TIME } from "../actions/types";
+import types from "../actions/types";
 
 export default (state = [], action) => {
   switch (action.type) {
-    case SELECT_COLLECTION:
-    case CREATE_TIME:
+    case types.SELECT_COLLECTION:
+    case types.CREATE_TIME:
       return action.payload.times.all();
     default:
       return state;

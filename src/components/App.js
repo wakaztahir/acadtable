@@ -1,28 +1,10 @@
 import React, { Component } from "react";
 
-import { HashRouter as Router, Route } from "react-router-dom";
-//Header Import
-import Header from "./Header";
-
-//Display Import
-import Display from "./display";
-
-//Tables Import
-import Collections from "./collections";
+import Welcome from "./Welcome";
 
 class App extends Component {
   render() {
-    return (
-      <Router>
-        <div>
-          <Header />
-          <div className="wrapper">
-            <Route path="/" exact component={Display} />
-            <Route path="/collections" exact component={Collections} />
-          </div>
-        </div>
-      </Router>
-    );
+    return <Welcome />;
   }
 }
 
