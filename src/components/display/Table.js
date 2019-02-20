@@ -7,9 +7,6 @@ import { connect } from "react-redux";
 import { deleteBlock } from "../../actions";
 
 class Table extends Component {
-  state = {
-    blocks: this.props.blocks
-  };
   render() {
     let base = this.props.base;
     let BaseBlockKey = this.props.baseBlockKey;
@@ -17,7 +14,7 @@ class Table extends Component {
     let RowsBlockKey = this.props.rowsBlockKey;
     let cols = this.props.cols;
     let ColsBlockKey = this.props.colsBlockKey;
-    let blocks = this.state.blocks;
+    let blocks = this.props.lectures;
     let mode = this.props.mode;
     return (
       <div key={this.props.id}>
@@ -87,7 +84,7 @@ class Table extends Component {
 }
 
 const mapStateToProps = state => {
-  return { blocks: state.BlocksList };
+  return { lectures: state.Lectures };
 };
 
 export default connect(

@@ -164,7 +164,7 @@ class Display extends Component {
   screen() {
     let {
       tables,
-      blocks,
+      lectures,
       batches,
       days,
       times,
@@ -174,7 +174,7 @@ class Display extends Component {
     } = this.props;
     let objector = {
       tables,
-      blocks,
+      lectures,
       batches,
       days,
       times,
@@ -255,7 +255,6 @@ class Display extends Component {
                 base={base}
                 rows={rows}
                 cols={cols}
-                blocks={blocks}
                 displayAddModal={params => {
                   Object.keys(objector).map(listName => {
                     let key = listName;
@@ -284,13 +283,12 @@ class Display extends Component {
 
 const mapStateToProps = state => {
   return {
-    collections: state.Collections,
-    selected: state.User,
+    user: state.User,
     tables: state.Tables,
     days: state.Days,
     places: state.Places,
     times: state.Times,
-    blocks: state.Blocks,
+    lectures: state.Lectures,
     batches: state.Batches,
     subjects: state.Subjects,
     teachers: state.Teachers
