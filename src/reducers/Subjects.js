@@ -6,7 +6,7 @@ export default (state = [], action) => {
     case types.CREATE_SUBJECT:
     case types.UPDATE_SUBJECT:
     case types.DELETE_SUBJECT:
-      return action.payload.subjects.all();
+      return action.payload.subjects;
     default:
       return state;
   }

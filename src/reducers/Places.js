@@ -6,7 +6,7 @@ export default (state = [], action) => {
     case types.CREATE_PLACE:
     case types.UPDATE_PLACE:
     case types.DELETE_PLACE:
-      return action.payload.places.all();
+      return action.payload;
     default:
       return state;
   }

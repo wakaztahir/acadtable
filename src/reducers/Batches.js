@@ -6,7 +6,7 @@ export default (state = [], action) => {
     case types.CREATE_BATCH:
     case types.UPDATE_BATCH:
     case types.DELETE_BATCH:
-      return action.payload.batches.all();
+      return action.payload.batches;
     default:
       return state;
   }

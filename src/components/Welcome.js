@@ -2,7 +2,13 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { createCollection, copyCollection, deleteCollection } from "../actions";
+import {
+  createCollection,
+  selectCollection,
+  exampleCollection,
+  copyCollection,
+  deleteCollection
+} from "../actions";
 
 import "../resources/welcome.css";
 
@@ -100,6 +106,7 @@ class Welcome extends Component {
             onClick={() => {
               this.setState({ ftDisplay: "quickSetup" });
             }}
+            disabled={true}
           >
             Quick Setup
           </button>
@@ -108,7 +115,9 @@ class Welcome extends Component {
           </span>
           <br />
           <br />
-          <button onClick={() => {}}>Load An Example</button>
+          <button onClick={this.props.exampleCollection}>
+            Load An Example
+          </button>
           <span className="info">
             <span>Load an example , premade collection</span>
           </span>
@@ -148,12 +157,14 @@ class Welcome extends Component {
                     : coll.name}
                 </div>
                 <div className="card-desc">
-                  {coll.desc.length > 100
-                    ? coll.desc.substr(0, 100) + "..."
+                  {coll.desc.length > 120
+                    ? coll.desc.substr(0, 120) + "..."
                     : coll.desc}
                 </div>
                 <div className="card-btns">
-                  <button>Select</button>
+                  <button onClick={() => this.props.selectCollection(coll.id)}>
+                    Select
+                  </button>
                   <button onClick={() => this.props.copyCollection(coll.id)}>
                     Copy
                   </button>
@@ -196,7 +207,9 @@ export default connect(
   mapStateToProps,
   {
     createCollection,
+    selectCollection,
     copyCollection,
+    exampleCollection,
     deleteCollection
   }
 )(Welcome);

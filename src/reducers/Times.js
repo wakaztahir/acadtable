@@ -4,7 +4,7 @@ export default (state = [], action) => {
   switch (action.type) {
     case types.SELECT_COLLECTION:
     case types.CREATE_TIME:
-      return action.payload.times.all();
+      return action.payload.times;
     default:
       return state;
   }

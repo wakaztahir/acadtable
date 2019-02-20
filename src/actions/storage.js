@@ -1,107 +1,176 @@
-import { openDb, deleteDb } from "idb";
-
 import { random } from "./helpers";
 
-class local {
-  constructor(datacenter) {
+class datamanager {
+  constructor(datacenter, datakey, data = null) {
     this.datacenter = datacenter;
+    this.datakey = datakey;
     let localData = this.getData();
-    if (localData == null || localData === "") {
+    if (Object.keys(localData).length === 0) {
       this.setData({});
+    }
+    if (data != null) {
+      this.setData(data);
     }
   }
   getData() {
-    let localData = localStorage.getItem(this.datacenter);
-    return JSON.parse(localData);
+    let localData;
+    if (this.datacenter === "local") {
+      localData = localStorage.getItem(this.datakey);
+    } else if (this.datacenter === "session") {
+      localData = sessionStorage.getItem(this.datakey);
+    } else {
+      return false;
+    }
+    return this.validator(JSON.parse(localData));
   }
   setData(data) {
-    localStorage.setItem(this.datacenter, JSON.stringify(data));
+    if (this.datacenter === "local") {
+      localStorage.setItem(this.datakey, JSON.stringify(data));
+      return true;
+    } else if (this.datacenter === "session") {
+      sessionStorage.setItem(this.datakey, JSON.stringify(data));
+      return true;
+    } else {
+      return false;
+    }
+  }
+  delData() {
+    if (this.datacenter === "local") {
+      localStorage.removeItem(this.datakey);
+      return true;
+    } else if (this.datacenter === "session") {
+      sessionStorage.removeItem(this.datakey);
+      return true;
+    } else {
+      return false;
+    }
   }
   getDataItem(id) {
     let data = this.getData();
-    if (data[id] != null) {
-      return data[id];
-    } else {
-      return null;
-    }
+    return this.validator(data[id]);
   }
   setDataItem(id, userdata = {}) {
     let data = this.getData();
     if (data[id] != null) {
-      data[id] = Object.assign(data[id], userdata);
+      data[id] = Object.assign(data[id], this.validator(userdata));
     } else {
-      data[id] = userdata;
+      data[id] = this.validator(userdata);
     }
     data[id].id = id;
     this.setData(data);
-    return userdata;
+    return this.validator(userdata);
   }
   delDataItem(id) {
     let data = this.getData();
     let tobedeleted = data[id];
     delete data[id];
     this.setData(data);
-    return tobedeleted;
+    return this.validator(tobedeleted);
   }
-}
-
-class db {
-  constructor(id, data) {
-    this.dbName = id;
-    this.db = openDb(id, 1, this.upgrade);
-  }
-  upgrade(uDb) {
-    let lecturesObS = uDb.createObjectStore("lectures", {
-      keyPath: "id"
-    });
-    lecturesObS.createIndex("id", "id", { unique: true });
-    let tablesObS = uDb.createObjectStore("tables", { keyPath: "id" });
-    tablesObS.createIndex("id", "id", { unique: true });
-    let batchesObS = uDb.createObjectStore("batches", { keyPath: "id" });
-    batchesObS.createIndex("id", "id", { unique: true });
-    let daysObS = uDb.createObjectStore("days", { keyPath: "id" });
-    daysObS.createIndex("id", "id", { unique: true });
-    let timesObS = uDb.createObjectStore("times", { keyPath: "id" });
-    timesObS.createIndex("id", "id", { unique: true });
-    let placesObS = uDb.createObjectStore("places", { keyPath: "id" });
-    placesObS.createIndex("id", "id", { unique: true });
-    let subjectsObS = uDb.createObjectStore("subjects", {
-      keyPath: "id"
-    });
-    subjectsObS.createIndex("id", "id", { unique: true });
-    let teachersObS = uDb.createObjectStore("teachers", {
-      keyPath: "id"
-    });
-    teachersObS.createIndex("id", "id", { unique: true });
-  }
-  async delete() {
-    return await deleteDb(this.dbName);
+  validator(data) {
+    if (data != null) {
+      return data;
+    } else {
+      return {};
+    }
   }
 }
 
 class user {
   constructor(id) {
     this.id = id != null ? id : random("collection");
-    this.local = new local("collections");
+    this.collections = new datamanager("local", "collections");
+    this.local = null;
+    this.session = null;
   }
   init(id = random("collection")) {
     this.id = id;
-    this.db = new db(this.id);
+    this.local = new datamanager("local", id);
+    this.session = {
+      tables: new datamanager(
+        "session",
+        "tables",
+        this.local.getDataItem("tables")
+      ),
+      batches: new datamanager(
+        "session",
+        "batches",
+        this.local.getDataItem("batches")
+      ),
+      days: new datamanager("session", "days", this.local.getDataItem("days")),
+      places: new datamanager(
+        "session",
+        "places",
+        this.local.getDataItem("places")
+      ),
+      times: new datamanager(
+        "session",
+        "times",
+        this.local.getDataItem("times")
+      ),
+      lectures: new datamanager(
+        "session",
+        "lectures",
+        this.local.getDataItem("lectures")
+      ),
+      subjects: new datamanager(
+        "session",
+        "subjects",
+        this.local.getDataItem("subjects")
+      ),
+      teachers: new datamanager(
+        "session",
+        "teachers",
+        this.local.getDataItem("teachers")
+      )
+    };
   }
-  all() {
-    return this.local.getData();
+  get list() {
+    return this.collections.getData();
   }
   get(id = this.id) {
-    return this.local.getDataItem(id);
+    return this.collections.getDataItem(id);
   }
-  set(data = {}) {
-    return this.local.setDataItem(this.id, data);
+  set(data) {
+    return this.collections.setDataItem(this.id, data);
+  }
+  getData(id = this.id) {
+    let data = {};
+    Object.keys(this.session).forEach(key => {
+      let dm = new datamanager("session", key);
+      data[key] = dm.getData();
+    });
+    return data;
+  }
+  getDataItem(key) {
+    return this.session[key].getData();
+  }
+  setData(data) {
+    this.local.setData(data);
+    this.session.tables.setData(data.tables);
+    this.session.batches.setData(data.batches);
+    this.session.days.setData(data.days);
+    this.session.times.setData(data.times);
+    this.session.places.setData(data.places);
+    this.session.lectures.setData(data.lectures);
+    this.session.subjects.setData(data.subjects);
+    this.session.teachers.setData(data.teachers);
+  }
+  setDataItem(key, data) {
+    this.session[key] = data;
   }
   delete() {
-    this.db.delete();
-    return this.local.delDataItem(this.id);
+    this.local.delData();
+    Object.values(this.session).forEach(s => {
+      let deleted = s.delData();
+      if (!deleted) {
+        console.warning("dataitem ", s, " cannot be deleted");
+      }
+    });
+    return this.collections.delDataItem(this.id);
   }
-  list() {}
 }
 
-export default user;
+let storage = new user();
+
+export default storage;

@@ -1,6 +1,4 @@
 {
-  "name": "Example",
-  "id": "example",
   "tables": [
     {
       "name": "Monday Table",
@@ -43,7 +41,7 @@
       "id": "tl4565578"
     }
   ],
-  "blocks": [
+  "lectures": [
     {
       "text": null,
       "name": "cs1self",

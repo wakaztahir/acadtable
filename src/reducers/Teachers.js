@@ -4,7 +4,7 @@ export default (state = [], action) => {
   switch (action.type) {
     case types.SELECT_COLLECTION:
     case types.CREATE_TEACHER:
-      return action.payload.teachers.all();
+      return action.payload.teachers;
     default:
       return state;
   }
