@@ -43,6 +43,13 @@ export const selectCollection = id => {
     }
   };
 };
+
+export const deselectCollection = () => {
+  return {
+    type: types.DESELECT_COLLECTION,
+    payload: null
+  };
+};
 export const copyCollection = id => {
   storage.init();
   let collection = storage.get(id);

@@ -1,7 +1,6 @@
 {
   "tables": [
     {
-      "name": "Monday Table",
       "rows": "places",
       "cols": "times",
       "base": "days",
@@ -9,7 +8,6 @@
       "id": "tl5786835"
     },
     {
-      "name": "Tuesday Table",
       "baseValue": "dy3256093",
       "rows": "places",
       "cols": "times",
@@ -17,7 +15,6 @@
       "id": "tl6756441"
     },
     {
-      "name": "Wednesday Table",
       "baseValue": "dy4108701",
       "rows": "places",
       "cols": "times",
@@ -25,7 +22,6 @@
       "id": "tl0912359"
     },
     {
-      "name": "Thursday Table",
       "baseValue": "dy1700065",
       "rows": "places",
       "cols": "times",
@@ -33,7 +29,6 @@
       "id": "tl6539478"
     },
     {
-      "name": "Friday Table",
       "baseValue": "dy7678812",
       "rows": "places",
       "cols": "times",
