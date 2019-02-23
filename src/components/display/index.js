@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Screen from "./Screen";
+import Tables from "./Tables";
 
 // import Modal from "../Modal";
 // import FormEditor from "../collections/areas/FormEditor";
@@ -13,7 +14,7 @@ import Screen from "./Screen";
 import {
   selectCollection,
   deselectCollection,
-  createBlock
+  createLecture
 } from "../../actions";
 
 class Display extends Component {
@@ -24,6 +25,8 @@ class Display extends Component {
     switch (this.state.display) {
       case "screen":
         return <Screen />;
+      case "tables":
+        return <Tables />;
       default:
         return null;
     }
@@ -94,6 +97,6 @@ export default connect(
   {
     selectCollection,
     deselectCollection,
-    createBlock
+    createLecture
   }
 )(Display);

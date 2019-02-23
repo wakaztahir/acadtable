@@ -1,4 +1,4 @@
-import { random } from "./helpers";
+import { random, listKey } from "./helpers";
 
 class datamanager {
   constructor(datacenter, datakey, data = null) {
@@ -56,7 +56,6 @@ class datamanager {
     } else {
       data[id] = this.validator(userdata);
     }
-    data[id].id = id;
     this.setData(data);
     return this.validator(userdata);
   }
@@ -142,9 +141,6 @@ class user {
     });
     return data;
   }
-  getDataItem(key) {
-    return this.session[key].getData();
-  }
   setData(data) {
     this.local.setData(data);
     this.session.tables.setData(data.tables);
@@ -156,9 +152,38 @@ class user {
     this.session.subjects.setData(data.subjects);
     this.session.teachers.setData(data.teachers);
   }
-  setDataItem(key, data) {
+  getDataKey(key) {
+    return this.session[key].getData();
+  }
+  setDataKey(key, data) {
     this.session[key] = data;
   }
+  getDataItem(key, id) {
+    return this.session[key].getDataItem(id);
+  }
+  setDataItem(key, id = null, data) {
+    if (id == null) {
+      id = random(listKey(key));
+    }
+    data.id = id;
+    return this.session[key].setDataItem(id, data);
+  }
+  delDataItem(key, id) {
+    return this.session[key].delDataItem(id);
+  }
+  save = event => {
+    if (this.session != null) {
+      this.local.setDataItem("tables", this.session.tables);
+      this.local.setDataItem("batches", this.session.batches);
+      this.local.setDataItem("days", this.session.days);
+      this.local.setDataItem("times", this.session.times);
+      this.local.setDataItem("places", this.session.places);
+      this.local.setDataItem("lectures", this.session.lectures);
+      this.local.setDataItem("subjects", this.session.subjects);
+      this.local.setDataItem("teachers", this.session.teachers);
+      console.log("Data saved into localStorage.");
+    }
+  };
   delete() {
     this.local.delData();
     Object.values(this.session).forEach(s => {
