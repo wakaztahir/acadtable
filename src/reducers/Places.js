@@ -3,7 +3,7 @@ import types from "../actions/types";
 export default (state = [], action) => {
   switch (action.type) {
     case types.SELECT_COLLECTION:
-      return action.payload.places;
+      return Object.values(action.payload.places);
     case types.CREATE_PLACE:
       return [...state, action.payload];
     case types.UPDATE_PLACE:
@@ -15,7 +15,7 @@ export default (state = [], action) => {
         }
       });
     case types.DELETE_PLACE:
-      return state.filter(item => item.id === action.payload.id);
+      return state.filter(item => item.id !== action.payload.id);
     default:
       return state;
   }

@@ -164,15 +164,22 @@ class Tables extends Component {
             </select>
           </div>
           <div className="form-row">
-            <div />
+            <button
+              onClick={() => {
+                this.setState({ display: "main" });
+              }}
+              style={{ marginRight: "1em" }}
+            >
+              Cancel
+            </button>
             <div>
               <button
                 onClick={() => {
+                  this.props.deleteTable(this.state.creator.id);
                   this.setState({ display: "main" });
                 }}
-                style={{ marginRight: "1em" }}
               >
-                Cancel
+                Delete
               </button>
               <input
                 type="submit"
@@ -187,12 +194,6 @@ class Tables extends Component {
   }
   quicker(objector) {
     return null;
-  }
-  edit(table) {
-    this.setState({
-      display: "create",
-      creator: { ...table, action: "update" }
-    });
   }
   render() {
     let objector = {
@@ -232,6 +233,7 @@ class Tables extends Component {
             onClick={() => {
               this.setState({ display: "quick" });
             }}
+            disabled={true}
           >
             Quick Tables
           </button>
@@ -251,7 +253,10 @@ class Tables extends Component {
                 key={table.id}
                 className="sq-list-item"
                 onClick={() => {
-                  this.edit(table);
+                  this.setState({
+                    display: "create",
+                    creator: { ...table, action: "update" }
+                  });
                 }}
               >
                 <h2>

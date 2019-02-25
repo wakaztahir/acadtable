@@ -55,9 +55,10 @@ export const deselectCollection = () => {
   };
 };
 export const copyCollection = id => {
-  storage.init();
+  let newid = storage.init();
   let collection = storage.get(id);
   collection.name += " Copy";
+  collection.id = newid;
   collection = storage.set(collection);
   storage.setData(storage.getData(id));
   return {
@@ -84,16 +85,13 @@ export const deleteCollection = id => {
 
 export const createTable = data => {
   let table = storage.setDataItem("tables", null, data);
-  console.log(table);
   return {
     type: types.CREATE_TABLE,
     payload: table
   };
 };
 export const updateTable = (tableID, data) => {
-  data.id = tableID;
   let table = storage.setDataItem("tables", tableID, data);
-  console.log(table);
   return {
     type: types.UPDATE_TABLE,
     payload: table
@@ -101,7 +99,6 @@ export const updateTable = (tableID, data) => {
 };
 export const deleteTable = tableID => {
   let table = storage.delDataItem("tables", tableID);
-  console.log(table);
   return {
     type: types.DELETE_TABLE,
     payload: table

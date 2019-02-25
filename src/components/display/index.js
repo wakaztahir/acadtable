@@ -4,6 +4,13 @@ import { connect } from "react-redux";
 
 import Screen from "./Screen";
 import Tables from "./Tables";
+import Lectures from "./Lectures";
+import Batches from "./Batches";
+import Days from "./Days";
+import Times from "./Times";
+import Places from "./Places";
+import Subjects from "./Subjects";
+import Teachers from "./Teachers";
 
 // import Modal from "../Modal";
 // import FormEditor from "../collections/areas/FormEditor";
@@ -27,6 +34,20 @@ class Display extends Component {
         return <Screen />;
       case "tables":
         return <Tables />;
+      case "lectures":
+        return <Lectures />;
+      case "batches":
+        return <Batches />;
+      case "days":
+        return <Days />;
+      case "times":
+        return <Times />;
+      case "places":
+        return <Places />;
+      case "subjects":
+        return <Subjects />;
+      case "teachers":
+        return <Teachers />;
       default:
         return null;
     }

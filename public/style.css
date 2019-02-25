@@ -220,3 +220,33 @@ span.info:hover > span {
   opacity: 1;
   box-shadow: 0px 0px 1px 1px #e3e3e3;
 }
+
+.block-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.block-list > .block {
+  margin: 1em;
+  padding: 1em;
+  border-radius: 2px;
+  background: rgb(179, 178, 178);
+  color: rgb(51, 51, 51);
+}
+
+.block > .block-txt {
+  display: flex;
+  flex-direction: column;
+}
+.block-txt > span {
+  margin: 5px 0px;
+}
+
+.block > .block-btns {
+  margin-top: 1rem;
+}
+
+.block-btns > button {
+  background: rgba(51, 51, 51, 0.8);
+  color: rgb(179, 178, 178);
+  margin: 0 0.1em;
+}

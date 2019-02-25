@@ -31,6 +31,7 @@ class datamanager {
       sessionStorage.setItem(this.datakey, JSON.stringify(data));
       return true;
     } else {
+      console.warning("Data could't be saved", this.datacenter, this.datakey);
       return false;
     }
   }
@@ -50,14 +51,15 @@ class datamanager {
     return this.validator(data[id]);
   }
   setDataItem(id, userdata = {}) {
+    userdata = this.validator(userdata);
     let data = this.getData();
-    if (data[id] != null) {
-      data[id] = Object.assign(data[id], this.validator(userdata));
+    data[id] = userdata;
+    let response = this.setData(data);
+    if (response) {
+      return userdata;
     } else {
-      data[id] = this.validator(userdata);
+      return null;
     }
-    this.setData(data);
-    return this.validator(userdata);
   }
   delDataItem(id) {
     let data = this.getData();
@@ -123,6 +125,7 @@ class user {
         this.local.getDataItem("teachers")
       )
     };
+    return id;
   }
   get list() {
     return this.collections.getData();
@@ -134,12 +137,8 @@ class user {
     return this.collections.setDataItem(this.id, data);
   }
   getData(id = this.id) {
-    let data = {};
-    Object.keys(this.session).forEach(key => {
-      let dm = new datamanager("session", key);
-      data[key] = dm.getData();
-    });
-    return data;
+    let local = new datamanager("local", id);
+    return local.getData();
   }
   setData(data) {
     this.local.setData(data);
@@ -173,14 +172,14 @@ class user {
   }
   save = event => {
     if (this.session != null) {
-      this.local.setDataItem("tables", this.session.tables);
-      this.local.setDataItem("batches", this.session.batches);
-      this.local.setDataItem("days", this.session.days);
-      this.local.setDataItem("times", this.session.times);
-      this.local.setDataItem("places", this.session.places);
-      this.local.setDataItem("lectures", this.session.lectures);
-      this.local.setDataItem("subjects", this.session.subjects);
-      this.local.setDataItem("teachers", this.session.teachers);
+      this.local.setDataItem("tables", this.session.tables.getData());
+      this.local.setDataItem("batches", this.session.batches.getData());
+      this.local.setDataItem("days", this.session.days.getData());
+      this.local.setDataItem("times", this.session.times.getData());
+      this.local.setDataItem("places", this.session.places.getData());
+      this.local.setDataItem("lectures", this.session.lectures.getData());
+      this.local.setDataItem("subjects", this.session.subjects.getData());
+      this.local.setDataItem("teachers", this.session.teachers.getData());
       console.log("Data saved into localStorage.");
     }
   };

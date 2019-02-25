@@ -1,43 +1,43 @@
 {
-  "tables": [
-    {
+  "tables": {
+    "tl5786835": {
       "rows": "places",
       "cols": "times",
       "base": "days",
       "baseValue": "dy7952700",
       "id": "tl5786835"
     },
-    {
+    "tl6756441": {
       "baseValue": "dy3256093",
       "rows": "places",
       "cols": "times",
       "base": "days",
       "id": "tl6756441"
     },
-    {
+    "tl0912359": {
       "baseValue": "dy4108701",
       "rows": "places",
       "cols": "times",
       "base": "days",
       "id": "tl0912359"
     },
-    {
+    "tl6539478": {
       "baseValue": "dy1700065",
       "rows": "places",
       "cols": "times",
       "base": "days",
       "id": "tl6539478"
     },
-    {
+    "tl4565578": {
       "baseValue": "dy7678812",
       "rows": "places",
       "cols": "times",
       "base": "days",
       "id": "tl4565578"
     }
-  ],
-  "lectures": [
-    {
+  },
+  "lectures": {
+    "bk3481321": {
       "text": null,
       "name": "cs1self",
       "customText": null,
@@ -50,7 +50,7 @@
       "display": "%batch%%subject%%teacher%",
       "id": "bk3481321"
     },
-    {
+    "bk2462084": {
       "text": null,
       "name": "cs1streg",
       "customText": null,
@@ -63,7 +63,7 @@
       "display": "%batch%%subject%%teacher%",
       "id": "bk2462084"
     },
-    {
+    "bk3598322": {
       "text": null,
       "name": "itself",
       "customText": null,
@@ -76,50 +76,50 @@
       "display": "%batch%%subject%%teacher%",
       "id": "bk3598322"
     }
-  ],
-  "days": [
-    { "name": "Monday", "id": "dy7952700" },
-    { "name": "Tuesday", "id": "dy3256093" },
-    { "name": "Wednesday", "id": "dy4108701" },
-    { "name": "Thursday", "id": "dy1700065" },
-    { "name": "Friday", "id": "dy7678812" },
-    { "name": "Saturday", "id": "dy9991486" },
-    { "name": "Sunday", "id": "dy4146822" }
-  ],
-  "times": [
-    { "name": "8:00", "id": "tm8685748" },
-    { "name": "9:00", "id": "tm5024385" },
-    { "name": "10:00", "id": "tm4190520" },
-    { "name": "11:00", "id": "tm7584056" },
-    { "name": "12:00", "id": "tm5771024" }
-  ],
-  "places": [
-    { "name": "Room 1", "id": "pl9026267" },
-    { "name": "Room 2", "id": "pl3909920" },
-    { "name": "Room 3", "id": "pl6095855" },
-    { "name": "Room 4", "id": "pl8388577" },
-    { "name": "Room 5", "id": "pl2676232" }
-  ],
-  "batches": [
-    { "name": "BSCS 1st Reg.", "id": "bh2407037" },
-    { "name": "BSCS 1st Self.", "id": "bh6684699" },
-    { "name": "BSIT 1st Reg.", "id": "bh5873593" },
-    { "name": "BSIT 1st Self.", "id": "bh0060369" },
-    { "name": "BSSE 1st Reg.", "id": "bh7910571" },
-    { "name": "BSSE 1st Self.", "id": "bh5106239" }
-  ],
-  "subjects": [
-    { "name": "Functional English", "id": "st9551921" },
-    { "name": "Basic Electronics", "id": "st2000964" },
-    { "name": "Thomas Calculus", "id": "st2944175" },
-    { "name": "Programming Fundamentals", "id": "st4206733" },
-    { "name": "ICT", "id": "st9139652" }
-  ],
-  "teachers": [
-    { "name": "Prof. Abdur Rauf", "id": "tr1506142" },
-    { "name": "Sir Khaleel", "id": "tr6695021" },
-    { "name": "Sir Ayaaz", "id": "tr7099462" },
-    { "name": "Sir Ahsan", "id": "tr2977862" },
-    { "name": "Mis. Madiha", "id": "tr4218605" }
-  ]
+  },
+  "days": {
+    "dy7952700": { "name": "Monday", "id": "dy7952700" },
+    "dy3256093": { "name": "Tuesday", "id": "dy3256093" },
+    "dy4108701": { "name": "Wednesday", "id": "dy4108701" },
+    "dy1700065": { "name": "Thursday", "id": "dy1700065" },
+    "dy7678812": { "name": "Friday", "id": "dy7678812" },
+    "dy9991486": { "name": "Saturday", "id": "dy9991486" },
+    "dy4146822": { "name": "Sunday", "id": "dy4146822" }
+  },
+  "times": {
+    "tm8685748": { "name": "8:00", "id": "tm8685748" },
+    "tm5024385": { "name": "9:00", "id": "tm5024385" },
+    "tm4190520": { "name": "10:00", "id": "tm4190520" },
+    "tm7584056": { "name": "11:00", "id": "tm7584056" },
+    "tm5771024": { "name": "12:00", "id": "tm5771024" }
+  },
+  "places": {
+    "pl9026267": { "name": "Room 1", "id": "pl9026267" },
+    "pl3909920": { "name": "Room 2", "id": "pl3909920" },
+    "pl6095855": { "name": "Room 3", "id": "pl6095855" },
+    "pl8388577": { "name": "Room 4", "id": "pl8388577" },
+    "pl2676232": { "name": "Room 5", "id": "pl2676232" }
+  },
+  "batches": {
+    "bh2407037": { "name": "BSCS 1st Reg.", "id": "bh2407037" },
+    "bh6684699": { "name": "BSCS 1st Self.", "id": "bh6684699" },
+    "bh5873593": { "name": "BSIT 1st Reg.", "id": "bh5873593" },
+    "bh0060369": { "name": "BSIT 1st Self.", "id": "bh0060369" },
+    "bh7910571": { "name": "BSSE 1st Reg.", "id": "bh7910571" },
+    "bh5106239": { "name": "BSSE 1st Self.", "id": "bh5106239" }
+  },
+  "subjects": {
+    "st9551921": { "name": "Functional English", "id": "st9551921" },
+    "st2000964": { "name": "Basic Electronics", "id": "st2000964" },
+    "st2944175": { "name": "Thomas Calculus", "id": "st2944175" },
+    "st4206733": { "name": "Programming Fundamentals", "id": "st4206733" },
+    "st9139652": { "name": "ICT", "id": "st9139652" }
+  },
+  "teachers": {
+    "tr1506142": { "name": "Prof. Abdur Rauf", "id": "tr1506142" },
+    "tr6695021": { "name": "Sir Khaleel", "id": "tr6695021" },
+    "tr7099462": { "name": "Sir Ayaaz", "id": "tr7099462" },
+    "tr2977862": { "name": "Sir Ahsan", "id": "tr2977862" },
+    "tr4218605": { "name": "Mis. Madiha", "id": "tr4218605" }
+  }
 }
