@@ -91,7 +91,45 @@ class Lectures extends Component {
             return (
               <div key={lecture.id} className="block">
                 <div className="block-txt">
-                  <span>{lecture.name}</span>
+                  <span>
+                    {
+                      this.props.subjects.filter(
+                        st => st.id === lecture.subject
+                      )[0].name
+                    }
+                  </span>
+                  <span>
+                    {
+                      this.props.batches.filter(
+                        bh => bh.id === lecture.batch
+                      )[0].name
+                    }
+                  </span>
+                  <span>
+                    {
+                      this.props.teachers.filter(
+                        tr => tr.id === lecture.teacher
+                      )[0].name
+                    }
+                  </span>
+                  <span>
+                    {
+                      this.props.times.filter(tm => tm.id === lecture.time)[0]
+                        .name
+                    }
+                  </span>
+                  <span>
+                    {
+                      this.props.places.filter(pc => pc.id === lecture.place)[0]
+                        .name
+                    }
+                  </span>
+                  <span>
+                    {
+                      this.props.days.filter(dy => dy.id === lecture.day)[0]
+                        .name
+                    }
+                  </span>
                 </div>
                 <div className="block-btns">
                   <button
@@ -127,7 +165,13 @@ class Lectures extends Component {
 
 const mapStateToProps = state => {
   return {
-    lectures: state.Lectures
+    lectures: state.Lectures,
+    subjects: state.Subjects,
+    places: state.Places,
+    times: state.Times,
+    teachers: state.Teachers,
+    days: state.Days,
+    batches: state.Batches
   };
 };
 
