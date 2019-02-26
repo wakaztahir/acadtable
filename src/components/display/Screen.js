@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { listKey } from "../../actions/helpers";
 
+import "../../resources/screen.css";
+
 class Screen extends Component {
   render() {
     let objector = {
@@ -54,7 +56,7 @@ class Screen extends Component {
                               params[listKey(table.base)] = base.id;
                               params[listKey(table.rows)] = row.id;
                               params[listKey(table.cols)] = col.id;
-                              this.props.displayAddModal(params);
+                              //this.props.displayAddModal(params);
                             }}
                             key={"b" + col.id}
                           >
@@ -62,9 +64,21 @@ class Screen extends Component {
                           </td>
                         );
                       } else {
+                        let lecture = block[0];
+                        let subject = this.props.subjects.filter(
+                          st => st.id === lecture.subject
+                        )[0].name;
+                        let batch = this.props.batches.filter(
+                          bh => bh.id === lecture.batch
+                        )[0].name;
+                        let teacher = this.props.teachers.filter(
+                          tr => tr.id === lecture.teacher
+                        )[0].name;
                         return (
                           <td key={"b" + col.id} className="table-block">
-                            {block[0].name}
+                            <span>{batch}</span>
+                            <span>{subject}</span>
+                            <span>{teacher}</span>
                           </td>
                         );
                       }

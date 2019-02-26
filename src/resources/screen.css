@@ -1,0 +1,18 @@
+table {
+  border: 1px solid bisque;
+}
+
+table tr {
+  border: 1px solid salmon;
+}
+
+table td {
+  border: 1px solid darkcyan;
+}
+
+.table-block {
+  border: 1px solid cornflowerblue;
+}
+.table-block > span {
+  display: block;
+}

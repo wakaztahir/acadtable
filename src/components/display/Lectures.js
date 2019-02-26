@@ -175,36 +175,22 @@ class Lectures extends Component {
         </div>
         <div className="block-list">
           {this.props.lectures.map(lecture => {
-            let subject = this.props.subjects;
-            subject =
-              subject.length > 0
-                ? subject.filter(st => st.id === lecture.subject)[0].name
-                : null;
-            let batch = this.props.batches;
-            batch =
-              batch.length > 0
-                ? batch.filter(bh => bh.id === lecture.batch)[0].name
-                : null;
-            let teacher = this.props.teachers;
-            teacher =
-              teacher.length > 0
-                ? teacher.filter(tr => tr.id === lecture.teacher)[0].name
-                : null;
-            let time = this.props.times;
-            time =
-              time.length > 0
-                ? time.filter(tm => tm.id === lecture.time)[0].name
-                : null;
-            let place = this.props.places;
-            place =
-              place.length > 0
-                ? place.filter(pc => pc.id === lecture.place)[0].name
-                : null;
-            let day = this.props.days;
-            day =
-              day.length > 0
-                ? day.filter(dy => dy.id === lecture.day)[0].name
-                : null;
+            let subject = this.props.subjects.filter(
+              st => st.id === lecture.subject
+            )[0].name;
+            let batch = this.props.batches.filter(
+              bh => bh.id === lecture.batch
+            )[0].name;
+            let teacher = this.props.teachers.filter(
+              tr => tr.id === lecture.teacher
+            )[0].name;
+            let time = this.props.times.filter(tm => tm.id === lecture.time)[0]
+              .name;
+            let place = this.props.places.filter(
+              pc => pc.id === lecture.place
+            )[0].name;
+            let day = this.props.days.filter(dy => dy.id === lecture.day)[0]
+              .name;
             return (
               <div key={lecture.id} className="block">
                 <div className="block-txt">
