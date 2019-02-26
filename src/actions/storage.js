@@ -180,7 +180,6 @@ class user {
       this.local.setDataItem("lectures", this.session.lectures.getData());
       this.local.setDataItem("subjects", this.session.subjects.getData());
       this.local.setDataItem("teachers", this.session.teachers.getData());
-      console.log("Data saved into localStorage.");
     }
   };
   delete() {
