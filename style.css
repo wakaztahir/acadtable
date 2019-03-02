@@ -70,9 +70,14 @@ input[type="submit"]:disabled {
 
 button:hover:not(:disabled),
 input[type="button"]:hover:not(:disabled),
-input[type="submit"]:hover:not(:disabled) {
+input[type="submit"]:hover:not(:disabled),
+.black-btn {
   background: rgb(51, 51, 51);
   color: rgb(196, 195, 195);
+}
+
+.black-btn:hover {
+  background: rgb(199, 30, 30) !important;
 }
 
 input[type="text"],
