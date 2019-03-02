@@ -18,79 +18,84 @@ class Screen extends Component {
       subjects: this.props.subjects,
       teachers: this.props.teachers
     };
-    return objector.tables.map(table => {
-      let base = objector[table.base].filter(i => i.id === table.baseValue)[0];
-      let rows = objector[table.rows];
-      let cols = objector[table.cols];
-      return (
-        <div key={table.id}>
-          <table>
-            <thead>
-              <tr>
-                <td>{base != null ? base.name : null}</td>
-                {cols.map(col => {
-                  return <td key={"c" + col.id}>{col.name}</td>;
+    return (
+      <div className="screen">
+        {objector.tables.map(table => {
+          let base = objector[table.base].filter(
+            i => i.id === table.baseValue
+          )[0];
+          let rows = objector[table.rows];
+          let cols = objector[table.cols];
+          return (
+            <table key={table.id} className="screen-table">
+              <thead>
+                <tr>
+                  <td>{base != null ? base.name : null}</td>
+                  {cols.map(col => {
+                    return <td key={"c" + col.id}>{col.name}</td>;
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map(row => {
+                  return (
+                    <tr key={"r" + row.id}>
+                      <td>{row.name}</td>
+                      {cols.map(col => {
+                        let block = objector["lectures"].filter(
+                          block =>
+                            block[listKey(table.base)] === base.id &&
+                            block[listKey(table.rows)] === row.id &&
+                            block[listKey(table.cols)] === col.id
+                        );
+                        if (block.length === 0) {
+                          // if (this.state.mode === "print") {
+                          //   return <td key={"emp" + col.id} />;
+                          // }
+                          return (
+                            <td
+                              onClick={() => {
+                                let params = {};
+                                params[listKey(table.base)] = base.id;
+                                params[listKey(table.rows)] = row.id;
+                                params[listKey(table.cols)] = col.id;
+                                //this.props.displayAddModal(params);
+                              }}
+                              key={"b" + col.id}
+                              className="table-block empty-block"
+                            >
+                              <button>+</button>
+                            </td>
+                          );
+                        } else {
+                          let lecture = block[0];
+                          let subject = this.props.subjects.filter(
+                            st => st.id === lecture.subject
+                          )[0].name;
+                          let batch = this.props.batches.filter(
+                            bh => bh.id === lecture.batch
+                          )[0].name;
+                          let teacher = this.props.teachers.filter(
+                            tr => tr.id === lecture.teacher
+                          )[0].name;
+                          return (
+                            <td key={"b" + col.id} className="table-block">
+                              <span>{batch}</span>
+                              <span>{subject}</span>
+                              <span>{teacher}</span>
+                            </td>
+                          );
+                        }
+                      })}
+                    </tr>
+                  );
                 })}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map(row => {
-                return (
-                  <tr key={"r" + row.id}>
-                    <td>{row.name}</td>
-                    {cols.map(col => {
-                      let block = objector["lectures"].filter(
-                        block =>
-                          block[listKey(table.base)] === base.id &&
-                          block[listKey(table.rows)] === row.id &&
-                          block[listKey(table.cols)] === col.id
-                      );
-                      if (block.length === 0) {
-                        // if (this.state.mode === "print") {
-                        //   return <td key={"emp" + col.id} />;
-                        // }
-                        return (
-                          <td
-                            onClick={() => {
-                              let params = {};
-                              params[listKey(table.base)] = base.id;
-                              params[listKey(table.rows)] = row.id;
-                              params[listKey(table.cols)] = col.id;
-                              //this.props.displayAddModal(params);
-                            }}
-                            key={"b" + col.id}
-                          >
-                            <button>+</button>
-                          </td>
-                        );
-                      } else {
-                        let lecture = block[0];
-                        let subject = this.props.subjects.filter(
-                          st => st.id === lecture.subject
-                        )[0].name;
-                        let batch = this.props.batches.filter(
-                          bh => bh.id === lecture.batch
-                        )[0].name;
-                        let teacher = this.props.teachers.filter(
-                          tr => tr.id === lecture.teacher
-                        )[0].name;
-                        return (
-                          <td key={"b" + col.id} className="table-block">
-                            <span>{batch}</span>
-                            <span>{subject}</span>
-                            <span>{teacher}</span>
-                          </td>
-                        );
-                      }
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      );
-    });
+              </tbody>
+            </table>
+          );
+        })}
+      </div>
+    );
   }
 }
 

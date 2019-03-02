@@ -1,18 +1,42 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+}
+.screen .screen-table {
+  margin: 1rem 0;
+}
+
 table {
-  border: 1px solid bisque;
 }
 
 table tr {
-  border: 1px solid salmon;
 }
 
 table td {
-  border: 1px solid darkcyan;
+  border: 2px solid rgb(104, 104, 104);
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 2px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .table-block {
   border: 1px solid cornflowerblue;
+  background: #fff;
+  min-width: 8rem;
+  padding: 1rem;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.empty-block {
+  min-width: 2rem;
+  padding: 1rem;
 }
 .table-block > span {
   display: block;
+  text-align: center;
+}
+.table-block > button {
+  display: block;
+  margin: 0 auto;
 }
