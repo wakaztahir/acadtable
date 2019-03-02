@@ -10,6 +10,7 @@ import {
   deleteCollection
 } from "../actions";
 
+import QuickSetup from "./QuickSetup";
 import "../resources/welcome.css";
 
 class Welcome extends Component {
@@ -83,7 +84,13 @@ class Welcome extends Component {
     if (this.state.ftDisplay === "create") {
       return this.displayCreate();
     } else if (this.state.ftDisplay === "quickSetup") {
-      return <div />;
+      return (
+        <QuickSetup
+          back={() => {
+            this.setState({ ftDisplay: null });
+          }}
+        />
+      );
     }
     return (
       <div>
@@ -106,7 +113,6 @@ class Welcome extends Component {
             onClick={() => {
               this.setState({ ftDisplay: "quickSetup" });
             }}
-            disabled={true}
           >
             Quick Setup
           </button>
