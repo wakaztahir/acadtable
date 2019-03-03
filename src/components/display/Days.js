@@ -77,6 +77,25 @@ class Days extends Component {
         <div style={{ margin: "1rem" }}>
           <button
             onClick={() => {
+              let days = [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ];
+              days.forEach(day => {
+                this.props.createDay({ name: day });
+              });
+            }}
+          >
+            Add All Days
+          </button>
+          &nbsp;
+          <button
+            onClick={() => {
               this.setState({
                 display: "create",
                 creator: { id: null, name: null, mode: "create" }
