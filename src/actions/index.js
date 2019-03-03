@@ -22,9 +22,12 @@ export const exampleCollection = () => {
   };
 };
 
-export const createCollection = (data = {}) => {
+export const createCollection = (data = {}, background = null) => {
   storage.init();
   let collection = storage.set(data);
+  if (background != null) {
+    return collection;
+  }
   return {
     type: types.CREATE_COLLECTION,
     payload: collection
@@ -83,8 +86,11 @@ export const deleteCollection = id => {
 
 //TABLE ACTIONS
 
-export const createTable = data => {
+export const createTable = (data, background = null) => {
   let table = storage.setDataItem("tables", null, data);
+  if (background !== null) {
+    return table;
+  }
   return {
     type: types.CREATE_TABLE,
     payload: table
@@ -131,8 +137,11 @@ export const deleteLecture = lectureID => {
 
 //DAY ACTIONS
 
-export const createDay = data => {
+export const createDay = (data, background = null) => {
   let day = storage.setDataItem("days", null, data);
+  if (background !== null) {
+    return day;
+  }
   return {
     type: types.CREATE_DAY,
     payload: day
@@ -155,8 +164,11 @@ export const deleteDay = dayID => {
 
 //TIME ACTIONS
 
-export const createTime = data => {
+export const createTime = (data, background = null) => {
   let time = storage.setDataItem("times", null, data);
+  if (background !== null) {
+    return time;
+  }
   return {
     type: types.CREATE_TIME,
     payload: time
@@ -179,8 +191,11 @@ export const deleteTime = timeID => {
 
 //PLACE ACTIONS
 
-export const createPlace = data => {
+export const createPlace = (data, background = null) => {
   let place = storage.setDataItem("places", null, data);
+  if (background !== null) {
+    return place;
+  }
   return {
     type: types.CREATE_PLACE,
     payload: place

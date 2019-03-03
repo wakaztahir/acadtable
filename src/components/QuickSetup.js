@@ -1,12 +1,25 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+
+import {
+  createCollection,
+  selectCollection,
+  createDay,
+  createTime,
+  createPlace,
+  createTable
+} from "../actions";
+
+import storage from "../actions/storage";
+
 const DefaultSetupSettings = {
   days: {
     from: "monday",
     to: "saturday"
   },
   times: {
-    fromTime: "06:00",
+    fromTime: "08:00",
     fromMeridian: "AM",
     toTime: "01:00",
     toMeridian: "PM",
@@ -14,7 +27,7 @@ const DefaultSetupSettings = {
   },
   places: {
     name: "Room",
-    from: "0",
+    from: "1",
     to: "10"
   },
   tables: {
@@ -272,12 +285,9 @@ class QuickSetup extends Component {
               style={{ textTransform: "capitalize" }}
             >
               {objects.map(obj => {
-                // if (
-                //   obj === this.state.tables.base ||
-                //   obj === this.state.tables.cols
-                // ) {
-                //   return null;
-                // }
+                if (obj === this.state.tables.base) {
+                  return null;
+                }
                 return (
                   <option key={"row" + obj} value={obj}>
                     {obj}
@@ -300,12 +310,12 @@ class QuickSetup extends Component {
               style={{ textTransform: "capitalize" }}
             >
               {objects.map(obj => {
-                // if (
-                //   obj === this.state.tables.rows ||
-                //   obj === this.state.tables.base
-                // ) {
-                //   return null;
-                // }
+                if (
+                  obj === this.state.tables.rows ||
+                  obj === this.state.tables.base
+                ) {
+                  return null;
+                }
                 return (
                   <option key={"col" + obj} value={obj}>
                     {obj}
@@ -322,7 +332,7 @@ class QuickSetup extends Component {
           </button>
           &nbsp;
           <button
-            onClick={this.finish}
+            onClick={() => this.finish()}
             className="black-btn"
             title="Default value will be used if a value was found to be invalid"
           >
@@ -332,7 +342,116 @@ class QuickSetup extends Component {
       </div>
     );
   }
-  finish() {}
+  finish() {
+    let days = [
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+      "sunday"
+    ];
+    days = days.slice(0, days.indexOf(this.state.days.to) + 1);
+    const timeChanger = (time, modifier) => {
+      time = parseInt(time);
+      if (time === 12) {
+        time = 0;
+      }
+      if (modifier === "PM") {
+        time += 12;
+      }
+      return time;
+    };
+    let from = new Date();
+    from.setHours(
+      timeChanger(this.state.times.fromTime, this.state.times.fromMeridian),
+      0,
+      0,
+      0
+    );
+    let to = new Date();
+    to.setHours(
+      timeChanger(this.state.times.toTime, this.state.times.toMeridian),
+      0,
+      0,
+      0
+    );
+    let times = [];
+    const timeStringer = time => {
+      let hours = time.getHours() > 12 ? time.getHours() - 12 : time.getHours();
+      time = `${hours.toString().length === 1 ? `0${hours}` : hours}:${
+        time.getMinutes().toString().length === 1
+          ? `0${time.getMinutes()}`
+          : time.getMinutes()
+      } ${time.getHours() > 12 ? "PM" : "AM"}`;
+      return time;
+    };
+    while (from.getTime() < to.getTime()) {
+      let start = timeStringer(from);
+      from.setMinutes(
+        from.getMinutes() + parseInt(this.state.times.lectureTime)
+      );
+      times.push(start + " - " + timeStringer(from));
+    }
+    let places = [];
+    for (
+      let i = parseInt(this.state.places.from);
+      i <= parseInt(this.state.places.to);
+      i++
+    ) {
+      places.push(`${this.state.places.name} ${i}`);
+    }
+    /// CREATING A COLLECTION
+    let collection = createCollection(
+      {
+        name: "Quick Collection",
+        desc: `Collection created on ${new Date().toLocaleDateString()}. Created with love and forged with the heart of pain , no i am just kidding.`
+      },
+      true
+    );
+    days = days.map(day => {
+      return createDay(
+        {
+          name: `${day[0].toUpperCase()}${day.substr(1, day.length)}`
+        },
+        true
+      );
+    });
+    times = times.map(time => {
+      return createTime(
+        {
+          name: time
+        },
+        true
+      );
+    });
+    places = places.map(place => {
+      return createPlace(
+        {
+          name: place
+        },
+        true
+      );
+    });
+    /// CREATING TABLES
+    let tables = [];
+    let objector = { days, times, places };
+    let tFor = objector[this.state.tables.base];
+    tFor.forEach(base => {
+      tables.push({
+        base: this.state.tables.base,
+        baseValue: base.id,
+        rows: this.state.tables.rows,
+        cols: this.state.tables.cols
+      });
+    });
+    tables = tables.map(table => {
+      return createTable(table, true);
+    });
+    storage.save();
+    this.props.selectCollection(collection.id);
+  }
   stage() {
     switch (this.state.stage) {
       case null:
@@ -358,4 +477,9 @@ class QuickSetup extends Component {
   }
 }
 
-export default QuickSetup;
+export default connect(
+  null,
+  {
+    selectCollection
+  }
+)(QuickSetup);

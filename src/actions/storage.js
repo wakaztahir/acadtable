@@ -134,6 +134,7 @@ class user {
     return this.collections.getDataItem(id);
   }
   set(data) {
+    data.id = this.id;
     return this.collections.setDataItem(this.id, data);
   }
   getData(id = this.id) {
