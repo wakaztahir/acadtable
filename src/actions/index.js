@@ -9,13 +9,19 @@ window.onunload = storage.save;
 
 //SYSTEM ACTIONS
 
-export const showModal = (type = "waiting", content = null, buttons = null) => {
+export const showModal = (
+  type = "waiting",
+  content = null,
+  actions = null,
+  buttons = null
+) => {
   return {
     type: types.SHOW_MODAL,
     payload: {
       display: true,
       type,
       content,
+      actions,
       buttons
     }
   };
