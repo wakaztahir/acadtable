@@ -14,6 +14,8 @@ import {
 
 import "../../resources/screen.css";
 
+import "../../resources/render.css";
+
 class Screen extends Component {
   state = {
     tableMode: "",
@@ -46,7 +48,7 @@ class Screen extends Component {
             onClick={() => {
               this.props.showModal();
               this.setState({
-                tableMode: "pdfrender",
+                tableMode: "pdfrender render",
                 downloader: downloadPDF,
                 download: true
               });
@@ -58,7 +60,7 @@ class Screen extends Component {
             onClick={() => {
               this.props.showModal();
               this.setState({
-                tableMode: "imgrender",
+                tableMode: "imgrender render",
                 downloader: downloadJPEG,
                 download: true
               });
@@ -70,7 +72,7 @@ class Screen extends Component {
             onClick={() => {
               this.props.showModal();
               this.setState({
-                tableMode: "imgrender",
+                tableMode: "imgrender render",
                 downloader: downloadPNG,
                 download: true
               });
@@ -87,6 +89,13 @@ class Screen extends Component {
               )[0];
               let rows = objector[table.rows];
               let cols = objector[table.cols];
+              if (base == null || rows == null || cols == null) {
+                return (
+                  <div className="warning screen-element">
+                    There was a problem with one of the tables
+                  </div>
+                );
+              }
               return (
                 <table key={table.id} className="screen-table">
                   <thead>

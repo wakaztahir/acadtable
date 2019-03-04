@@ -146,6 +146,7 @@ class Days extends Component {
 
 const mapStateToProps = state => {
   return {
+    lectures: state.Lectures,
     days: state.Days
   };
 };

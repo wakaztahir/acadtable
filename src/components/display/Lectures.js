@@ -177,29 +177,51 @@ class Lectures extends Component {
           {this.props.lectures.map(lecture => {
             let subject = this.props.subjects.filter(
               st => st.id === lecture.subject
-            )[0].name;
+            )[0];
             let batch = this.props.batches.filter(
               bh => bh.id === lecture.batch
-            )[0].name;
+            )[0];
             let teacher = this.props.teachers.filter(
               tr => tr.id === lecture.teacher
-            )[0].name;
-            let time = this.props.times.filter(tm => tm.id === lecture.time)[0]
-              .name;
+            )[0];
+            let time = this.props.times.filter(tm => tm.id === lecture.time)[0];
             let place = this.props.places.filter(
               pc => pc.id === lecture.place
-            )[0].name;
-            let day = this.props.days.filter(dy => dy.id === lecture.day)[0]
-              .name;
+            )[0];
+            let day = this.props.days.filter(dy => dy.id === lecture.day)[0];
             return (
               <div key={lecture.id} className="block">
                 <div className="block-txt">
-                  {subject != null ? <span>{subject}</span> : null}
-                  {batch != null ? <span>{batch}</span> : null}
-                  {teacher != null ? <span>{teacher}</span> : null}
-                  {time != null ? <span>{time}</span> : null}
-                  {place != null ? <span>{place}</span> : null}
-                  {day != null ? <span>{day}</span> : null}
+                  {subject != null ? (
+                    <span>{subject.name}</span>
+                  ) : (
+                    <span className="warning">Subject Error </span>
+                  )}
+                  {batch != null ? (
+                    <span>{batch.name}</span>
+                  ) : (
+                    <span className="warning">Batch Error </span>
+                  )}
+                  {teacher != null ? (
+                    <span>{teacher.name}</span>
+                  ) : (
+                    <span className="warning">Teacher Error </span>
+                  )}
+                  {time != null ? (
+                    <span>{time.name}</span>
+                  ) : (
+                    <span className="warning">Time Error </span>
+                  )}
+                  {place != null ? (
+                    <span>{place.name}</span>
+                  ) : (
+                    <span className="warning">Place Error </span>
+                  )}
+                  {day != null ? (
+                    <span>{day.name}</span>
+                  ) : (
+                    <span className="warning">Day Error </span>
+                  )}
                 </div>
                 <div className="block-btns">
                   <button

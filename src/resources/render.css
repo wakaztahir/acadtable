@@ -1,7 +1,9 @@
 .pdfrender .screen-table {
   margin: 0;
 }
-.imgrender .empty-block > *,
-.pdfrender .empty-block > * {
+.render .empty-block > * {
+  display: none;
+}
+.render .screen-element {
   display: none;
 }
