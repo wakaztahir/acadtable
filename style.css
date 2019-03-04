@@ -255,3 +255,10 @@ span.info:hover > span {
   color: rgb(179, 178, 178);
   margin: 0 0.1em;
 }
+
+.warning {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgb(167, 114, 16);
+  border-radius: 5px;
+}
