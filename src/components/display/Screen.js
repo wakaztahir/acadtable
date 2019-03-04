@@ -23,8 +23,8 @@ class Screen extends Component {
   componentDidUpdate() {
     if (this.state.download) {
       this.state.downloader(this.refs.screen, () => {
-        this.setState({ tableMode: "", downloader: null, download: false });
         this.props.unshowModal();
+        this.setState({ tableMode: "", downloader: null, download: false });
       });
     }
   }
