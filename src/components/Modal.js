@@ -1,85 +1,35 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+
+/*
+INITIAL MODAL STATE
+modal: {
+    display: false,
+    type: null,
+    message: null,
+    buttons: null
+  }
+*/
+
 class Modal extends Component {
-  state = {
-    modalType: this.props.type == null ? "message" : this.props.type
-  };
-  contentModal(content) {
-    return (
-      <div className="modal" display={this.state.display ? "block" : "none"}>
-        <div className="modal-inside">
-          {this.props.cancel != null ? (
-            <div onClick={this.props.cancel} className="modal-x">
-              X
-            </div>
-          ) : null}
-          {content}
-        </div>
-      </div>
-    );
-  }
-  messageModal(message = "", okFunction = () => {}) {
-    return this.contentModal(
-      <div>
-        <div className="modal-message">{message}</div>
-        <div className="modal-buttons">
-          <button
-            onClick={() => {
-              okFunction();
-            }}
-          >
-            Ok
-          </button>
-        </div>
-      </div>
-    );
-  }
-  confirmModal(
-    message = "Are you sure ?",
-    yesFunction = () => {},
-    cancelFunction = () => {}
-  ) {
-    return this.contentModal(
-      <div>
-        <div className="modal-message">{message}</div>
-        <div className="modal-buttons">
-          <button
-            onClick={() => {
-              yesFunction();
-            }}
-          >
-            Yes
-          </button>
-          <button
-            onClick={() => {
-              cancelFunction();
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    );
-  }
   render() {
-    if (this.props.display) {
-      switch (this.state.modalType) {
-        case "message":
-        default:
-          return this.messageModal(this.props.message);
-        case "confirm":
-          return this.confirmModal(
-            this.props.message,
-            this.props.yes,
-            this.props.cancel
-          );
-        case "content":
-          return this.contentModal(this.props.children);
-      }
+    if (this.props.modal.display) {
+      return (
+        <div className="modal">
+          <div className="modal-inside">Modal</div>
+        </div>
+      );
     } else {
       return null;
     }
   }
 }
 
-export default Modal;
+const mapStateToProps = state => {
+  return {
+    modal: state.System.modal
+  };
+};
+
+export default connect(mapStateToProps)(Modal);

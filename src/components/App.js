@@ -4,15 +4,18 @@ import Welcome from "./Welcome";
 
 import Display from "./display";
 
+import Modal from "./Modal";
+
 import { connect } from "react-redux";
 
 class App extends Component {
   render() {
-    if (this.props.user == null) {
-      return <Welcome />;
-    } else {
-      return <Display />;
-    }
+    return (
+      <div>
+        {this.props.user == null ? <Welcome /> : <Display />}
+        <Modal />
+      </div>
+    );
   }
 }
 

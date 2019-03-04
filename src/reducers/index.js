@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import System from "./System";
 import User from "./User";
 import Collections from "./Collections";
 import Tables from "./Tables";
@@ -11,6 +12,7 @@ import Subjects from "./Subjects";
 import Teachers from "./Teachers";
 
 export default combineReducers({
+  System,
   User,
   Collections,
   Tables,

@@ -406,7 +406,7 @@ class QuickSetup extends Component {
     let collection = createCollection(
       {
         name: "Quick Collection",
-        desc: `Collection created on ${new Date().toLocaleDateString()}. Created with love and forged with the heart of pain , no i am just kidding.`
+        desc: `Collection created on ${new Date().toLocaleDateString()} , Created with love.`
       },
       true
     );

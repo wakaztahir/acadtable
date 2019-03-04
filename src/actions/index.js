@@ -7,7 +7,32 @@ import storage from "./storage";
 window.onbeforeunload = storage.save;
 window.onunload = storage.save;
 
-//COLLECTION ACTIONS
+//SYSTEM ACTIONS
+
+export const showModal = (type = "waiting", message = null, buttons = null) => {
+  return {
+    type: types.SHOW_MODAL,
+    payload: {
+      display: true,
+      type,
+      message,
+      buttons
+    }
+  };
+};
+export const unshowModal = () => {
+  return {
+    type: types.UNSHOW_MODAL,
+    payload: {
+      display: false,
+      type: null,
+      message: null,
+      buttons: null
+    }
+  };
+};
+
+//USER ACTIONS
 export const exampleCollection = () => {
   storage.init("example");
   let collection = storage.set({

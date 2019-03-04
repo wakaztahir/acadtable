@@ -5,6 +5,9 @@
 .screen .screen-table {
   margin: 1rem 0;
 }
+.pdfrender .screen-table {
+  margin: 0;
+}
 
 table {
 }
@@ -30,6 +33,10 @@ table td {
 .empty-block {
   min-width: 2rem;
   padding: 0.6rem;
+}
+.render .empty-block > *,
+.pdfrender .empty-block > * {
+  display: none;
 }
 .table-block > span {
   display: block;

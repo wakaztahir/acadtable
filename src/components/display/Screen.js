@@ -2,11 +2,32 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
+import { showModal, unshowModal } from "../../actions";
+
 import { listKey } from "../../actions/helpers";
+
+import {
+  downloadPNG,
+  downloadJPEG,
+  downloadPDF
+} from "../../actions/downloader";
 
 import "../../resources/screen.css";
 
 class Screen extends Component {
+  state = {
+    tableMode: "",
+    downloader: null,
+    download: false
+  };
+  componentDidUpdate() {
+    if (this.state.download) {
+      this.state.downloader(this.refs.screen, () => {
+        this.setState({ tableMode: "", downloader: null, download: false });
+        this.props.unshowModal();
+      });
+    }
+  }
   render() {
     let objector = {
       tables: this.props.tables,
@@ -19,81 +40,123 @@ class Screen extends Component {
       teachers: this.props.teachers
     };
     return (
-      <div className="screen">
-        {objector.tables.map(table => {
-          let base = objector[table.base].filter(
-            i => i.id === table.baseValue
-          )[0];
-          let rows = objector[table.rows];
-          let cols = objector[table.cols];
-          return (
-            <table key={table.id} className="screen-table">
-              <thead>
-                <tr>
-                  <td>{base != null ? base.name : null}</td>
-                  {cols.map(col => {
-                    return <td key={"c" + col.id}>{col.name}</td>;
-                  })}
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map(row => {
-                  return (
-                    <tr key={"r" + row.id}>
-                      <td>{row.name}</td>
+      <div>
+        <div>
+          <button
+            onClick={() => {
+              this.props.showModal();
+              this.setState({
+                tableMode: "pdfrender",
+                downloader: downloadPDF,
+                download: true
+              });
+            }}
+          >
+            Download PDF
+          </button>
+          <button
+            onClick={() => {
+              this.props.showModal();
+              this.setState({
+                tableMode: "render",
+                downloader: downloadJPEG,
+                download: true
+              });
+            }}
+          >
+            Download JPEG
+          </button>
+          <button
+            onClick={() => {
+              this.props.showModal();
+              this.setState({
+                tableMode: "render",
+                downloader: downloadPNG,
+                download: true
+              });
+            }}
+          >
+            Download PNG
+          </button>
+        </div>
+        <div>
+          <div className={`screen ${this.state.tableMode}`} ref="screen">
+            {objector.tables.map(table => {
+              let base = objector[table.base].filter(
+                i => i.id === table.baseValue
+              )[0];
+              let rows = objector[table.rows];
+              let cols = objector[table.cols];
+              return (
+                <table key={table.id} className="screen-table">
+                  <thead>
+                    <tr>
+                      <td>{base != null ? base.name : null}</td>
                       {cols.map(col => {
-                        let block = objector["lectures"].filter(
-                          block =>
-                            block[listKey(table.base)] === base.id &&
-                            block[listKey(table.rows)] === row.id &&
-                            block[listKey(table.cols)] === col.id
-                        );
-                        if (block.length === 0) {
-                          // if (this.state.mode === "print") {
-                          //   return <td key={"emp" + col.id} />;
-                          // }
-                          return (
-                            <td
-                              onClick={() => {
-                                let params = {};
-                                params[listKey(table.base)] = base.id;
-                                params[listKey(table.rows)] = row.id;
-                                params[listKey(table.cols)] = col.id;
-                                //this.props.displayAddModal(params);
-                              }}
-                              key={"b" + col.id}
-                              className="table-block empty-block"
-                            >
-                              <button>+</button>
-                            </td>
-                          );
-                        } else {
-                          let lecture = block[0];
-                          let subject = this.props.subjects.filter(
-                            st => st.id === lecture.subject
-                          )[0].name;
-                          let batch = this.props.batches.filter(
-                            bh => bh.id === lecture.batch
-                          )[0].name;
-                          let teacher = this.props.teachers.filter(
-                            tr => tr.id === lecture.teacher
-                          )[0].name;
-                          return (
-                            <td key={"b" + col.id} className="table-block">
-                              <span>{batch}</span>
-                              <span>{subject}</span>
-                              <span>{teacher}</span>
-                            </td>
-                          );
-                        }
+                        return <td key={"c" + col.id}>{col.name}</td>;
                       })}
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          );
-        })}
+                  </thead>
+                  <tbody>
+                    {rows.map(row => {
+                      return (
+                        <tr key={"r" + row.id}>
+                          <td>{row.name}</td>
+                          {cols.map(col => {
+                            let block = objector["lectures"].filter(
+                              block =>
+                                block[listKey(table.base)] === base.id &&
+                                block[listKey(table.rows)] === row.id &&
+                                block[listKey(table.cols)] === col.id
+                            );
+                            if (block.length === 0) {
+                              // if (this.state.mode === "print") {
+                              //   return <td key={"emp" + col.id} />;
+                              // }
+                              return (
+                                <td
+                                  onClick={() => {
+                                    let params = {};
+                                    params[listKey(table.base)] = base.id;
+                                    params[listKey(table.rows)] = row.id;
+                                    params[listKey(table.cols)] = col.id;
+                                    //this.props.displayAddModal(params);
+                                  }}
+                                  key={"b" + col.id}
+                                  className="table-block empty-block"
+                                >
+                                  <button>+</button>
+                                </td>
+                              );
+                            } else {
+                              let lecture = block[0];
+                              let subject = this.props.subjects.filter(
+                                st => st.id === lecture.subject
+                              )[0].name;
+                              let batch = this.props.batches.filter(
+                                bh => bh.id === lecture.batch
+                              )[0].name;
+                              let teacher = this.props.teachers.filter(
+                                tr => tr.id === lecture.teacher
+                              )[0].name;
+                              return (
+                                <td key={"b" + col.id} className="table-block">
+                                  <span>{batch}</span>
+                                  <span>{subject}</span>
+                                  <span>{teacher}</span>
+                                </td>
+                              );
+                            }
+                          })}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   }
@@ -111,58 +174,10 @@ const mapStateToProps = state => {
     teachers: state.Teachers
   };
 };
-
-// downloadPDF() {
-//   let screen = this.refs.screen;
-//   let doc = new jsPDF({ orientation: "landscape" });
-//   doc.fromHTML(screen);
-//   doc.save("file.pdf");
-// }
-// downloadPNG() {
-//   let screen = this.refs.screen;
-//   domtoimage
-//     .toPng(screen, { bgcolor: "#fff" })
-//     .then(function(dataUrl) {
-//       let link = document.createElement("a");
-//       link.href = dataUrl;
-//       link.download = "file.png";
-//       link.target = "_blank";
-//       link.click();
-//     })
-//     .catch(error => {
-//       console.error("Error converting to PNG Image");
-//     });
-// }
-// downloadJPEG() {
-//   let screen = this.refs.screen;
-//   domtoimage
-//     .toJpeg(screen, { bgcolor: "#fff" })
-//     .then(function(dataUrl) {
-//       let link = document.createElement("a");
-//       link.download = "file.jpeg";
-//       link.href = dataUrl;
-//       link.target = "_blank";
-//       link.click();
-//     })
-//     .catch(error => {
-//       console.error("Error converting to JPEG Image");
-//     });
-// }
-// componentDidUpdate() {
-//   if (this.state.download) {
-//     switch (this.state.downloadType) {
-//       case "pdf":
-//       default:
-//         this.downloadPDF();
-//         break;
-//       case "png":
-//         this.downloadPNG();
-//         break;
-//       case "jpeg":
-//         this.downloadJPEG();
-//         break;
-//     }
-//   }
-// }
-
-export default connect(mapStateToProps)(Screen);
+export default connect(
+  mapStateToProps,
+  {
+    showModal,
+    unshowModal
+  }
+)(Screen);
