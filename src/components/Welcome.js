@@ -7,7 +7,8 @@ import {
   selectCollection,
   exampleCollection,
   copyCollection,
-  deleteCollection
+  deleteCollection,
+  showModal
 } from "../actions";
 
 import QuickSetup from "./QuickSetup";
@@ -174,7 +175,15 @@ class Welcome extends Component {
                   <button onClick={() => this.props.copyCollection(coll.id)}>
                     Copy
                   </button>
-                  <button onClick={() => this.props.deleteCollection(coll.id)}>
+                  <button
+                    onClick={() => {
+                      this.props.showModal("confirm", "Are you sure ?", [
+                        () => {
+                          this.props.deleteCollection(coll.id);
+                        }
+                      ]);
+                    }}
+                  >
                     Delete
                   </button>
                 </div>
@@ -216,6 +225,7 @@ export default connect(
     selectCollection,
     copyCollection,
     exampleCollection,
-    deleteCollection
+    deleteCollection,
+    showModal
   }
 )(Welcome);

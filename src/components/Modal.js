@@ -22,21 +22,25 @@ class Modal extends Component {
   }
   content(
     content = this.props.modal.content,
-    buttons = this.props.modal.buttons
+    buttons = this.props.modal.buttons || []
   ) {
     return (
       <div>
-        {content}
-        {buttons.map(button => {
-          return (
-            <button
-              onClick={button.click}
-              className={button.type === "black" ? "black-btn" : ""}
-            >
-              {button.value}
-            </button>
-          );
-        })}
+        <div>{content}</div>
+        <br />
+        <div>
+          {buttons.map(button => {
+            return (
+              <button
+                key={button.value + "-btn"}
+                onClick={button.click}
+                className={button.type === "black" ? "black-btn" : ""}
+              >
+                {button.value}
+              </button>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -44,26 +48,32 @@ class Modal extends Component {
     let content = this.props.modal.content;
     let buttons = [
       {
-        value: "Cancel",
-        click: this.props.unshowModal
-      },
-      {
         value: "No",
         click:
           this.props.modal.actions != null
-            ? this.props.modal.actions[1]
-            : () => {}
+            ? () => {
+                if (this.props.modal.actions[1] != null) {
+                  this.props.modal.actions[1]();
+                }
+                this.props.unshowModal();
+              }
+            : this.props.unshowModal
       },
       {
         type: "black",
         value: "Yes",
         click:
           this.props.modal.actions != null
-            ? this.props.modal.actions[0]
+            ? () => {
+                if (this.props.modal.actions[0] != null) {
+                  this.props.modal.actions[0]();
+                }
+                this.props.unshowModal();
+              }
             : () => {}
       }
     ];
-    this.content(content, buttons);
+    return this.content(content, buttons);
   }
   implement() {
     switch (this.props.modal.type) {
