@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import storage from "../../actions/storage";
 
-import { createDay, updateDay, deleteDay } from "../../actions";
+import { createDay, updateDay, swapDay, deleteDay } from "../../actions";
 
 class Days extends Component {
   state = {
@@ -106,13 +106,25 @@ class Days extends Component {
           </button>
         </div>
         <div className="block-list">
-          {this.props.days.map(day => {
+          {this.props.days.map((day, index) => {
             return (
               <div key={day.id} className="block">
                 <div className="block-txt">
                   <span>{day.name}</span>
                 </div>
                 <div className="block-btns">
+                  {index === 0 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapDay(
+                          day.id,
+                          this.props.days[index - 1].id
+                        );
+                      }}
+                    >
+                      {"<"}
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       this.setState({
@@ -134,6 +146,18 @@ class Days extends Component {
                   >
                     Delete
                   </button>
+                  {index === this.props.days.length - 1 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapDay(
+                          day.id,
+                          this.props.days[index + 1].id
+                        );
+                      }}
+                    >
+                      >
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -156,6 +180,7 @@ export default connect(
   {
     createDay,
     updateDay,
+    swapDay,
     deleteDay
   }
 )(Days);

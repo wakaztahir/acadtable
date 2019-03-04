@@ -4,7 +4,12 @@ import { connect } from "react-redux";
 
 import storage from "../../actions/storage";
 
-import { createSubject, updateSubject, deleteSubject } from "../../actions";
+import {
+  createSubject,
+  updateSubject,
+  swapSubject,
+  deleteSubject
+} from "../../actions";
 
 class Subjects extends Component {
   state = {
@@ -87,13 +92,25 @@ class Subjects extends Component {
           </button>
         </div>
         <div className="block-list">
-          {this.props.subjects.map(subject => {
+          {this.props.subjects.map((subject, index) => {
             return (
               <div key={subject.id} className="block">
                 <div className="block-txt">
                   <span>{subject.name}</span>
                 </div>
                 <div className="block-btns">
+                  {index === 0 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapSubject(
+                          subject.id,
+                          this.props.subjects[index - 1].id
+                        );
+                      }}
+                    >
+                      {"<"}
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       this.setState({
@@ -115,6 +132,18 @@ class Subjects extends Component {
                   >
                     Delete
                   </button>
+                  {index === this.props.subjects.length - 1 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapSubject(
+                          subject.id,
+                          this.props.subjects[index + 1].id
+                        );
+                      }}
+                    >
+                      >
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -136,6 +165,7 @@ export default connect(
   {
     createSubject,
     updateSubject,
+    swapSubject,
     deleteSubject
   }
 )(Subjects);

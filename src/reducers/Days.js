@@ -3,6 +3,8 @@ import types from "../actions/types";
 export default (state = [], action) => {
   switch (action.type) {
     case types.SELECT_COLLECTION:
+    case types.SWAP_DAY:
+      console.log(action.payload.days);
       return Object.values(action.payload.days);
     case types.CREATE_DAY:
       return [...state, action.payload];

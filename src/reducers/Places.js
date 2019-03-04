@@ -3,6 +3,7 @@ import types from "../actions/types";
 export default (state = [], action) => {
   switch (action.type) {
     case types.SELECT_COLLECTION:
+    case types.SWAP_PLACE:
       return Object.values(action.payload.places);
     case types.CREATE_PLACE:
       return [...state, action.payload];

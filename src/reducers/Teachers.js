@@ -3,6 +3,7 @@ import types from "../actions/types";
 export default (state = [], action) => {
   switch (action.type) {
     case types.SELECT_COLLECTION:
+    case types.SWAP_TEACHER:
       return Object.values(action.payload.teachers);
     case types.CREATE_TEACHER:
       return [...state, action.payload];

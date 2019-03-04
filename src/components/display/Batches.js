@@ -4,7 +4,12 @@ import { connect } from "react-redux";
 
 import storage from "../../actions/storage";
 
-import { createBatch, updateBatch, deleteBatch } from "../../actions";
+import {
+  createBatch,
+  updateBatch,
+  swapBatch,
+  deleteBatch
+} from "../../actions";
 
 class Batches extends Component {
   state = {
@@ -87,13 +92,25 @@ class Batches extends Component {
           </button>
         </div>
         <div className="block-list">
-          {this.props.batches.map(batch => {
+          {this.props.batches.map((batch, index) => {
             return (
               <div key={batch.id} className="block">
                 <div className="block-txt">
                   <span>{batch.name}</span>
                 </div>
                 <div className="block-btns">
+                  {index === 0 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapBatch(
+                          batch.id,
+                          this.props.batches[index - 1].id
+                        );
+                      }}
+                    >
+                      {"<"}
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       this.setState({
@@ -115,6 +132,18 @@ class Batches extends Component {
                   >
                     Delete
                   </button>
+                  {index === this.props.batches.length - 1 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapBatch(
+                          batch.id,
+                          this.props.batches[index + 1].id
+                        );
+                      }}
+                    >
+                      >
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -136,6 +165,7 @@ export default connect(
   {
     createBatch,
     updateBatch,
+    swapBatch,
     deleteBatch
   }
 )(Batches);

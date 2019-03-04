@@ -4,7 +4,12 @@ import { connect } from "react-redux";
 
 import storage from "../../actions/storage";
 
-import { createTeacher, updateTeacher, deleteTeacher } from "../../actions";
+import {
+  createTeacher,
+  updateTeacher,
+  swapTeacher,
+  deleteTeacher
+} from "../../actions";
 
 class Teachers extends Component {
   state = {
@@ -87,13 +92,25 @@ class Teachers extends Component {
           </button>
         </div>
         <div className="block-list">
-          {this.props.teachers.map(teacher => {
+          {this.props.teachers.map((teacher, index) => {
             return (
               <div key={teacher.id} className="block">
                 <div className="block-txt">
                   <span>{teacher.name}</span>
                 </div>
                 <div className="block-btns">
+                  {index === 0 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapTeacher(
+                          teacher.id,
+                          this.props.teachers[index - 1].id
+                        );
+                      }}
+                    >
+                      {"<"}
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       this.setState({
@@ -115,6 +132,18 @@ class Teachers extends Component {
                   >
                     Delete
                   </button>
+                  {index === this.props.teachers.length - 1 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapTeacher(
+                          teacher.id,
+                          this.props.teachers[index + 1].id
+                        );
+                      }}
+                    >
+                      >
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -136,6 +165,7 @@ export default connect(
   {
     createTeacher,
     updateTeacher,
+    swapTeacher,
     deleteTeacher
   }
 )(Teachers);

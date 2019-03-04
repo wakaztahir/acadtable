@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import storage from "../../actions/storage";
 
-import { createTime, updateTime, deleteTime } from "../../actions";
+import { createTime, updateTime, swapTime, deleteTime } from "../../actions";
 
 class Times extends Component {
   state = {
@@ -87,13 +87,25 @@ class Times extends Component {
           </button>
         </div>
         <div className="block-list">
-          {this.props.times.map(time => {
+          {this.props.times.map((time, index) => {
             return (
               <div key={time.id} className="block">
                 <div className="block-txt">
                   <span>{time.name}</span>
                 </div>
                 <div className="block-btns">
+                  {index === 0 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapTime(
+                          time.id,
+                          this.props.times[index - 1].id
+                        );
+                      }}
+                    >
+                      {"<"}
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       this.setState({
@@ -115,6 +127,18 @@ class Times extends Component {
                   >
                     Delete
                   </button>
+                  {index === this.props.times.length - 1 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapTime(
+                          time.id,
+                          this.props.times[index + 1].id
+                        );
+                      }}
+                    >
+                      >
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -136,6 +160,7 @@ export default connect(
   {
     createTime,
     updateTime,
+    swapTime,
     deleteTime
   }
 )(Times);

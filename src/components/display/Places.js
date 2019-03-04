@@ -4,7 +4,12 @@ import { connect } from "react-redux";
 
 import storage from "../../actions/storage";
 
-import { createPlace, updatePlace, deletePlace } from "../../actions";
+import {
+  createPlace,
+  updatePlace,
+  swapPlace,
+  deletePlace
+} from "../../actions";
 
 class Places extends Component {
   state = {
@@ -87,13 +92,25 @@ class Places extends Component {
           </button>
         </div>
         <div className="block-list">
-          {this.props.places.map(place => {
+          {this.props.places.map((place, index) => {
             return (
               <div key={place.id} className="block">
                 <div className="block-txt">
                   <span>{place.name}</span>
                 </div>
                 <div className="block-btns">
+                  {index === 0 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapPlace(
+                          place.id,
+                          this.props.places[index - 1].id
+                        );
+                      }}
+                    >
+                      {"<"}
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       this.setState({
@@ -115,6 +132,18 @@ class Places extends Component {
                   >
                     Delete
                   </button>
+                  {index === this.props.places.length - 1 ? null : (
+                    <button
+                      onClick={() => {
+                        this.props.swapPlace(
+                          place.id,
+                          this.props.places[index + 1].id
+                        );
+                      }}
+                    >
+                      >
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -136,6 +165,7 @@ export default connect(
   {
     createPlace,
     updatePlace,
+    swapPlace,
     deletePlace
   }
 )(Places);

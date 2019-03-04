@@ -156,7 +156,7 @@ class user {
     return this.session[key].getData();
   }
   setDataKey(key, data) {
-    this.session[key] = data;
+    this.session[key].setData(data);
   }
   getDataItem(key, id) {
     return this.session[key].getDataItem(id);

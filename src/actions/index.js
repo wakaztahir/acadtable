@@ -185,6 +185,29 @@ export const updateDay = (dayID, data) => {
     payload: day
   };
 };
+export const swapDay = (dayID, withID) => {
+  let days = Object.values(storage.getDataKey("days"));
+  let current = days.filter(day => day.id === dayID)[0];
+  let future = days.filter(day => day.id === withID)[0];
+  for (let i = 0; i < days.length; i++) {
+    if (days[i].id === dayID) {
+      days[i] = future;
+    } else if (days[i].id === withID) {
+      days[i] = current;
+    }
+  }
+  let newDays = {};
+  days.forEach(day => {
+    newDays[day.id] = day;
+  });
+  storage.setDataKey("days", newDays);
+  return {
+    type: types.SWAP_DAY,
+    payload: {
+      days: storage.getDataKey("days")
+    }
+  };
+};
 export const deleteDay = dayID => {
   let day = storage.delDataItem("days", dayID);
   return {
@@ -210,6 +233,29 @@ export const updateTime = (timeID, data) => {
   return {
     type: types.UPDATE_TIME,
     payload: time
+  };
+};
+export const swapTime = (timeID, withID) => {
+  let times = Object.values(storage.getDataKey("times"));
+  let current = times.filter(time => time.id === timeID)[0];
+  let future = times.filter(time => time.id === withID)[0];
+  for (let i = 0; i < times.length; i++) {
+    if (times[i].id === timeID) {
+      times[i] = future;
+    } else if (times[i].id === withID) {
+      times[i] = current;
+    }
+  }
+  let newTimes = {};
+  times.forEach(time => {
+    newTimes[time.id] = time;
+  });
+  storage.setDataKey("times", newTimes);
+  return {
+    type: types.SWAP_TIME,
+    payload: {
+      times: storage.getDataKey("times")
+    }
   };
 };
 export const deleteTime = timeID => {
@@ -239,6 +285,29 @@ export const updatePlace = (placeID, data) => {
     payload: place
   };
 };
+export const swapPlace = (placeID, withID) => {
+  let places = Object.values(storage.getDataKey("places"));
+  let current = places.filter(place => place.id === placeID)[0];
+  let future = places.filter(place => place.id === withID)[0];
+  for (let i = 0; i < places.length; i++) {
+    if (places[i].id === placeID) {
+      places[i] = future;
+    } else if (places[i].id === withID) {
+      places[i] = current;
+    }
+  }
+  let newPlaces = {};
+  places.forEach(place => {
+    newPlaces[place.id] = place;
+  });
+  storage.setDataKey("places", newPlaces);
+  return {
+    type: types.SWAP_PLACE,
+    payload: {
+      places: storage.getDataKey("places")
+    }
+  };
+};
 export const deletePlace = placeID => {
   let place = storage.delDataItem("places", placeID);
   return {
@@ -261,6 +330,29 @@ export const updateBatch = (batchID, data) => {
   return {
     type: types.UPDATE_BATCH,
     payload: batch
+  };
+};
+export const swapBatch = (batchID, withID) => {
+  let batches = Object.values(storage.getDataKey("batches"));
+  let current = batches.filter(batch => batch.id === batchID)[0];
+  let future = batches.filter(batch => batch.id === withID)[0];
+  for (let i = 0; i < batches.length; i++) {
+    if (batches[i].id === batchID) {
+      batches[i] = future;
+    } else if (batches[i].id === withID) {
+      batches[i] = current;
+    }
+  }
+  let newBatches = {};
+  batches.forEach(batch => {
+    newBatches[batch.id] = batch;
+  });
+  storage.setDataKey("batches", newBatches);
+  return {
+    type: types.SWAP_BATCH,
+    payload: {
+      batches: storage.getDataKey("batches")
+    }
   };
 };
 export const deleteBatch = batchID => {
@@ -287,6 +379,29 @@ export const updateSubject = (subjectID, data) => {
     payload: subject
   };
 };
+export const swapSubject = (subjectID, withID) => {
+  let subjects = Object.values(storage.getDataKey("subjects"));
+  let current = subjects.filter(subject => subject.id === subjectID)[0];
+  let future = subjects.filter(subject => subject.id === withID)[0];
+  for (let i = 0; i < subjects.length; i++) {
+    if (subjects[i].id === subjectID) {
+      subjects[i] = future;
+    } else if (subjects[i].id === withID) {
+      subjects[i] = current;
+    }
+  }
+  let newSubjects = {};
+  subjects.forEach(subject => {
+    newSubjects[subject.id] = subject;
+  });
+  storage.setDataKey("subjects", newSubjects);
+  return {
+    type: types.SWAP_SUBJECT,
+    payload: {
+      subjects: storage.getDataKey("subjects")
+    }
+  };
+};
 export const deleteSubject = subjectID => {
   let subject = storage.delDataItem("subjects", subjectID);
   return {
@@ -309,6 +424,29 @@ export const updateTeacher = (teacherID, data) => {
   return {
     type: types.UPDATE_TEACHER,
     payload: teacher
+  };
+};
+export const swapTeacher = (teacherID, withID) => {
+  let teachers = Object.values(storage.getDataKey("teachers"));
+  let current = teachers.filter(teacher => teacher.id === teacherID)[0];
+  let future = teachers.filter(teacher => teacher.id === withID)[0];
+  for (let i = 0; i < teachers.length; i++) {
+    if (teachers[i].id === teacherID) {
+      teachers[i] = future;
+    } else if (teachers[i].id === withID) {
+      teachers[i] = current;
+    }
+  }
+  let newTeachers = {};
+  teachers.forEach(teacher => {
+    newTeachers[teacher.id] = teacher;
+  });
+  storage.setDataKey("teachers", newTeachers);
+  return {
+    type: types.SWAP_TEACHER,
+    payload: {
+      teachers: storage.getDataKey("teachers")
+    }
   };
 };
 export const deleteTeacher = teacherID => {
