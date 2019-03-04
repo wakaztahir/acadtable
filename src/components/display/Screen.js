@@ -141,18 +141,34 @@ class Screen extends Component {
                               let lecture = block[0];
                               let subject = this.props.subjects.filter(
                                 st => st.id === lecture.subject
-                              )[0].name;
+                              )[0];
                               let batch = this.props.batches.filter(
                                 bh => bh.id === lecture.batch
-                              )[0].name;
+                              )[0];
                               let teacher = this.props.teachers.filter(
                                 tr => tr.id === lecture.teacher
-                              )[0].name;
+                              )[0];
                               return (
                                 <td key={"b" + col.id} className="table-block">
-                                  <span>{batch}</span>
-                                  <span>{subject}</span>
-                                  <span>{teacher}</span>
+                                  {batch != null ? (
+                                    <span>{batch.name}</span>
+                                  ) : (
+                                    <span className="warning">Batch Error</span>
+                                  )}
+                                  {subject != null ? (
+                                    <span>{subject.name}</span>
+                                  ) : (
+                                    <span className="warning">
+                                      Subject Error
+                                    </span>
+                                  )}
+                                  {teacher != null ? (
+                                    <span>{teacher.name}</span>
+                                  ) : (
+                                    <span className="warning">
+                                      Teacher Error
+                                    </span>
+                                  )}
                                 </td>
                               );
                             }
