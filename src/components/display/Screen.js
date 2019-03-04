@@ -153,19 +153,21 @@ class Screen extends Component {
                                   {batch != null ? (
                                     <span>{batch.name}</span>
                                   ) : (
-                                    <span className="warning">Batch Error</span>
+                                    <span className="warning screen-element">
+                                      Batch Error
+                                    </span>
                                   )}
                                   {subject != null ? (
                                     <span>{subject.name}</span>
                                   ) : (
-                                    <span className="warning">
+                                    <span className="warning screen-element">
                                       Subject Error
                                     </span>
                                   )}
                                   {teacher != null ? (
                                     <span>{teacher.name}</span>
                                   ) : (
-                                    <span className="warning">
+                                    <span className="warning screen-element">
                                       Teacher Error
                                     </span>
                                   )}
