@@ -1,0 +1,7 @@
+.pdfrender .screen-table {
+  margin: 0;
+}
+.imgrender .empty-block > *,
+.pdfrender .empty-block > * {
+  display: none;
+}

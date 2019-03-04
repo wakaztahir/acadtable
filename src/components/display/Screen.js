@@ -58,7 +58,7 @@ class Screen extends Component {
             onClick={() => {
               this.props.showModal();
               this.setState({
-                tableMode: "render",
+                tableMode: "imgrender",
                 downloader: downloadJPEG,
                 download: true
               });
@@ -70,7 +70,7 @@ class Screen extends Component {
             onClick={() => {
               this.props.showModal();
               this.setState({
-                tableMode: "render",
+                tableMode: "imgrender",
                 downloader: downloadPNG,
                 download: true
               });

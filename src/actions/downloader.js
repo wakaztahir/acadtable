@@ -2,44 +2,41 @@ import jsPDF from "jspdf";
 import domtoimage from "dom-to-image";
 
 export const downloadPDF = (screen, finish) => {
-  let screenFilter = document.createElement("style");
-
   let tables = screen.querySelectorAll(".screen-table");
   let doc = new jsPDF({
     orientation: "landscape",
     unit: "px",
-    format: [tables[0].offsetWidth + 64, tables[0].offsetHeight + 64]
+    format: [tables[0].offsetWidth + 16, tables[0].offsetHeight + 16]
   });
-  let done = 0;
-  tables.forEach(table => {
-    domtoimage
-      .toPng(table, {
-        bgcolor: "#fff",
-        width: table.offsetWidth + 64,
-        height: table.offsetHeight + 64
-      })
-      .then(dataUrl => {
-        if (done !== 0) {
-          doc.addPage(
-            [table.offsetWidth + 64, table.offsetHeight + 64],
-            "landscape"
-          );
-        }
-        doc.addImage(dataUrl, "PNG", 0, 0);
-      })
-      .then(() => {
-        if (done < tables.length - 1) {
-          done++;
-        } else {
-          doc.save("file.pdf");
-          finish();
-          screenFilter.innerHTML = "";
-        }
-      })
-      .catch(ex => {
-        console.log(ex);
-      });
-  });
+  const drawTable = on => {
+    if (tables[on] != null) {
+      let table = tables[on];
+      let tableWidth = table.offsetWidth + 16;
+      let tableHeight = table.offsetHeight + 16;
+      domtoimage
+        .toPng(table, {
+          bgcolor: "#fff",
+          width: tableWidth,
+          height: tableHeight
+        })
+        .then(dataUrl => {
+          if (on > 0) {
+            doc.addPage([tableWidth, tableHeight], "landscape");
+          }
+          doc.addImage(dataUrl, "PNG", 0, 0);
+          drawTable(++on);
+        })
+        .catch(ex => {
+          console.log(ex);
+        });
+    } else {
+      doc.save("file.pdf");
+      finish();
+    }
+  };
+  if (tables.length > 0) {
+    drawTable(0);
+  }
 };
 export const downloadPNG = (screen, finish) => {
   domtoimage
