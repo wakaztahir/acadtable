@@ -91,7 +91,10 @@ class Screen extends Component {
               let cols = objector[table.cols];
               if (base == null || rows == null || cols == null) {
                 return (
-                  <div className="warning screen-element">
+                  <div
+                    className="warning screen-element"
+                    style={{ marginBottom: 0 }}
+                  >
                     There was a problem with one of the tables
                   </div>
                 );

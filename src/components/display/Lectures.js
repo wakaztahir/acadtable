@@ -39,39 +39,22 @@ class Lectures extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              let {
-                place,
-                subject,
-                day,
-                time,
-                teacher,
-                batch
-              } = this.state.creator;
               this.props.createLecture({
-                batch,
-                subject,
-                teacher,
-                place,
-                day,
-                time
+                batch: this.state.creator.batch,
+                subject: this.state.creator.subject,
+                teacher: this.state.creator.teacher,
+                place: this.state.creator.place,
+                day: this.state.creator.day,
+                time: this.state.creator.time
               });
             } else {
-              let {
-                id,
-                place,
-                subject,
-                day,
-                time,
-                teacher,
-                batch
-              } = this.state.creator;
-              this.props.updateLecture(id, {
-                batch,
-                subject,
-                teacher,
-                place,
-                day,
-                time
+              this.props.updateLecture(this.state.creator.id, {
+                batch: this.state.creator.batch,
+                subject: this.state.creator.subject,
+                teacher: this.state.creator.teacher,
+                place: this.state.creator.place,
+                day: this.state.creator.day,
+                time: this.state.creator.time
               });
             }
             this.setState({ display: "main" });
@@ -80,6 +63,22 @@ class Lectures extends Component {
         >
           {Object.keys(objector).map(key => {
             let list = objector[key];
+            if (this.state.creator[key] != null) {
+              if (
+                list.filter(item => item.id === this.state.creator[key])
+                  .length === 0
+              ) {
+                if (list.length > 0) {
+                  let creator = { ...this.state.creator };
+                  creator[key] = list[0].id;
+                  this.setState({ creator });
+                } else {
+                  let creator = { ...this.state.creator };
+                  creator[key] = null;
+                  this.setState({ creator });
+                }
+              }
+            }
             return (
               <div className="form-row" key={key}>
                 <label
@@ -91,7 +90,7 @@ class Lectures extends Component {
                 <select
                   name={key}
                   id={key + "sct"}
-                  value={this.state.creator[key]}
+                  value={this.state.creator[key] || ""}
                   required={true}
                   onChange={x => {
                     let y = {};

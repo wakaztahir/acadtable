@@ -52,19 +52,13 @@ class Tables extends Component {
               }}
               required={true}
             >
-              {Object.keys(objector)
-                .filter(
-                  key =>
-                    key !== this.state.creator.rows &&
-                    key !== this.state.creator.cols
-                )
-                .map(key => {
-                  return (
-                    <option key={"base" + key} value={key}>
-                      {key}
-                    </option>
-                  );
-                })}
+              {Object.keys(objector).map(key => {
+                return (
+                  <option key={"base" + key} value={key}>
+                    {key}
+                  </option>
+                );
+              })}
             </select>
           </div>
           {this.state.creator.base != null &&
@@ -77,7 +71,7 @@ class Tables extends Component {
                 {listKey(this.state.creator.base)}
               </label>
               <select
-                defaultValue={
+                value={
                   this.state.creator.baseValue == null
                     ? objector[this.state.creator.base][0].id
                     : this.state.creator.baseValue
@@ -93,7 +87,21 @@ class Tables extends Component {
                 }}
                 required={true}
               >
+                {this.state.creator.baseValue !== null
+                  ? objector[this.state.creator.base].filter(
+                      item => item.id === this.state.creator.baseValue
+                    ).length > 0
+                    ? null
+                    : this.setState({
+                        creator: { ...this.state.creator, baseValue: null }
+                      })
+                  : null}
                 {objector[this.state.creator.base].map(item => {
+                  if (this.state.creator.baseValue == null) {
+                    this.setState({
+                      creator: { ...this.state.creator, baseValue: item.id }
+                    });
+                  }
                   return (
                     <option value={item.id} key={item.id}>
                       {item.name}
@@ -106,7 +114,7 @@ class Tables extends Component {
           <div className="form-row">
             <label htmlFor="rows">Rows </label>
             <select
-              defaultValue={this.state.creator.rows}
+              value={this.state.creator.rows}
               style={{ textTransform: "capitalize" }}
               onChange={event => {
                 this.setState({
@@ -119,11 +127,7 @@ class Tables extends Component {
               required={true}
             >
               {Object.keys(objector)
-                .filter(
-                  key =>
-                    key !== this.state.creator.base &&
-                    key !== this.state.creator.cols
-                )
+                .filter(key => key !== this.state.creator.base)
                 .map(key => {
                   return (
                     <option key={"rows" + key} value={key}>
@@ -136,7 +140,7 @@ class Tables extends Component {
           <div className="form-row">
             <label htmlFor="cols">Columns </label>
             <select
-              defaultValue={this.state.creator.cols}
+              value={this.state.creator.cols}
               style={{ textTransform: "capitalize" }}
               onChange={event => {
                 this.setState({
@@ -243,11 +247,13 @@ class Tables extends Component {
             let base = objector[table.base].filter(
               item => item.id === table.baseValue
             );
+            let baseName;
             if (base.length === 0) {
-              console.warning("Table Base Not Found", table);
-              return null;
+              console.log("Table Base Not Found", table);
+              baseName = null;
+            } else {
+              baseName = base[0].name;
             }
-            let baseName = base[0].name;
             return (
               <div
                 key={table.id}
@@ -260,7 +266,14 @@ class Tables extends Component {
                 }}
               >
                 <h2>
-                  <strong style={{ fontWeight: 500 }}>{baseName}</strong> Table
+                  <strong style={{ fontWeight: 500 }}>
+                    {baseName != null ? (
+                      baseName
+                    ) : (
+                      <span className="warning">Error</span>
+                    )}
+                  </strong>{" "}
+                  Table
                 </h2>
                 <h3 style={{ fontWeight: 400 }}>{table.rows} as rows</h3>
                 <h3 style={{ fontWeight: 400 }}>{table.cols} as columns</h3>
