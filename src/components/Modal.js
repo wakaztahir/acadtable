@@ -18,7 +18,7 @@ modal: {
 
 class Modal extends Component {
   waiting() {
-    return this.content(<div className="modal-loader" />);
+    return <div className="modal-loader" />;
   }
   content(
     content = this.props.modal.content,
