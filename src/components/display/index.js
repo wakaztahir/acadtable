@@ -12,12 +12,6 @@ import Places from "./Places";
 import Subjects from "./Subjects";
 import Teachers from "./Teachers";
 
-// import Modal from "../Modal";
-// import FormEditor from "../collections/areas/FormEditor";
-
-// import jsPDF from "jspdf";
-// import domtoimage from "dom-to-image";
-
 import {
   selectCollection,
   deselectCollection,
@@ -26,28 +20,40 @@ import {
 
 class Display extends Component {
   state = {
-    display: "screen"
+    display: "screen",
+    params: null
+  };
+  changeDisplay = (display, params = null) => {
+    this.setState({ display, params });
   };
   actor() {
     switch (this.state.display) {
       case "screen":
-        return <Screen />;
+        return <Screen params={this.state.params} actor={this.changeDisplay} />;
       case "tables":
-        return <Tables />;
+        return <Tables params={this.state.params} actor={this.changeDisplay} />;
       case "lectures":
-        return <Lectures />;
+        return (
+          <Lectures params={this.state.params} actor={this.changeDisplay} />
+        );
       case "batches":
-        return <Batches />;
+        return (
+          <Batches params={this.state.params} actor={this.changeDisplay} />
+        );
       case "days":
-        return <Days />;
+        return <Days params={this.state.params} actor={this.changeDisplay} />;
       case "times":
-        return <Times />;
+        return <Times params={this.state.params} actor={this.changeDisplay} />;
       case "places":
-        return <Places />;
+        return <Places params={this.state.params} actor={this.changeDisplay} />;
       case "subjects":
-        return <Subjects />;
+        return (
+          <Subjects params={this.state.params} actor={this.changeDisplay} />
+        );
       case "teachers":
-        return <Teachers />;
+        return (
+          <Teachers params={this.state.params} actor={this.changeDisplay} />
+        );
       default:
         return null;
     }

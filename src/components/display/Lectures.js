@@ -272,7 +272,11 @@ class Lectures extends Component {
           >
             <option value="all">All</option>
             {Object.keys(objector).map(obj => {
-              return <option value={obj}>{keyList(obj)}</option>;
+              return (
+                <option value={obj} key={obj + "listitem"}>
+                  {keyList(obj)}
+                </option>
+              );
             })}
           </select>
           <select
