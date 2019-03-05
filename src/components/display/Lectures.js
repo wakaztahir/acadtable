@@ -11,6 +11,7 @@ import { createLecture, updateLecture, deleteLecture } from "../../actions";
 class Lectures extends Component {
   state = {
     listshow: "all",
+    showitem: "all",
     display: "main",
     creator: {
       id: null,
@@ -145,7 +146,12 @@ class Lectures extends Component {
       time: this.props.times,
       place: this.props.places
     };
-
+    let itemlist;
+    if (this.state.listshow === "all") {
+      itemlist = [];
+    } else {
+      itemlist = objector[this.state.listshow];
+    }
     const lectCard = lecture => {
       let subject = this.props.subjects.filter(
         st => st.id === lecture.subject
@@ -260,13 +266,24 @@ class Lectures extends Component {
           <select
             value={this.state.listshow}
             onChange={x => {
-              this.setState({ listshow: x.target.value });
+              this.setState({ listshow: x.target.value, showitem: "all" });
             }}
             style={{ textTransform: "capitalize" }}
           >
             <option value="all">All</option>
             {Object.keys(objector).map(obj => {
               return <option value={obj}>{keyList(obj)}</option>;
+            })}
+          </select>
+          <select
+            value={this.state.showitem}
+            onChange={x => {
+              this.setState({ showitem: x.target.value });
+            }}
+          >
+            <option value="all">All</option>
+            {itemlist.map(item => {
+              return <option value={item.id}>{item.name}</option>;
             })}
           </select>
         </div>
@@ -276,28 +293,38 @@ class Lectures extends Component {
               {this.props.lectures.map(lect => lectCard(lect))}
             </div>
           ) : (
-            objector[this.state.listshow].map(item => {
-              let lectures = this.props.lectures.filter(
-                lect => lect[this.state.listshow] === item.id
-              );
-              return (
-                <div>
-                  <h2>{item.name}</h2>
-                  <div className="block-list">
-                    {lectures.length > 0 ? (
-                      lectures.map(lect => lectCard(lect))
-                    ) : (
-                      <span>
-                        There are no lectures for this{" "}
-                        <strong style={{ textTransform: "capitalize" }}>
-                          {this.state.listshow}
-                        </strong>
-                      </span>
-                    )}
+            objector[this.state.listshow]
+              .filter(item => {
+                if (this.state.showitem === "all") {
+                  return item;
+                } else if (this.state.showitem === item.id) {
+                  return item;
+                }
+                return null;
+              })
+              .map(item => {
+                let lectures = this.props.lectures.filter(
+                  lect => lect[this.state.listshow] === item.id
+                );
+
+                return (
+                  <div>
+                    <h2>{item.name}</h2>
+                    <div className="block-list">
+                      {lectures.length > 0 ? (
+                        lectures.map(lect => lectCard(lect))
+                      ) : (
+                        <span>
+                          There are no lectures for this{" "}
+                          <strong style={{ textTransform: "capitalize" }}>
+                            {this.state.listshow}
+                          </strong>
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })
+                );
+              })
           )}
         </div>
       </div>
