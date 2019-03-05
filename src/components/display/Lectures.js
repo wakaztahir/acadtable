@@ -4,10 +4,13 @@ import { connect } from "react-redux";
 
 import storage from "../../actions/storage";
 
+import { keyList } from "../../actions/helpers";
+
 import { createLecture, updateLecture, deleteLecture } from "../../actions";
 
 class Lectures extends Component {
   state = {
+    listshow: "all",
     display: "main",
     creator: {
       id: null,
@@ -134,6 +137,87 @@ class Lectures extends Component {
     if (this.state.display === "create") {
       return this.creator();
     }
+    let objector = {
+      batch: this.props.batches,
+      subject: this.props.subjects,
+      teacher: this.props.teachers,
+      day: this.props.days,
+      time: this.props.times,
+      place: this.props.places
+    };
+
+    const lectCard = lecture => {
+      let subject = this.props.subjects.filter(
+        st => st.id === lecture.subject
+      )[0];
+      let batch = this.props.batches.filter(bh => bh.id === lecture.batch)[0];
+      let teacher = this.props.teachers.filter(
+        tr => tr.id === lecture.teacher
+      )[0];
+      let time = this.props.times.filter(tm => tm.id === lecture.time)[0];
+      let place = this.props.places.filter(pc => pc.id === lecture.place)[0];
+      let day = this.props.days.filter(dy => dy.id === lecture.day)[0];
+      return (
+        <div key={lecture.id} className="block">
+          <div className="block-txt">
+            {subject != null ? (
+              <span>{subject.name}</span>
+            ) : (
+              <span className="warning">Subject Error </span>
+            )}
+            {batch != null ? (
+              <span>{batch.name}</span>
+            ) : (
+              <span className="warning">Batch Error </span>
+            )}
+            {teacher != null ? (
+              <span>{teacher.name}</span>
+            ) : (
+              <span className="warning">Teacher Error </span>
+            )}
+            {time != null ? (
+              <span>{time.name}</span>
+            ) : (
+              <span className="warning">Time Error </span>
+            )}
+            {place != null ? (
+              <span>{place.name}</span>
+            ) : (
+              <span className="warning">Place Error </span>
+            )}
+            {day != null ? (
+              <span>{day.name}</span>
+            ) : (
+              <span className="warning">Day Error </span>
+            )}
+          </div>
+          <div className="block-btns">
+            <button
+              onClick={() => {
+                this.setState({
+                  display: "create",
+                  creator: {
+                    ...this.state.creator,
+                    ...lecture,
+                    mode: "update"
+                  }
+                });
+              }}
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => {
+                this.props.deleteLecture(lecture.id);
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      );
+    };
+
     return (
       <div>
         <div style={{ margin: "1rem" }}>
@@ -172,82 +256,49 @@ class Lectures extends Component {
             Create A Lecture
           </button>
         </div>
-        <div className="block-list">
-          {this.props.lectures.map(lecture => {
-            let subject = this.props.subjects.filter(
-              st => st.id === lecture.subject
-            )[0];
-            let batch = this.props.batches.filter(
-              bh => bh.id === lecture.batch
-            )[0];
-            let teacher = this.props.teachers.filter(
-              tr => tr.id === lecture.teacher
-            )[0];
-            let time = this.props.times.filter(tm => tm.id === lecture.time)[0];
-            let place = this.props.places.filter(
-              pc => pc.id === lecture.place
-            )[0];
-            let day = this.props.days.filter(dy => dy.id === lecture.day)[0];
-            return (
-              <div key={lecture.id} className="block">
-                <div className="block-txt">
-                  {subject != null ? (
-                    <span>{subject.name}</span>
-                  ) : (
-                    <span className="warning">Subject Error </span>
-                  )}
-                  {batch != null ? (
-                    <span>{batch.name}</span>
-                  ) : (
-                    <span className="warning">Batch Error </span>
-                  )}
-                  {teacher != null ? (
-                    <span>{teacher.name}</span>
-                  ) : (
-                    <span className="warning">Teacher Error </span>
-                  )}
-                  {time != null ? (
-                    <span>{time.name}</span>
-                  ) : (
-                    <span className="warning">Time Error </span>
-                  )}
-                  {place != null ? (
-                    <span>{place.name}</span>
-                  ) : (
-                    <span className="warning">Place Error </span>
-                  )}
-                  {day != null ? (
-                    <span>{day.name}</span>
-                  ) : (
-                    <span className="warning">Day Error </span>
-                  )}
+        <div style={{ marginLeft: "1rem" }}>
+          <select
+            value={this.state.listshow}
+            onChange={x => {
+              this.setState({ listshow: x.target.value });
+            }}
+            style={{ textTransform: "capitalize" }}
+          >
+            <option value="all">All</option>
+            {Object.keys(objector).map(obj => {
+              return <option value={obj}>{keyList(obj)}</option>;
+            })}
+          </select>
+        </div>
+        <div style={{ paddingBottom: "1rem" }}>
+          {this.state.listshow === "all" ? (
+            <div className="block-list">
+              {this.props.lectures.map(lect => lectCard(lect))}
+            </div>
+          ) : (
+            objector[this.state.listshow].map(item => {
+              let lectures = this.props.lectures.filter(
+                lect => lect[this.state.listshow] === item.id
+              );
+              return (
+                <div>
+                  <h2>{item.name}</h2>
+                  <div className="block-list">
+                    {lectures.length > 0 ? (
+                      lectures.map(lect => lectCard(lect))
+                    ) : (
+                      <span>
+                        There are no lectures for this{" "}
+                        <strong style={{ textTransform: "capitalize" }}>
+                          {this.state.listshow}
+                        </strong>
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <div className="block-btns">
-                  <button
-                    onClick={() => {
-                      this.setState({
-                        display: "create",
-                        creator: {
-                          ...this.state.creator,
-                          ...lecture,
-                          mode: "update"
-                        }
-                      });
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => {
-                      this.props.deleteLecture(lecture.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
     );
