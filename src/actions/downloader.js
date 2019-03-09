@@ -23,7 +23,7 @@ export const downloadPDF = (screen, finish) => {
           if (on > 0) {
             doc.addPage([tableWidth, tableHeight], "landscape");
           }
-          doc.addImage(dataUrl, "PNG", 0, 0);
+          doc.addImage(dataUrl, "PNG", 20, 20);
           drawTable(++on);
         })
         .catch(ex => {
