@@ -22,6 +22,10 @@ body {
   align-items: center;
 }
 
+.flex-center .flex-start {
+  align-self: flex-start;
+}
+
 h1,
 h2,
 h3,

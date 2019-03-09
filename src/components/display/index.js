@@ -97,9 +97,7 @@ class Display extends Component {
             })}
           </div>
         </div>
-        <div ref="screen" className="full-wrapper flex-center">
-          {this.actor()}
-        </div>
+        {this.actor()}
       </div>
     );
   }

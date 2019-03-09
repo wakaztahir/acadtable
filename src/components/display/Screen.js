@@ -43,7 +43,10 @@ class Screen extends Component {
     };
     return (
       <div>
-        <div>
+        <div
+          style={{ marginTop: "1rem", flexDirection: "row" }}
+          className="flex-center"
+        >
           <button
             onClick={() => {
               this.props.showModal();
@@ -81,7 +84,7 @@ class Screen extends Component {
             Download PNG
           </button>
         </div>
-        <div>
+        <div className="flex-center" style={{ minWidth: "50em" }}>
           <div className={`screen ${this.state.tableMode}`} ref="screen">
             {objector.tables.map(table => {
               let base = objector[table.base].filter(
