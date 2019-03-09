@@ -29,6 +29,7 @@ class Screen extends Component {
         this.setState({ tableMode: "", downloader: null, download: false });
       });
     }
+    this.props.user.save();
   }
   render() {
     let objector = {
@@ -201,6 +202,7 @@ class Screen extends Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.User,
     tables: state.Tables,
     lectures: state.Lectures,
     batches: state.Batches,

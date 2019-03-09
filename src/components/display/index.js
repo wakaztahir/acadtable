@@ -70,7 +70,6 @@ class Display extends Component {
       subjects: this.props.subjects,
       teachers: this.props.teachers
     };
-
     return (
       <div className="wrapper">
         <h1>Acadtable</h1>

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import storage from "../../actions/storage";
-
 import { keyList } from "../../actions/helpers";
 
 import { createLecture, updateLecture, deleteLecture } from "../../actions";
@@ -26,7 +24,7 @@ class Lectures extends Component {
     }
   };
   componentWillUnmount() {
-    storage.save();
+    this.props.user.save();
   }
   creator() {
     let objector = {
@@ -338,6 +336,7 @@ class Lectures extends Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.User,
     lectures: state.Lectures,
     subjects: state.Subjects,
     places: state.Places,

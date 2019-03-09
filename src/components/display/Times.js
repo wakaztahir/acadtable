@@ -2,8 +2,6 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import storage from "../../actions/storage";
-
 import { createTime, updateTime, swapTime, deleteTime } from "../../actions";
 
 class Times extends Component {
@@ -16,7 +14,7 @@ class Times extends Component {
     }
   };
   componentWillUnmount() {
-    storage.save();
+    this.props.user.save();
   }
   creator() {
     return (
@@ -151,6 +149,7 @@ class Times extends Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.User,
     times: state.Times
   };
 };
