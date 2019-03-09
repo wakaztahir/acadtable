@@ -14,6 +14,10 @@ import {
 import storage from "../actions/storage";
 
 const DefaultSetupSettings = {
+  info: {
+    name: "",
+    desc: ""
+  },
   days: {
     from: "monday",
     to: "saturday"
@@ -42,15 +46,67 @@ class QuickSetup extends Component {
     stage: null,
     ...DefaultSetupSettings
   };
+  info() {
+    return (
+      <div>
+        <div className="welcome-dialogue form-table">
+          <div className="form-row">
+            <label htmlFor="cName" className="big-label">
+              Collection Name
+            </label>
+            <input
+              id="cName"
+              type="text"
+              onChange={event =>
+                this.setState({
+                  info: { ...this.state.info, name: event.target.value }
+                })
+              }
+              value={this.state.info.name}
+              className="big-input"
+              placeholder="my first collection..."
+              required={true}
+            />
+          </div>
+          <div className="form-row">
+            <label htmlFor="desc" className="big-label">
+              Description
+            </label>
+            <textarea
+              id="cdesc"
+              className="big-desc"
+              onChange={event => {
+                this.setState({
+                  info: { ...this.state.info, desc: event.target.value }
+                });
+              }}
+              value={this.state.info.desc}
+              placeholder="this is the best collection ever..."
+            />
+          </div>
+          <div className="form-row">
+            <span />
+            <button
+              onClick={() => {
+                this.setState({ stage: "days" });
+              }}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
   days() {
     return (
       <div>
         <h2>Days on which your school/university has lectures ?</h2>
 
         <div>
-          <span>Monday to </span>&nbsp;&nbsp;
+          <label htmlFor="days">Monday to </label>&nbsp;&nbsp;
           <select
-            name="days"
+            id="days"
             value={this.state.days.to}
             onChange={x => {
               this.setState({
@@ -67,13 +123,13 @@ class QuickSetup extends Component {
           </select>
         </div>
         <br />
-        <button
-          onClick={() => {
-            this.setState({ stage: "times" });
-          }}
-        >
-          Next
-        </button>
+        <div>
+          <button onClick={() => this.setState({ stage: "info" })}>Prev</button>
+          &nbsp;
+          <button onClick={() => this.setState({ stage: "times" })}>
+            Next
+          </button>
+        </div>
       </div>
     );
   }
@@ -405,8 +461,12 @@ class QuickSetup extends Component {
     /// CREATING A COLLECTION
     let collection = createCollection(
       {
-        name: "Quick Collection",
-        desc: `Collection created on ${new Date().toLocaleDateString()} , Created with love.`
+        name:
+          this.state.info.name.length > 0
+            ? this.state.info.name
+            : "Quick Collection",
+        desc: `${this.state.info.desc}`,
+        time: `${new Date().toLocaleDateString()}`
       },
       true
     );
@@ -454,9 +514,11 @@ class QuickSetup extends Component {
   }
   stage() {
     switch (this.state.stage) {
+      case "info":
       case null:
-      case "days":
       default:
+        return this.info();
+      case "days":
         return this.days();
       case "times":
         return this.times();

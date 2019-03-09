@@ -16,75 +16,11 @@ import "../resources/welcome.css";
 
 class Welcome extends Component {
   state = {
-    ftDisplay: null,
-    collectionName: "",
-    collectionDesc: ""
+    ftDisplay: null
   };
-  displayCreate() {
-    return (
-      <div>
-        <button
-          onClick={() => {
-            this.setState({ ftDisplay: null });
-          }}
-        >
-          Back
-        </button>
-        <form
-          onSubmit={event => {
-            event.preventDefault();
-            this.props.createCollection({
-              name: this.state.collectionName,
-              desc: this.state.collectionDesc
-            });
-            this.setState({ ftDisplay: null });
-          }}
-        >
-          <div className="welcome-dialogue form-table">
-            <div className="form-row">
-              <label htmlFor="cName" className="big-label">
-                Collection Name
-              </label>
-              <input
-                id="cName"
-                type="text"
-                onChange={event =>
-                  this.setState({ collectionName: event.target.value })
-                }
-                value={this.state.collectionName}
-                className="big-input"
-                placeholder="my first collection..."
-                required={true}
-              />
-            </div>
-            <div className="form-row">
-              <label htmlFor="desc" className="big-label">
-                Description
-              </label>
-              <textarea
-                id="cdesc"
-                className="big-desc"
-                onChange={event => {
-                  this.setState({ collectionDesc: event.target.value });
-                }}
-                value={this.state.collectionDesc}
-                placeholder="this is the best collection ever..."
-              />
-            </div>
-            <div className="form-row">
-              <span />
-              <input type="submit" value="Create" className="big-btn" />
-            </div>
-          </div>
-        </form>
-      </div>
-    );
-  }
 
   firstTime() {
-    if (this.state.ftDisplay === "create") {
-      return this.displayCreate();
-    } else if (this.state.ftDisplay === "quickSetup") {
+    if (this.state.ftDisplay === "quickSetup") {
       return (
         <QuickSetup
           back={() => {
@@ -98,43 +34,34 @@ class Welcome extends Component {
         <h2>Looks like its your first time visiting acadtable.</h2>
         <div className="welcome-buttons">
           <button
+            className="black-btn"
             onClick={() => {
-              this.setState({ ftDisplay: "create" });
+              this.setState({ ftDisplay: "quickSetup" });
             }}
           >
             Create A Collection
           </button>
           <span className="info">
-            <span>Do everything from scratch</span>
-          </span>
-          <br />
-          <br />
-
-          <button
-            onClick={() => {
-              this.setState({ ftDisplay: "quickSetup" });
-            }}
-          >
-            Quick Setup
-          </button>
-          <span className="info">
-            <span>Quick setup to build tables (recommended)</span>
+            <span>Runs quick setup to create a collection</span>
           </span>
           <br />
           <br />
           <button onClick={this.props.exampleCollection}>
             Load An Example
           </button>
-          <span className="info">
-            <span>Load an example , premade collection</span>
-          </span>
         </div>
       </div>
     );
   }
   screen() {
-    if (this.state.ftDisplay === "create") {
-      return this.displayCreate();
+    if (this.state.ftDisplay === "quickSetup") {
+      return (
+        <QuickSetup
+          back={() => {
+            this.setState({ ftDisplay: null });
+          }}
+        />
+      );
     }
     return (
       <div className="wrapper">
@@ -143,13 +70,15 @@ class Welcome extends Component {
             <button
               onClick={() => {
                 this.setState({
-                  ftDisplay: "create",
-                  collectionName: "",
-                  collectionDesc: ""
+                  ftDisplay: "quickSetup"
                 });
               }}
             >
               Create Another Collection
+            </button>
+            &nbsp;
+            <button onClick={this.props.exampleCollection}>
+              Reload Example
             </button>
           </div>
           <h2>Please select a collection to display</h2>
@@ -168,6 +97,8 @@ class Welcome extends Component {
                     ? coll.desc.substr(0, 120) + "..."
                     : coll.desc}
                 </div>
+                <div className="card-head-special">#{coll.id}</div>
+                <div className="card-special">{coll.time}</div>
                 <div className="card-btns">
                   <button onClick={() => this.props.selectCollection(coll.id)}>
                     Select
