@@ -8,7 +8,10 @@ import {
   createDay,
   createTime,
   createPlace,
-  createTable
+  createTable,
+  createBatch,
+  createSubject,
+  createTeacher
 } from "../actions";
 
 import storage from "../actions/storage";
@@ -34,6 +37,9 @@ const DefaultSetupSettings = {
     from: "1",
     to: "10"
   },
+  batches: [],
+  subjects: [],
+  teachers: [],
   tables: {
     base: "days",
     rows: "places",
@@ -84,6 +90,10 @@ class QuickSetup extends Component {
               placeholder="this is the best collection ever..."
             />
           </div>
+          <h4 style={{ color: "rgb(150,150,150)" }}>
+            Don't refresh/reload/exit during setup...
+          </h4>
+          <br />
           <div className="form-row">
             <span />
             <button
@@ -279,6 +289,213 @@ class QuickSetup extends Component {
             Prev
           </button>
           &nbsp;
+          <button onClick={() => this.setState({ stage: "batches" })}>
+            Next
+          </button>
+        </div>
+      </div>
+    );
+  }
+  batches() {
+    return (
+      <div>
+        <h2>Add some Batches/Classes , Press enter to add a batch quickly.</h2>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            let value = e.target[0].value;
+            if (value.length > 1) {
+              this.setState({ batches: [...this.state.batches, value] });
+              e.target[0].value = "";
+            }
+          }}
+          className="form-table"
+        >
+          <div className="form-row">
+            <label htmlFor="batch">Batch Name &nbsp;</label>
+            <input type="text" className="big-input" />
+          </div>
+
+          <div className="form-row">
+            <span />
+            <input type="submit" />
+          </div>
+        </form>
+        <div className="block-list">
+          {this.state.batches.map((item, index) => {
+            return (
+              <div
+                className="block"
+                key={
+                  item +
+                  Math.random()
+                    .toString()
+                    .substr(3, 6)
+                }
+              >
+                <span className="block-txt">{item}</span>
+                <div className="block-btns">
+                  <button
+                    onClick={() => {
+                      this.setState({
+                        batches: this.state.batches.filter(
+                          (x, y) => y !== index
+                        )
+                      });
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <h4 style={{ color: "rgb(150,150,150)" }}>Add at least three...</h4>
+        <br />
+        <div>
+          <button onClick={() => this.setState({ stage: "places" })}>
+            Prev
+          </button>
+          &nbsp;
+          <button onClick={() => this.setState({ stage: "subjects" })}>
+            Next
+          </button>
+        </div>
+      </div>
+    );
+  }
+  subjects() {
+    return (
+      <div>
+        <h2>Add some Subjects , Just like you added Batches/Classes.</h2>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            let value = e.target[0].value;
+            if (value.length > 1) {
+              this.setState({ subjects: [...this.state.subjects, value] });
+              e.target[0].value = "";
+            }
+          }}
+          className="form-table"
+        >
+          <div className="form-row">
+            <label htmlFor="batch">Subject Name &nbsp;</label>
+            <input type="text" className="big-input" />
+          </div>
+
+          <div className="form-row">
+            <span />
+            <input type="submit" />
+          </div>
+        </form>
+        <div className="block-list">
+          {this.state.subjects.map((item, index) => {
+            return (
+              <div
+                className="block"
+                key={
+                  item +
+                  Math.random()
+                    .toString()
+                    .substr(3, 6)
+                }
+              >
+                <span className="block-txt">{item}</span>
+                <div className="block-btns">
+                  <button
+                    onClick={() => {
+                      this.setState({
+                        subjects: this.state.subjects.filter(
+                          (x, y) => y !== index
+                        )
+                      });
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <h4 style={{ color: "rgb(150,150,150)" }}>Add at least three...</h4>
+        <br />
+        <div>
+          <button onClick={() => this.setState({ stage: "batches" })}>
+            Prev
+          </button>
+          &nbsp;
+          <button onClick={() => this.setState({ stage: "teachers" })}>
+            Next
+          </button>
+        </div>
+      </div>
+    );
+  }
+  teachers() {
+    return (
+      <div>
+        <h2>Add some Teachers , Press enter to add teachers quickly.</h2>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            let value = e.target[0].value;
+            if (value.length > 1) {
+              this.setState({ teachers: [...this.state.teachers, value] });
+              e.target[0].value = "";
+            }
+          }}
+          className="form-table"
+        >
+          <div className="form-row">
+            <label htmlFor="batch">Teacher Name &nbsp;</label>
+            <input type="text" className="big-input" />
+          </div>
+
+          <div className="form-row">
+            <span />
+            <input type="submit" />
+          </div>
+        </form>
+        <div className="block-list">
+          {this.state.teachers.map((item, index) => {
+            return (
+              <div
+                className="block"
+                key={
+                  item +
+                  Math.random()
+                    .toString()
+                    .substr(3, 6)
+                }
+              >
+                <span className="block-txt">{item}</span>
+                <div className="block-btns">
+                  <button
+                    onClick={() => {
+                      this.setState({
+                        teachers: this.state.teachers.filter(
+                          (x, y) => y !== index
+                        )
+                      });
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <h4 style={{ color: "rgb(150,150,150)" }}>Add at least three...</h4>
+        <br />
+        <div>
+          <button onClick={() => this.setState({ stage: "subjects" })}>
+            Prev
+          </button>
+          &nbsp;
           <button onClick={() => this.setState({ stage: "tables" })}>
             Next
           </button>
@@ -290,10 +507,10 @@ class QuickSetup extends Component {
     let objects = [
       "days",
       "times",
-      "places"
-      //   "batches",
-      //   "subjects",
-      //   "teachers"
+      "places",
+      "batches",
+      "subjects",
+      "teachers"
     ];
 
     return (
@@ -383,7 +600,7 @@ class QuickSetup extends Component {
         </div>
         <br />
         <div>
-          <button onClick={() => this.setState({ stage: "places" })}>
+          <button onClick={() => this.setState({ stage: "teachers" })}>
             Prev
           </button>
           &nbsp;
@@ -458,6 +675,10 @@ class QuickSetup extends Component {
     ) {
       places.push(`${this.state.places.name} ${i}`);
     }
+    let batches = this.state.batches;
+    let subjects = this.state.subjects;
+    let teachers = this.state.teachers;
+
     /// CREATING A COLLECTION
     let collection = createCollection(
       {
@@ -494,9 +715,27 @@ class QuickSetup extends Component {
         true
       );
     });
+
+    batches = batches.map(batch => {
+      return createBatch({
+        name: batch
+      });
+    });
+
+    subjects = subjects.map(subject => {
+      return createSubject({
+        name: subject
+      });
+    });
+
+    teachers = teachers.map(teacher => {
+      return createTeacher({
+        name: teacher
+      });
+    });
     /// CREATING TABLES
     let tables = [];
-    let objector = { days, times, places };
+    let objector = { days, times, places, batches, subjects, teachers };
     let tFor = objector[this.state.tables.base];
     tFor.forEach(base => {
       tables.push({
@@ -524,6 +763,12 @@ class QuickSetup extends Component {
         return this.times();
       case "places":
         return this.places();
+      case "batches":
+        return this.batches();
+      case "subjects":
+        return this.subjects();
+      case "teachers":
+        return this.teachers();
       case "tables":
         return this.tables();
     }

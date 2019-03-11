@@ -318,8 +318,11 @@ export const deletePlace = placeID => {
 
 //BATCH ACTIONS
 
-export const createBatch = data => {
+export const createBatch = (data, background = null) => {
   let batch = storage.setDataItem("batches", null, data);
+  if (background != null) {
+    return batch;
+  }
   return {
     type: types.CREATE_BATCH,
     payload: batch
@@ -365,8 +368,11 @@ export const deleteBatch = batchID => {
 
 //SUBJECT ACTIONS
 
-export const createSubject = data => {
+export const createSubject = (data, background = null) => {
   let subject = storage.setDataItem("subjects", null, data);
+  if (background != null) {
+    return subject;
+  }
   return {
     type: types.CREATE_SUBJECT,
     payload: subject
@@ -412,8 +418,11 @@ export const deleteSubject = subjectID => {
 
 //TEACHER ACTIONS
 
-export const createTeacher = data => {
+export const createTeacher = (data, background = null) => {
   let teacher = storage.setDataItem("teachers", null, data);
+  if (background != null) {
+    return teacher;
+  }
   return {
     type: types.CREATE_TEACHER,
     payload: teacher
