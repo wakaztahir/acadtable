@@ -191,6 +191,8 @@ class user {
         console.warning("dataitem ", s, " cannot be deleted");
       }
     });
+    this.local = null;
+    this.session = null;
     return this.collections.delDataItem(this.id);
   }
 }

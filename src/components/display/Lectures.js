@@ -261,6 +261,9 @@ class Lectures extends Component {
           </button>
         </div>
         <div style={{ marginLeft: "1rem" }}>
+          <h3 style={{ display: "inline-block", marginRight: "10px" }}>
+            Filter by
+          </h3>
           <select
             value={this.state.listshow}
             onChange={x => {

@@ -49,6 +49,19 @@ class Welcome extends Component {
           <button onClick={this.props.exampleCollection}>
             Load An Example
           </button>
+          <br />
+          <br />
+          <button
+            onClick={() =>
+              this.props.createCollection({
+                name: "Empty Collection",
+                desc: "probably an empty collection...",
+                time: new Date().toLocaleDateString()
+              })
+            }
+          >
+            Empty Collection
+          </button>
         </div>
       </div>
     );
@@ -79,6 +92,18 @@ class Welcome extends Component {
             &nbsp;
             <button onClick={this.props.exampleCollection}>
               Reload Example
+            </button>
+            &nbsp;
+            <button
+              onClick={() =>
+                this.props.createCollection({
+                  name: "Empty Collection",
+                  desc: "probably an empty collection...",
+                  time: new Date().toLocaleDateString()
+                })
+              }
+            >
+              Empty Collection
             </button>
           </div>
           <h2>Please select a collection to display</h2>
