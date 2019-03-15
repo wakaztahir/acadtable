@@ -15,11 +15,16 @@ body {
 .full-wrapper {
   width: 100%;
 }
+.flex-center-h,
 .flex-center {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.flex-center-h {
+  flex-direction: row;
 }
 
 .flex-center .flex-start {

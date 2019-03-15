@@ -16,6 +16,8 @@ import "../../resources/screen.css";
 
 import "../../resources/render.css";
 
+import LectureModal from "../others/LectureModal";
+
 class Screen extends Component {
   state = {
     tableMode: "",
@@ -136,7 +138,13 @@ class Screen extends Component {
                                     params[listKey(table.base)] = base.id;
                                     params[listKey(table.rows)] = row.id;
                                     params[listKey(table.cols)] = col.id;
-                                    //this.props.displayAddModal(params);
+                                    this.props.showModal(
+                                      "content",
+                                      <LectureModal
+                                        params={params}
+                                        mode="create"
+                                      />
+                                    );
                                   }}
                                   key={"b" + col.id}
                                   className="table-block empty-block"

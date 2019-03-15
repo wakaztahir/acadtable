@@ -23,7 +23,7 @@ class Subjects extends Component {
   }
   creator() {
     return (
-      <div>
+      <div className="full-wrapper flex-center">
         <form
           onSubmit={event => {
             event.preventDefault();
