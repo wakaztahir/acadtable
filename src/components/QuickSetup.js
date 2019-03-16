@@ -26,9 +26,9 @@ const DefaultSetupSettings = {
     to: "saturday"
   },
   times: {
-    fromTime: "08:00",
+    fromTime: "08",
     fromMeridian: "AM",
-    toTime: "01:00",
+    toTime: "01",
     toMeridian: "PM",
     lectureTime: "60"
   },
