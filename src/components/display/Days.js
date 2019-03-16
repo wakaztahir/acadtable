@@ -18,7 +18,7 @@ class Days extends Component {
   }
   creator() {
     return (
-      <div className="full-wrapper flex-center">
+      <div>
         <form
           onSubmit={event => {
             event.preventDefault();
@@ -29,7 +29,13 @@ class Days extends Component {
                 name: this.state.creator.name
               });
             }
-            this.setState({ display: "main" });
+            this.setState({
+              creator: {
+                id: null,
+                name: null,
+                mode: "create"
+              }
+            });
           }}
           className="form-table"
         >
@@ -67,9 +73,6 @@ class Days extends Component {
     );
   }
   render() {
-    if (this.state.display === "create") {
-      return this.creator();
-    }
     return (
       <div>
         <div style={{ margin: "1rem" }}>
@@ -91,18 +94,8 @@ class Days extends Component {
           >
             Add All Days
           </button>
-          &nbsp;
-          <button
-            onClick={() => {
-              this.setState({
-                display: "create",
-                creator: { id: null, name: null, mode: "create" }
-              });
-            }}
-          >
-            Create A Day
-          </button>
         </div>
+        <div style={{ margin: "1rem" }}>{this.creator()}</div>
         <div className="block-list">
           {this.props.days.map((day, index) => {
             return (
@@ -126,7 +119,6 @@ class Days extends Component {
                   <button
                     onClick={() => {
                       this.setState({
-                        display: "create",
                         creator: {
                           ...this.state.creator,
                           ...day,
