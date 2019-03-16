@@ -6,7 +6,13 @@ import { connect } from "react-redux";
 
 import { listKey } from "../../actions/helpers";
 
-import { createTable, updateTable, deleteTable } from "../../actions";
+import {
+  createTable,
+  updateTable,
+  deleteTable,
+  showModal,
+  unshowModal
+} from "../../actions";
 
 class Tables extends Component {
   state = {
@@ -18,6 +24,11 @@ class Tables extends Component {
       baseValue: null,
       rows: "times",
       cols: "places"
+    },
+    quicker: {
+      base: "days",
+      rows: "places",
+      cols: "times"
     }
   };
   componentWillUnmount() {
@@ -177,14 +188,16 @@ class Tables extends Component {
               Cancel
             </button>
             <div>
-              <button
-                onClick={() => {
-                  this.props.deleteTable(this.state.creator.id);
-                  this.setState({ display: "main" });
-                }}
-              >
-                Delete
-              </button>
+              {this.state.creator.action === "update" ? (
+                <button
+                  onClick={() => {
+                    this.props.deleteTable(this.state.creator.id);
+                    this.setState({ display: "main" });
+                  }}
+                >
+                  Delete
+                </button>
+              ) : null}
               <input
                 type="submit"
                 style={{ textTransform: "capitalize" }}
@@ -197,7 +210,120 @@ class Tables extends Component {
     );
   }
   quicker(objector) {
-    return null;
+    let objects = Object.keys(objector);
+    return (
+      <div className="full-wrapper flex-center">
+        <h2>Table Settings</h2>
+        <div className="form-table">
+          <div className="form-row">
+            <label htmlFor="base">Tables for</label>
+            <select
+              type="text"
+              value={this.state.quicker.base}
+              onChange={x =>
+                this.setState({
+                  quicker: { ...this.state.quicker, base: x.target.value }
+                })
+              }
+              style={{ textTransform: "capitalize" }}
+            >
+              {objects.map(obj => {
+                return (
+                  <option key={"base" + obj} value={obj}>
+                    {obj}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="form-row">
+            <label htmlFor="rows">Rows </label>
+            <select
+              id="rows"
+              type="text"
+              value={this.state.quicker.rows}
+              onChange={x =>
+                this.setState({
+                  quicker: { ...this.state.quicker, rows: x.target.value }
+                })
+              }
+              style={{ textTransform: "capitalize" }}
+            >
+              {objects.map(obj => {
+                if (obj === this.state.quicker.base) {
+                  return null;
+                }
+                return (
+                  <option key={"row" + obj} value={obj}>
+                    {obj}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="form-row">
+            <label htmlFor="cols">Columns </label>
+            <select
+              id="cols"
+              type="text"
+              value={this.state.quicker.cols}
+              onChange={x =>
+                this.setState({
+                  quicker: { ...this.state.quicker, cols: x.target.value }
+                })
+              }
+              style={{ textTransform: "capitalize" }}
+            >
+              {objects.map(obj => {
+                if (
+                  obj === this.state.quicker.rows ||
+                  obj === this.state.quicker.base
+                ) {
+                  return null;
+                }
+                return (
+                  <option key={"col" + obj} value={obj}>
+                    {obj}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <br />
+        <div>
+          <button
+            onClick={() => {
+              this.setState({ display: "main" });
+            }}
+          >
+            Cancel
+          </button>
+          &nbsp;
+          <button
+            onClick={() => {
+              let tables = [];
+              let tFor = objector[this.state.quicker.base];
+              tFor.forEach(base => {
+                tables.push({
+                  base: this.state.quicker.base,
+                  baseValue: base.id,
+                  rows: this.state.quicker.rows,
+                  cols: this.state.quicker.cols
+                });
+              });
+              tables.forEach(table => {
+                this.props.createTable(table);
+              });
+              this.setState({ display: "main" });
+            }}
+            className="black-btn"
+          >
+            Create Tables
+          </button>
+        </div>
+      </div>
+    );
   }
   render() {
     let objector = {
@@ -233,13 +359,35 @@ class Tables extends Component {
           >
             Create A Table
           </button>
+          &nbsp;
           <button
             onClick={() => {
               this.setState({ display: "quick" });
             }}
-            disabled={true}
           >
             Quick Tables
+          </button>
+          &nbsp;
+          <button
+            onClick={() => {
+              this.props.showModal(
+                "confirm",
+                "All tables will be deleted , Are you sure ?",
+                [
+                  () => {
+                    this.props.tables.forEach(table => {
+                      this.props.deleteTable(table.id);
+                    });
+                    this.props.unshowModal();
+                  },
+                  () => {
+                    this.props.unshowModal();
+                  }
+                ]
+              );
+            }}
+          >
+            Delete All Tables
           </button>
         </div>
         <div className="sq-list">
@@ -300,5 +448,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { createTable, updateTable, deleteTable }
+  { createTable, updateTable, deleteTable, showModal, unshowModal }
 )(Tables);

@@ -80,10 +80,8 @@ class LectureModal extends Component {
               return null;
             }
           })}
-          <div className="form-row">
-            <label>
-              <button onClick={this.props.unshowModal}>Cancel</button>
-            </label>
+          <div style={{ marginLeft: "100%", display: "flex" }}>
+            <button onClick={this.props.unshowModal}>Cancel</button>&nbsp;
             <input
               type="submit"
               style={{ textTransform: "capitalize" }}
