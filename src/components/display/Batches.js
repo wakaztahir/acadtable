@@ -23,7 +23,7 @@ class Batches extends Component {
   }
   creator() {
     return (
-      <div className="full-wrapper flex-center">
+      <div>
         <form
           onSubmit={event => {
             event.preventDefault();
@@ -34,7 +34,9 @@ class Batches extends Component {
                 name: this.state.creator.name
               });
             }
-            this.setState({ display: "main" });
+            this.setState({
+              creator: { id: null, name: null, mode: "create" }
+            });
           }}
           className="form-table"
         >
@@ -77,18 +79,7 @@ class Batches extends Component {
     }
     return (
       <div>
-        <div style={{ margin: "1rem" }}>
-          <button
-            onClick={() => {
-              this.setState({
-                display: "create",
-                creator: { id: null, name: null, mode: "create" }
-              });
-            }}
-          >
-            Create A Batch
-          </button>
-        </div>
+        <div style={{ margin: "1rem" }}>{this.creator()}</div>
         <div className="block-list">
           {this.props.batches.map((batch, index) => {
             return (
@@ -112,7 +103,6 @@ class Batches extends Component {
                   <button
                     onClick={() => {
                       this.setState({
-                        display: "create",
                         creator: {
                           ...this.state.creator,
                           ...batch,
