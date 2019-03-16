@@ -16,14 +16,86 @@ class Places extends Component {
       id: null,
       name: null,
       mode: "create"
-    }
+    },
+    quicker: { name: "Room", from: "1", to: "10" }
   };
   componentWillUnmount() {
     this.props.user.save();
   }
-  creator() {
+  quicker() {
     return (
       <div className="full-wrapper flex-center">
+        <h2>How many Rooms/Places in which lectures are held ?</h2>
+        <div className="form-table">
+          <div className="form-row">
+            <label htmlFor="name">Place Name : </label>
+            <input
+              type="text"
+              value={this.state.quicker.name}
+              onChange={x =>
+                this.setState({
+                  quicker: { ...this.state.quicker, name: x.target.value }
+                })
+              }
+            />
+          </div>
+          <div className="form-row">
+            <label htmlFor="roomfrom">From (room/place no)</label>
+            <input
+              type="text"
+              value={this.state.quicker.from}
+              onChange={x =>
+                this.setState({
+                  quicker: { ...this.state.quicker, from: x.target.value }
+                })
+              }
+            />
+          </div>
+          <div className="form-row">
+            <label htmlFor="roomfrom">To (room/place no)</label>
+            <input
+              type="text"
+              value={this.state.quicker.to}
+              onChange={x =>
+                this.setState({
+                  quicker: { ...this.state.quicker, to: x.target.value }
+                })
+              }
+            />
+          </div>
+          <br />
+        </div>
+        <div>
+          <button onClick={() => this.setState({ display: "main" })}>
+            Cancel
+          </button>
+          &nbsp;
+          <button
+            onClick={() => {
+              let places = [];
+              for (
+                let i = parseInt(this.state.quicker.from);
+                i <= parseInt(this.state.quicker.to);
+                i++
+              ) {
+                places.push(`${this.state.quicker.name} ${i}`);
+              }
+              places.forEach(place => {
+                this.props.createPlace({ name: place });
+              });
+              this.setState({ display: "main" });
+            }}
+            className="black-btn"
+          >
+            Create Places
+          </button>
+        </div>
+      </div>
+    );
+  }
+  creator() {
+    return (
+      <div>
         <form
           onSubmit={event => {
             event.preventDefault();
@@ -34,7 +106,13 @@ class Places extends Component {
                 name: this.state.creator.name
               });
             }
-            this.setState({ display: "main" });
+            this.setState({
+              creator: {
+                id: null,
+                name: null,
+                mode: "create"
+              }
+            });
           }}
           className="form-table"
         >
@@ -72,23 +150,21 @@ class Places extends Component {
     );
   }
   render() {
-    if (this.state.display === "create") {
-      return this.creator();
+    if (this.state.display === "quick") {
+      return this.quicker();
     }
     return (
       <div>
         <div style={{ margin: "1rem" }}>
           <button
             onClick={() => {
-              this.setState({
-                display: "create",
-                creator: { id: null, name: null, mode: "create" }
-              });
+              this.setState({ display: "quick" });
             }}
           >
-            Create A Place
+            Quick Places
           </button>
         </div>
+        <div style={{ margin: "1rem" }}>{this.creator()}</div>
         <div className="block-list">
           {this.props.places.map((place, index) => {
             return (
@@ -112,7 +188,6 @@ class Places extends Component {
                   <button
                     onClick={() => {
                       this.setState({
-                        display: "create",
                         creator: {
                           ...this.state.creator,
                           ...place,
