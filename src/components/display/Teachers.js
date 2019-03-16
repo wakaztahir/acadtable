@@ -23,7 +23,7 @@ class Teachers extends Component {
   }
   creator() {
     return (
-      <div className="full-wrapper flex-center">
+      <div>
         <form
           onSubmit={event => {
             event.preventDefault();
@@ -34,7 +34,13 @@ class Teachers extends Component {
                 name: this.state.creator.name
               });
             }
-            this.setState({ display: "main" });
+            this.setState({
+              creator: {
+                id: null,
+                name: null,
+                mode: "create"
+              }
+            });
           }}
           className="form-table"
         >
@@ -72,23 +78,9 @@ class Teachers extends Component {
     );
   }
   render() {
-    if (this.state.display === "create") {
-      return this.creator();
-    }
     return (
       <div>
-        <div style={{ margin: "1rem" }}>
-          <button
-            onClick={() => {
-              this.setState({
-                display: "create",
-                creator: { id: null, name: null, mode: "create" }
-              });
-            }}
-          >
-            Create A Teacher
-          </button>
-        </div>
+        <div style={{ margin: "1rem" }}>{this.creator()}</div>
         <div className="block-list">
           {this.props.teachers.map((teacher, index) => {
             return (
@@ -112,7 +104,6 @@ class Teachers extends Component {
                   <button
                     onClick={() => {
                       this.setState({
-                        display: "create",
                         creator: {
                           ...this.state.creator,
                           ...teacher,
