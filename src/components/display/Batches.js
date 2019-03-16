@@ -54,15 +54,7 @@ class Batches extends Component {
             />
           </div>
           <div className="form-row">
-            <div>
-              <button
-                onClick={() => {
-                  this.setState({ display: "main" });
-                }}
-              >
-                Cancel
-              </button>
-            </div>
+            <div />
             <input
               type="submit"
               value={this.state.creator.mode}
