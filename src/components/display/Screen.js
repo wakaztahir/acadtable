@@ -142,6 +142,7 @@ class Screen extends Component {
                                       "content",
                                       <LectureModal
                                         params={params}
+                                        edit={["subject", "batch", "teacher"]}
                                         mode="create"
                                       />
                                     );
@@ -167,7 +168,17 @@ class Screen extends Component {
                                 <td
                                   key={"b" + col.id}
                                   className="table-block"
-                                  onClick={() => {}}
+                                  onClick={() => {
+                                    this.props.showModal(
+                                      "content",
+                                      <LectureModal
+                                        id={lecture.id}
+                                        params={{ ...lecture }}
+                                        edit={["subject", "batch", "teacher"]}
+                                        mode="update"
+                                      />
+                                    );
+                                  }}
                                 >
                                   {batch != null ? (
                                     <span>{batch.name}</span>

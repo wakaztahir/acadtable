@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { unshowModal, createLecture } from "../../actions/";
+import { unshowModal, createLecture, updateLecture } from "../../actions/";
 import { keyList } from "../../actions/helpers";
 
 class LectureModal extends Component {
@@ -20,6 +20,8 @@ class LectureModal extends Component {
       teacher: null,
       ...params
     };
+    let toEdit = this.props.edit;
+
     return (
       <div className="full-wrapper">
         <form
@@ -40,13 +42,14 @@ class LectureModal extends Component {
               this.props.unshowModal();
             } else if (this.props.mode === "update") {
               this.props.updateLecture(this.props.id, info);
+              this.props.unshowModal();
             }
           }}
         >
-          {Object.keys(info).map(key => {
+          {toEdit.map(key => {
             let list = this.props[keyList(key)];
             let value = params[key] != null ? params[key] : null;
-            if (value == null) {
+            if (value == null || this.props.mode === "update") {
               return (
                 <div key={"inp" + key} className="form-row ">
                   <label htmlFor={key} style={{ textTransform: "capitalize" }}>
@@ -55,7 +58,13 @@ class LectureModal extends Component {
                   <select
                     id={key}
                     name={key}
-                    defaultValue={list.length > 0 ? list[0].id : null}
+                    defaultValue={
+                      info[key] != null
+                        ? info[key]
+                        : list.length > 0
+                        ? list[0].id
+                        : null
+                    }
                   >
                     {list.map(item => {
                       return (
@@ -100,5 +109,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { createLecture, unshowModal }
+  { createLecture, unshowModal, updateLecture }
 )(LectureModal);
