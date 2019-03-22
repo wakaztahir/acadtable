@@ -2,7 +2,12 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { showModal, unshowModal, deleteLecture } from "../../actions";
+import {
+  showModal,
+  unshowModal,
+  updateLecture,
+  deleteLecture
+} from "../../actions";
 
 import { listKey } from "../../actions/helpers";
 
@@ -188,10 +193,86 @@ class Screen extends Component {
                                     </span>
                                   )}
                                   <div className="block-buttons">
-                                    <button className="above" />
-                                    <button className="bottom" />
-                                    <button className="right" />
-                                    <button className="left" />
+                                    <button
+                                      className="above"
+                                      onClick={() => {
+                                        let effectedRow = null;
+                                        rows.filter((r, i) => {
+                                          if (r.id === row.id) {
+                                            effectedRow = rows[i - 1];
+                                          }
+                                          return r;
+                                        });
+                                        if (effectedRow != null) {
+                                          lecture[listKey(table.rows)] =
+                                            effectedRow.id;
+                                          this.props.updateLecture(
+                                            lecture.id,
+                                            lecture
+                                          );
+                                        }
+                                      }}
+                                    />
+                                    <button
+                                      className="bottom"
+                                      onClick={() => {
+                                        let effectedRow = null;
+                                        rows.filter((r, i) => {
+                                          if (r.id === row.id) {
+                                            effectedRow = rows[i + 1];
+                                          }
+                                          return r;
+                                        });
+                                        if (effectedRow != null) {
+                                          lecture[listKey(table.rows)] =
+                                            effectedRow.id;
+                                          this.props.updateLecture(
+                                            lecture.id,
+                                            lecture
+                                          );
+                                        }
+                                      }}
+                                    />
+                                    <button
+                                      className="right"
+                                      onClick={() => {
+                                        let effectedCol = null;
+                                        cols.filter((c, i) => {
+                                          if (c.id === col.id) {
+                                            effectedCol = cols[i + 1];
+                                          }
+                                          return c;
+                                        });
+                                        if (effectedCol != null) {
+                                          lecture[listKey(table.cols)] =
+                                            effectedCol.id;
+                                          this.props.updateLecture(
+                                            lecture.id,
+                                            lecture
+                                          );
+                                        }
+                                      }}
+                                    />
+                                    <button
+                                      className="left"
+                                      onClick={() => {
+                                        let effectedCol = null;
+                                        cols.filter((c, i) => {
+                                          if (c.id === col.id) {
+                                            effectedCol = cols[i - 1];
+                                          }
+                                          return c;
+                                        });
+                                        if (effectedCol != null) {
+                                          lecture[listKey(table.cols)] =
+                                            effectedCol.id;
+                                          this.props.updateLecture(
+                                            lecture.id,
+                                            lecture
+                                          );
+                                        }
+                                      }}
+                                    />
                                     <button
                                       className="edit"
                                       onClick={() => {
@@ -211,7 +292,7 @@ class Screen extends Component {
                                       }}
                                     />
                                     <button
-                                      className="delete black-btn"
+                                      className="delete"
                                       onClick={() => {
                                         this.props.showModal(
                                           "confirm",
@@ -263,6 +344,7 @@ export default connect(
   {
     showModal,
     unshowModal,
+    updateLecture,
     deleteLecture
   }
 )(Screen);
