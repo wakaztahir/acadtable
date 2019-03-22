@@ -85,6 +85,10 @@ input[type="submit"]:hover:not(:disabled),
   color: rgb(196, 195, 195);
 }
 
+.black-btn {
+  background: rgb(51, 51, 51) !important;
+  color: rgb(196, 195, 195) !important;
+}
 .black-btn:hover {
   background: rgb(199, 30, 30) !important;
 }
