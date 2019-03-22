@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { showModal, unshowModal } from "../../actions";
+import { showModal, unshowModal, deleteLecture } from "../../actions";
 
 import { listKey } from "../../actions/helpers";
 
@@ -165,21 +165,7 @@ class Screen extends Component {
                                 tr => tr.id === lecture.teacher
                               )[0];
                               return (
-                                <td
-                                  key={"b" + col.id}
-                                  className="table-block"
-                                  onClick={() => {
-                                    this.props.showModal(
-                                      "content",
-                                      <LectureModal
-                                        id={lecture.id}
-                                        params={{ ...lecture }}
-                                        edit={["subject", "batch", "teacher"]}
-                                        mode="update"
-                                      />
-                                    );
-                                  }}
-                                >
+                                <td key={"b" + col.id} className="table-block">
                                   {batch != null ? (
                                     <span>{batch.name}</span>
                                   ) : (
@@ -201,6 +187,46 @@ class Screen extends Component {
                                       Teacher Error
                                     </span>
                                   )}
+                                  <div className="block-buttons">
+                                    <button className="above" />
+                                    <button className="bottom" />
+                                    <button className="right" />
+                                    <button className="left" />
+                                    <button
+                                      className="edit"
+                                      onClick={() => {
+                                        this.props.showModal(
+                                          "content",
+                                          <LectureModal
+                                            id={lecture.id}
+                                            params={{ ...lecture }}
+                                            edit={[
+                                              "subject",
+                                              "batch",
+                                              "teacher"
+                                            ]}
+                                            mode="update"
+                                          />
+                                        );
+                                      }}
+                                    />
+                                    <button
+                                      className="delete black-btn"
+                                      onClick={() => {
+                                        this.props.showModal(
+                                          "confirm",
+                                          "Are you sure ?",
+                                          [
+                                            () => {
+                                              this.props.deleteLecture(
+                                                lecture.id
+                                              );
+                                            }
+                                          ]
+                                        );
+                                      }}
+                                    />
+                                  </div>
                                 </td>
                               );
                             }
@@ -236,6 +262,7 @@ export default connect(
   mapStateToProps,
   {
     showModal,
-    unshowModal
+    unshowModal,
+    deleteLecture
   }
 )(Screen);
