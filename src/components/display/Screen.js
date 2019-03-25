@@ -6,7 +6,13 @@ import {
   showModal,
   unshowModal,
   updateLecture,
-  deleteLecture
+  deleteLecture,
+  swapDay,
+  swapBatch,
+  swapPlace,
+  swapTeacher,
+  swapSubject,
+  swapTime
 } from "../../actions";
 
 import { listKey, lectureValidator } from "../../actions/helpers";
@@ -37,6 +43,32 @@ class Screen extends Component {
       });
     }
     this.props.user.save();
+  }
+  swapper(area, from, to) {
+    let swap;
+    switch (area) {
+      default:
+        swap = null;
+        break;
+      case "days":
+        swap = this.props.swapDay;
+        break;
+      case "times":
+        swap = this.props.swapTime;
+        break;
+      case "batches":
+        swap = this.props.swapBatch;
+        break;
+      case "places":
+        swap = this.props.swapPlace;
+        break;
+      case "subjects":
+        swap = this.props.swapSubject;
+        break;
+    }
+    if (swap != null) {
+      swap(from.id, to.id);
+    }
   }
   lectureSwap(from, to) {
     let lectFind = this.props.lectures.filter(
@@ -154,17 +186,77 @@ class Screen extends Component {
                 <table key={table.id} className="screen-table">
                   <thead>
                     <tr>
-                      <td>{base != null ? base.name : null}</td>
-                      {cols.map(col => {
-                        return <td key={"c" + col.id}>{col.name}</td>;
+                      <td className="main-block">
+                        {base != null ? <span>{base.name}</span> : null}
+                      </td>
+                      {cols.map((col, colIndex) => {
+                        return (
+                          <td key={"c" + col.id} className="col-block">
+                            <span>{col.name}</span>
+                            <div className="block-buttons">
+                              {colIndex === 0 ? null : (
+                                <button
+                                  onClick={() => {
+                                    this.swapper(
+                                      table.cols,
+                                      col,
+                                      cols[colIndex - 1]
+                                    );
+                                  }}
+                                  className="left"
+                                />
+                              )}
+                              {colIndex === cols.length - 1 ? null : (
+                                <button
+                                  onClick={() => {
+                                    this.swapper(
+                                      table.cols,
+                                      col,
+                                      cols[colIndex + 1]
+                                    );
+                                  }}
+                                  className="right"
+                                />
+                              )}
+                            </div>
+                          </td>
+                        );
                       })}
                     </tr>
                   </thead>
                   <tbody>
-                    {rows.map(row => {
+                    {rows.map((row, rowIndex) => {
                       return (
                         <tr key={"r" + row.id}>
-                          <td>{row.name}</td>
+                          <td className="row-block">
+                            <span>{row.name}</span>
+                            <div className="block-buttons">
+                              {rowIndex === 0 ? null : (
+                                <button
+                                  onClick={() => {
+                                    this.swapper(
+                                      table.rows,
+                                      row,
+                                      rows[rowIndex - 1]
+                                    );
+                                  }}
+                                  className="above"
+                                />
+                              )}
+                              {rowIndex === rows.length - 1 ? null : (
+                                <button
+                                  onClick={() => {
+                                    this.swapper(
+                                      table.rows,
+                                      row,
+                                      rows[rowIndex + 1]
+                                    );
+                                  }}
+                                  className="bottom"
+                                />
+                              )}
+                            </div>
+                          </td>
                           {cols.map(col => {
                             let block = objector["lectures"].filter(
                               block =>
@@ -373,6 +465,12 @@ export default connect(
     showModal,
     unshowModal,
     updateLecture,
-    deleteLecture
+    deleteLecture,
+    swapBatch,
+    swapDay,
+    swapPlace,
+    swapSubject,
+    swapTeacher,
+    swapTime
   }
 )(Screen);
