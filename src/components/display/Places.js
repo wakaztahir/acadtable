@@ -9,15 +9,18 @@ import {
   deletePlace
 } from "../../actions";
 
+import ColorsPanel from "../others/ColorsPanel";
+
 class Places extends Component {
   state = {
     display: "main",
     creator: {
       id: null,
       name: null,
+      color: "#a7e034",
       mode: "create"
     },
-    quicker: { name: "Room", from: "1", to: "10" }
+    quicker: { name: "Room", from: "1", to: "10", color: "#a7e034" }
   };
   componentWillUnmount() {
     this.props.user.save();
@@ -65,6 +68,15 @@ class Places extends Component {
                 }
               />
             </div>
+            <div className="form-row">
+              <label htmlFor="">Color </label>
+              <ColorsPanel
+                color={this.state.quicker.color}
+                change={color => {
+                  this.setState({ quicker: { ...this.state.quicker, color } });
+                }}
+              />
+            </div>
             <br />
           </div>
           <div>
@@ -83,7 +95,10 @@ class Places extends Component {
                   places.push(`${this.state.quicker.name} ${i}`);
                 }
                 places.forEach(place => {
-                  this.props.createPlace({ name: place });
+                  this.props.createPlace({
+                    name: place,
+                    color: this.state.quicker.color
+                  });
                 });
                 this.setState({ display: "main" });
               }}
@@ -103,10 +118,14 @@ class Places extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createPlace({ name: this.state.creator.name });
+              this.props.createPlace({
+                name: this.state.creator.name,
+                color: this.state.creator.color
+              });
             } else {
               this.props.updatePlace(this.state.creator.id, {
-                name: this.state.creator.name
+                name: this.state.creator.name,
+                color: this.state.creator.color
               });
             }
             this.setState({
@@ -130,6 +149,15 @@ class Places extends Component {
                 });
               }}
               value={this.state.creator.name || ""}
+            />
+          </div>
+          <div className="form-row">
+            <label htmlFor="">Color </label>
+            <ColorsPanel
+              color={this.state.creator.color}
+              change={color => {
+                this.setState({ creator: { ...this.state.creator, color } });
+              }}
             />
           </div>
           <div className="form-row">

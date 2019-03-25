@@ -9,12 +9,15 @@ import {
   deleteTeacher
 } from "../../actions";
 
+import ColorsPanel from "../others/ColorsPanel";
+
 class Teachers extends Component {
   state = {
     display: "main",
     creator: {
       id: null,
       name: null,
+      color: "#6777eb",
       mode: "create"
     }
   };
@@ -28,10 +31,14 @@ class Teachers extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createTeacher({ name: this.state.creator.name });
+              this.props.createTeacher({
+                name: this.state.creator.name,
+                color: this.state.creator.color
+              });
             } else {
               this.props.updateTeacher(this.state.creator.id, {
-                name: this.state.creator.name
+                name: this.state.creator.name,
+                color: this.state.creator.color
               });
             }
             this.setState({
@@ -55,6 +62,15 @@ class Teachers extends Component {
                 });
               }}
               value={this.state.creator.name || ""}
+            />
+          </div>
+          <div className="form-row">
+            <label htmlFor="">Color </label>
+            <ColorsPanel
+              color={this.state.creator.color}
+              change={color => {
+                this.setState({ creator: { ...this.state.creator, color } });
+              }}
             />
           </div>
           <div className="form-row">

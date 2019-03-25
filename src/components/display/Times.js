@@ -4,12 +4,15 @@ import { connect } from "react-redux";
 
 import { createTime, updateTime, swapTime, deleteTime } from "../../actions";
 
+import ColorsPanel from "../others/ColorsPanel";
+
 class Times extends Component {
   state = {
     display: "main",
     creator: {
       id: null,
       name: null,
+      color: "#fff60c",
       mode: "create"
     },
     quicker: {
@@ -17,7 +20,8 @@ class Times extends Component {
       fromMeridian: "AM",
       toTime: "01",
       toMeridian: "PM",
-      lectureTime: "60"
+      lectureTime: "60",
+      color: "#fff60c"
     }
   };
   componentWillUnmount() {
@@ -110,7 +114,17 @@ class Times extends Component {
               />
             </div>
             <div className="form-row" />
+            <div className="form-row">
+              <label htmlFor="">Color</label>
+              <ColorsPanel
+                color={this.state.quicker.color}
+                change={color => {
+                  this.setState({ quicker: { ...this.state.quicker, color } });
+                }}
+              />
+            </div>
           </div>
+
           <br />
           <div>
             <button onClick={() => this.setState({ display: "main" })}>
@@ -172,7 +186,10 @@ class Times extends Component {
                   times.push(start + " - " + timeStringer(from));
                 }
                 times.forEach(time => {
-                  this.props.createTime({ name: time });
+                  this.props.createTime({
+                    name: time,
+                    color: this.state.quicker.color
+                  });
                   this.setState({ display: "main" });
                 });
               }}
@@ -192,10 +209,14 @@ class Times extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createTime({ name: this.state.creator.name });
+              this.props.createTime({
+                name: this.state.creator.name,
+                color: this.state.creator.color
+              });
             } else {
               this.props.updateTime(this.state.creator.id, {
-                name: this.state.creator.name
+                name: this.state.creator.name,
+                color: this.state.creator.color
               });
             }
             this.setState({
@@ -219,6 +240,15 @@ class Times extends Component {
                 });
               }}
               value={this.state.creator.name || ""}
+            />
+          </div>
+          <div className="form-row">
+            <label htmlFor="colorbtn">Color </label>
+            <ColorsPanel
+              color={this.state.creator.color}
+              change={color => {
+                this.setState({ creator: { ...this.state.creator, color } });
+              }}
             />
           </div>
           <div className="form-row">
