@@ -9,7 +9,7 @@ import {
   deleteLecture
 } from "../../actions";
 
-import { listKey } from "../../actions/helpers";
+import { listKey, lectureValidator } from "../../actions/helpers";
 
 import {
   downloadPNG,
@@ -159,7 +159,7 @@ class Screen extends Component {
                                 </td>
                               );
                             } else {
-                              let lecture = block[0];
+                              let lecture = { ...block[0] };
                               let subject = this.props.subjects.filter(
                                 st => st.id === lecture.subject
                               )[0];
@@ -206,10 +206,21 @@ class Screen extends Component {
                                         if (effectedRow != null) {
                                           lecture[listKey(table.rows)] =
                                             effectedRow.id;
-                                          this.props.updateLecture(
-                                            lecture.id,
+                                          let validator = lectureValidator(
+                                            this.props.lectures,
                                             lecture
                                           );
+                                          if (validator.value) {
+                                            this.props.updateLecture(
+                                              lecture.id,
+                                              lecture
+                                            );
+                                          } else {
+                                            this.props.showModal(
+                                              "message",
+                                              validator.message
+                                            );
+                                          }
                                         }
                                       }}
                                     />
@@ -226,10 +237,21 @@ class Screen extends Component {
                                         if (effectedRow != null) {
                                           lecture[listKey(table.rows)] =
                                             effectedRow.id;
-                                          this.props.updateLecture(
-                                            lecture.id,
+                                          let validator = lectureValidator(
+                                            this.props.lectures,
                                             lecture
                                           );
+                                          if (validator.value) {
+                                            this.props.updateLecture(
+                                              lecture.id,
+                                              lecture
+                                            );
+                                          } else {
+                                            this.props.showModal(
+                                              "message",
+                                              validator.message
+                                            );
+                                          }
                                         }
                                       }}
                                     />
@@ -246,10 +268,21 @@ class Screen extends Component {
                                         if (effectedCol != null) {
                                           lecture[listKey(table.cols)] =
                                             effectedCol.id;
-                                          this.props.updateLecture(
-                                            lecture.id,
+                                          let validator = lectureValidator(
+                                            this.props.lectures,
                                             lecture
                                           );
+                                          if (validator.value) {
+                                            this.props.updateLecture(
+                                              lecture.id,
+                                              lecture
+                                            );
+                                          } else {
+                                            this.props.showModal(
+                                              "message",
+                                              validator.message
+                                            );
+                                          }
                                         }
                                       }}
                                     />
@@ -266,10 +299,21 @@ class Screen extends Component {
                                         if (effectedCol != null) {
                                           lecture[listKey(table.cols)] =
                                             effectedCol.id;
-                                          this.props.updateLecture(
-                                            lecture.id,
+                                          let validator = lectureValidator(
+                                            this.props.lectures,
                                             lecture
                                           );
+                                          if (validator.value) {
+                                            this.props.updateLecture(
+                                              lecture.id,
+                                              lecture
+                                            );
+                                          } else {
+                                            this.props.showModal(
+                                              "message",
+                                              validator.message
+                                            );
+                                          }
                                         }
                                       }}
                                     />

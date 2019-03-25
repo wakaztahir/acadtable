@@ -54,3 +54,34 @@ export const listKey = listName => {
       return listName.substr(0, listName.length - 1);
   }
 };
+
+export const lectureValidator = (lectures, lect) => {
+  let lectFind = lectures.filter(
+    l => l.time === lect.time && l.day === lect.day && l.place === lect.place
+  );
+  if (lectFind.length > 0) {
+    return {
+      value: false,
+      message: "There's already a lecture on the same day,time & place."
+    };
+  } else {
+    let secLectFind = lectures.filter(
+      l =>
+        l.batch === lect.batch &&
+        l.time === lect.time &&
+        l.day === lect.day &&
+        l.id !== lect.id
+    );
+    if (secLectFind.length > 0) {
+      return {
+        value: false,
+        message: "This batch is already taking lecture on the same time & day."
+      };
+    } else {
+      return {
+        value: true,
+        message: ""
+      };
+    }
+  }
+};

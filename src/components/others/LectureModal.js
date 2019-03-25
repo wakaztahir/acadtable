@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import {
+  showModal,
   unshowModal,
   createLecture,
   updateLecture,
@@ -13,7 +14,7 @@ import {
   createTeacher,
   createSubject
 } from "../../actions/";
-import { keyList } from "../../actions/helpers";
+import { keyList, lectureValidator } from "../../actions/helpers";
 
 class LectureModal extends Component {
   state = {
@@ -49,11 +50,22 @@ class LectureModal extends Component {
                 }
               }
               if (this.props.mode === "create") {
-                this.props.createLecture(info);
-                this.props.unshowModal();
+                let validator = lectureValidator(this.props.lectures, info);
+                if (validator.value) {
+                  this.props.createLecture(info);
+                  this.props.unshowModal();
+                } else {
+                  this.props.showModal("message", validator.message);
+                }
               } else if (this.props.mode === "update") {
-                this.props.updateLecture(this.props.id, info);
-                this.props.unshowModal();
+                let validator = lectureValidator(this.props.lectures, info);
+                if (validator.value) {
+                  this.props.updateLecture(this.props.id, info);
+
+                  this.props.unshowModal();
+                } else {
+                  this.props.showModal("message", validator.message);
+                }
               }
             }}
           >
@@ -183,6 +195,7 @@ class LectureModal extends Component {
 
 const mapStateToProps = state => {
   return {
+    lectures: state.Lectures,
     days: state.Days,
     times: state.Times,
     places: state.Places,
@@ -196,6 +209,7 @@ export default connect(
   mapStateToProps,
   {
     createLecture,
+    showModal,
     unshowModal,
     updateLecture,
     createDay,

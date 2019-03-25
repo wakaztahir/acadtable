@@ -2,9 +2,14 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { keyList } from "../../actions/helpers";
+import { keyList, lectureValidator } from "../../actions/helpers";
 
-import { createLecture, updateLecture, deleteLecture } from "../../actions";
+import {
+  createLecture,
+  updateLecture,
+  deleteLecture,
+  showModal
+} from "../../actions";
 
 class Lectures extends Component {
   state = {
@@ -44,25 +49,38 @@ class Lectures extends Component {
             onSubmit={event => {
               event.preventDefault();
               if (this.state.creator.mode === "create") {
-                this.props.createLecture({
+                let lecture = {
                   batch: this.state.creator.batch,
                   subject: this.state.creator.subject,
                   teacher: this.state.creator.teacher,
                   place: this.state.creator.place,
                   day: this.state.creator.day,
                   time: this.state.creator.time
-                });
+                };
+                let validator = lectureValidator(this.props.lectures, lecture);
+                if (validator.value) {
+                  this.props.createLecture(lecture);
+                  this.setState({ display: "main" });
+                } else {
+                  this.props.showModal("message", validator.message);
+                }
               } else {
-                this.props.updateLecture(this.state.creator.id, {
+                let lecture = {
                   batch: this.state.creator.batch,
                   subject: this.state.creator.subject,
                   teacher: this.state.creator.teacher,
                   place: this.state.creator.place,
                   day: this.state.creator.day,
                   time: this.state.creator.time
-                });
+                };
+                let validator = lectureValidator(this.props.lectures, lecture);
+                if (validator.value) {
+                  this.props.updateLecture(this.state.creator.id, lecture);
+                  this.setState({ display: "main" });
+                } else {
+                  this.props.showModal("message", validator.message);
+                }
               }
-              this.setState({ display: "main" });
             }}
             className="form-table"
           >
@@ -363,6 +381,7 @@ export default connect(
   {
     createLecture,
     updateLecture,
-    deleteLecture
+    deleteLecture,
+    showModal
   }
 )(Lectures);
