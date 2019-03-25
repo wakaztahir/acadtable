@@ -55,11 +55,11 @@ export const listKey = listName => {
   }
 };
 
-export const lectureValidator = (lectures, lect) => {
+export const lectureValidator = (lectures, lect, ex = { id: "exception" }) => {
   let lectFind = lectures.filter(
     l => l.time === lect.time && l.day === lect.day && l.place === lect.place
   );
-  if (lectFind.length > 0) {
+  if (lectFind.length > 0 && lectFind[0].id !== ex.id) {
     return {
       value: false,
       message: "There's already a lecture on the same day,time & place."
@@ -72,7 +72,7 @@ export const lectureValidator = (lectures, lect) => {
         l.day === lect.day &&
         l.id !== lect.id
     );
-    if (secLectFind.length > 0) {
+    if (secLectFind.length > 0 && secLectFind[0].id !== ex.id) {
       return {
         value: false,
         message: "This batch is already taking lecture on the same time & day."

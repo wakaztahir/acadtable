@@ -38,6 +38,46 @@ class Screen extends Component {
     }
     this.props.user.save();
   }
+  lectureSwap(from, to) {
+    let lectFind = this.props.lectures.filter(
+      l => l.day === to.day && l.time === to.time && l.place === to.place
+    );
+    if (lectFind.length > 0) {
+      let otherLecture = lectFind[0];
+      otherLecture = {
+        ...otherLecture,
+        day: from.day,
+        time: from.time,
+        place: from.place
+      };
+      let otherValidator = lectureValidator(
+        this.props.lectures,
+        otherLecture,
+        from
+      );
+      if (otherValidator.value) {
+        this.props.updateLecture(otherLecture.id, otherLecture);
+        let validator = lectureValidator(this.props.lectures, to, otherLecture);
+        if (validator.value) {
+          this.props.updateLecture(to.id, to);
+        } else {
+          this.props.showModal("message", validator.message);
+        }
+      } else {
+        this.props.showModal(
+          "message",
+          "2nd lecture error , " + otherValidator.message
+        );
+      }
+    } else {
+      let validator = lectureValidator(this.props.lectures, to);
+      if (validator.value) {
+        this.props.updateLecture(to.id, to);
+      } else {
+        this.props.showModal("message", validator.message);
+      }
+    }
+  }
   render() {
     let objector = {
       tables: this.props.tables,
@@ -206,21 +246,7 @@ class Screen extends Component {
                                         if (effectedRow != null) {
                                           lecture[listKey(table.rows)] =
                                             effectedRow.id;
-                                          let validator = lectureValidator(
-                                            this.props.lectures,
-                                            lecture
-                                          );
-                                          if (validator.value) {
-                                            this.props.updateLecture(
-                                              lecture.id,
-                                              lecture
-                                            );
-                                          } else {
-                                            this.props.showModal(
-                                              "message",
-                                              validator.message
-                                            );
-                                          }
+                                          this.lectureSwap(block[0], lecture);
                                         }
                                       }}
                                     />
@@ -237,21 +263,7 @@ class Screen extends Component {
                                         if (effectedRow != null) {
                                           lecture[listKey(table.rows)] =
                                             effectedRow.id;
-                                          let validator = lectureValidator(
-                                            this.props.lectures,
-                                            lecture
-                                          );
-                                          if (validator.value) {
-                                            this.props.updateLecture(
-                                              lecture.id,
-                                              lecture
-                                            );
-                                          } else {
-                                            this.props.showModal(
-                                              "message",
-                                              validator.message
-                                            );
-                                          }
+                                          this.lectureSwap(block[0], lecture);
                                         }
                                       }}
                                     />
@@ -268,21 +280,7 @@ class Screen extends Component {
                                         if (effectedCol != null) {
                                           lecture[listKey(table.cols)] =
                                             effectedCol.id;
-                                          let validator = lectureValidator(
-                                            this.props.lectures,
-                                            lecture
-                                          );
-                                          if (validator.value) {
-                                            this.props.updateLecture(
-                                              lecture.id,
-                                              lecture
-                                            );
-                                          } else {
-                                            this.props.showModal(
-                                              "message",
-                                              validator.message
-                                            );
-                                          }
+                                          this.lectureSwap(block[0], lecture);
                                         }
                                       }}
                                     />
@@ -299,21 +297,7 @@ class Screen extends Component {
                                         if (effectedCol != null) {
                                           lecture[listKey(table.cols)] =
                                             effectedCol.id;
-                                          let validator = lectureValidator(
-                                            this.props.lectures,
-                                            lecture
-                                          );
-                                          if (validator.value) {
-                                            this.props.updateLecture(
-                                              lecture.id,
-                                              lecture
-                                            );
-                                          } else {
-                                            this.props.showModal(
-                                              "message",
-                                              validator.message
-                                            );
-                                          }
+                                          this.lectureSwap(block[0], lecture);
                                         }
                                       }}
                                     />
