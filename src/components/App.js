@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 class App extends Component {
   render() {
     return (
-      <div>
+      <div style={{ position: "relative" }}>
         {this.props.user == null ? <Welcome /> : <Display />}
         <Modal />
       </div>

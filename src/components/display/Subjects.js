@@ -72,6 +72,7 @@ class Subjects extends Component {
   render() {
     return (
       <div>
+        <h1>Subjects</h1>
         <div style={{ margin: "1rem" }}>{this.creator()}</div>
         <div className="block-list">
           {this.props.subjects.map((subject, index) => {

@@ -24,6 +24,7 @@ class Batches extends Component {
   creator() {
     return (
       <div>
+        <h1>Batches</h1>
         <form
           onSubmit={event => {
             event.preventDefault();

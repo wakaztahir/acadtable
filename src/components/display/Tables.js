@@ -36,291 +36,298 @@ class Tables extends Component {
   }
   creator(objector) {
     return (
-      <div className="full-wrapper flex-center">
-        <form
-          onSubmit={event => {
-            event.preventDefault();
-            if (this.state.creator.action === "create") {
-              let { base, baseValue, rows, cols } = this.state.creator;
-              this.props.createTable({ base, baseValue, rows, cols });
-            } else if (this.state.creator.action === "update") {
-              let { id, base, baseValue, rows, cols } = this.state.creator;
-              this.props.updateTable(id, { base, baseValue, rows, cols });
-            }
-            this.setState({ display: "main" });
-          }}
-          className="form-table"
-        >
-          <div className="form-row">
-            <label htmlFor="base">Table of </label>
-            <select
-              defaultValue={this.state.creator.base}
-              style={{ textTransform: "capitalize" }}
-              onChange={event => {
-                this.setState({
-                  creator: { ...this.state.creator, base: event.target.value }
-                });
-              }}
-              required={true}
-            >
-              {Object.keys(objector).map(key => {
-                return (
-                  <option key={"base" + key} value={key}>
-                    {key}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          {this.state.creator.base != null &&
-          objector[this.state.creator.base].length > 0 ? (
+      <div>
+        <h1>Tables</h1>
+        <div className="full-wrapper flex-center">
+          <form
+            onSubmit={event => {
+              event.preventDefault();
+              if (this.state.creator.action === "create") {
+                let { base, baseValue, rows, cols } = this.state.creator;
+                this.props.createTable({ base, baseValue, rows, cols });
+              } else if (this.state.creator.action === "update") {
+                let { id, base, baseValue, rows, cols } = this.state.creator;
+                this.props.updateTable(id, { base, baseValue, rows, cols });
+              }
+              this.setState({ display: "main" });
+            }}
+            className="form-table"
+          >
             <div className="form-row">
-              <label
-                htmlFor="baseValue"
-                style={{ textTransform: "capitalize" }}
-              >
-                {listKey(this.state.creator.base)}
-              </label>
+              <label htmlFor="base">Table of </label>
               <select
-                value={
-                  this.state.creator.baseValue == null
-                    ? objector[this.state.creator.base][0].id
-                    : this.state.creator.baseValue
-                }
+                defaultValue={this.state.creator.base}
                 style={{ textTransform: "capitalize" }}
                 onChange={event => {
                   this.setState({
-                    creator: {
-                      ...this.state.creator,
-                      baseValue: event.target.value
-                    }
+                    creator: { ...this.state.creator, base: event.target.value }
                   });
                 }}
                 required={true}
               >
-                {this.state.creator.baseValue !== null
-                  ? objector[this.state.creator.base].filter(
-                      item => item.id === this.state.creator.baseValue
-                    ).length > 0
-                    ? null
-                    : this.setState({
-                        creator: { ...this.state.creator, baseValue: null }
-                      })
-                  : null}
-                {objector[this.state.creator.base].map(item => {
-                  if (this.state.creator.baseValue == null) {
-                    this.setState({
-                      creator: { ...this.state.creator, baseValue: item.id }
-                    });
-                  }
+                {Object.keys(objector).map(key => {
                   return (
-                    <option value={item.id} key={item.id}>
-                      {item.name}
+                    <option key={"base" + key} value={key}>
+                      {key}
                     </option>
                   );
                 })}
               </select>
             </div>
-          ) : null}
-          <div className="form-row">
-            <label htmlFor="rows">Rows </label>
-            <select
-              value={this.state.creator.rows}
-              style={{ textTransform: "capitalize" }}
-              onChange={event => {
-                this.setState({
-                  creator: {
-                    ...this.state.creator,
-                    rows: event.target.value
-                  }
-                });
-              }}
-              required={true}
-            >
-              {Object.keys(objector)
-                .filter(key => key !== this.state.creator.base)
-                .map(key => {
-                  return (
-                    <option key={"rows" + key} value={key}>
-                      {key}
-                    </option>
-                  );
-                })}
-            </select>
-          </div>
-          <div className="form-row">
-            <label htmlFor="cols">Columns </label>
-            <select
-              value={this.state.creator.cols}
-              style={{ textTransform: "capitalize" }}
-              onChange={event => {
-                this.setState({
-                  creator: {
-                    ...this.state.creator,
-                    cols: event.target.value
-                  }
-                });
-              }}
-              required={true}
-            >
-              {Object.keys(objector)
-                .filter(
-                  key =>
-                    key !== this.state.creator.base &&
-                    key !== this.state.creator.rows
-                )
-                .map(key => {
-                  return (
-                    <option key={"cols" + key} value={key}>
-                      {key}
-                    </option>
-                  );
-                })}
-            </select>
-          </div>
-          <div className="form-row">
-            <button
-              onClick={() => {
-                this.setState({ display: "main" });
-              }}
-              style={{ marginRight: "1em" }}
-            >
-              Cancel
-            </button>
-            <div>
-              {this.state.creator.action === "update" ? (
-                <button
-                  onClick={() => {
-                    this.props.deleteTable(this.state.creator.id);
-                    this.setState({ display: "main" });
-                  }}
+            {this.state.creator.base != null &&
+            objector[this.state.creator.base].length > 0 ? (
+              <div className="form-row">
+                <label
+                  htmlFor="baseValue"
+                  style={{ textTransform: "capitalize" }}
                 >
-                  Delete
-                </button>
-              ) : null}
-              <input
-                type="submit"
+                  {listKey(this.state.creator.base)}
+                </label>
+                <select
+                  value={
+                    this.state.creator.baseValue == null
+                      ? objector[this.state.creator.base][0].id
+                      : this.state.creator.baseValue
+                  }
+                  style={{ textTransform: "capitalize" }}
+                  onChange={event => {
+                    this.setState({
+                      creator: {
+                        ...this.state.creator,
+                        baseValue: event.target.value
+                      }
+                    });
+                  }}
+                  required={true}
+                >
+                  {this.state.creator.baseValue !== null
+                    ? objector[this.state.creator.base].filter(
+                        item => item.id === this.state.creator.baseValue
+                      ).length > 0
+                      ? null
+                      : this.setState({
+                          creator: { ...this.state.creator, baseValue: null }
+                        })
+                    : null}
+                  {objector[this.state.creator.base].map(item => {
+                    if (this.state.creator.baseValue == null) {
+                      this.setState({
+                        creator: { ...this.state.creator, baseValue: item.id }
+                      });
+                    }
+                    return (
+                      <option value={item.id} key={item.id}>
+                        {item.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            ) : null}
+            <div className="form-row">
+              <label htmlFor="rows">Rows </label>
+              <select
+                value={this.state.creator.rows}
                 style={{ textTransform: "capitalize" }}
-                value={this.state.creator.action}
-              />
+                onChange={event => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      rows: event.target.value
+                    }
+                  });
+                }}
+                required={true}
+              >
+                {Object.keys(objector)
+                  .filter(key => key !== this.state.creator.base)
+                  .map(key => {
+                    return (
+                      <option key={"rows" + key} value={key}>
+                        {key}
+                      </option>
+                    );
+                  })}
+              </select>
             </div>
-          </div>
-        </form>
+            <div className="form-row">
+              <label htmlFor="cols">Columns </label>
+              <select
+                value={this.state.creator.cols}
+                style={{ textTransform: "capitalize" }}
+                onChange={event => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      cols: event.target.value
+                    }
+                  });
+                }}
+                required={true}
+              >
+                {Object.keys(objector)
+                  .filter(
+                    key =>
+                      key !== this.state.creator.base &&
+                      key !== this.state.creator.rows
+                  )
+                  .map(key => {
+                    return (
+                      <option key={"cols" + key} value={key}>
+                        {key}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
+            <div className="form-row">
+              <button
+                onClick={() => {
+                  this.setState({ display: "main" });
+                }}
+                style={{ marginRight: "1em" }}
+              >
+                Cancel
+              </button>
+              <div>
+                {this.state.creator.action === "update" ? (
+                  <button
+                    onClick={() => {
+                      this.props.deleteTable(this.state.creator.id);
+                      this.setState({ display: "main" });
+                    }}
+                  >
+                    Delete
+                  </button>
+                ) : null}
+                <input
+                  type="submit"
+                  style={{ textTransform: "capitalize" }}
+                  value={this.state.creator.action}
+                  className="black-btn"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
   quicker(objector) {
     let objects = Object.keys(objector);
     return (
-      <div className="full-wrapper flex-center">
-        <h2>Table Settings</h2>
-        <div className="form-table">
-          <div className="form-row">
-            <label htmlFor="base">Tables for</label>
-            <select
-              type="text"
-              value={this.state.quicker.base}
-              onChange={x =>
-                this.setState({
-                  quicker: { ...this.state.quicker, base: x.target.value }
-                })
-              }
-              style={{ textTransform: "capitalize" }}
-            >
-              {objects.map(obj => {
-                return (
-                  <option key={"base" + obj} value={obj}>
-                    {obj}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-row">
-            <label htmlFor="rows">Rows </label>
-            <select
-              id="rows"
-              type="text"
-              value={this.state.quicker.rows}
-              onChange={x =>
-                this.setState({
-                  quicker: { ...this.state.quicker, rows: x.target.value }
-                })
-              }
-              style={{ textTransform: "capitalize" }}
-            >
-              {objects.map(obj => {
-                if (obj === this.state.quicker.base) {
-                  return null;
+      <div>
+        <h1>Tables</h1>
+        <div className="full-wrapper flex-center">
+          <h2>Table Settings</h2>
+          <div className="form-table">
+            <div className="form-row">
+              <label htmlFor="base">Tables for</label>
+              <select
+                type="text"
+                value={this.state.quicker.base}
+                onChange={x =>
+                  this.setState({
+                    quicker: { ...this.state.quicker, base: x.target.value }
+                  })
                 }
-                return (
-                  <option key={"row" + obj} value={obj}>
-                    {obj}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-row">
-            <label htmlFor="cols">Columns </label>
-            <select
-              id="cols"
-              type="text"
-              value={this.state.quicker.cols}
-              onChange={x =>
-                this.setState({
-                  quicker: { ...this.state.quicker, cols: x.target.value }
-                })
-              }
-              style={{ textTransform: "capitalize" }}
-            >
-              {objects.map(obj => {
-                if (
-                  obj === this.state.quicker.rows ||
-                  obj === this.state.quicker.base
-                ) {
-                  return null;
+                style={{ textTransform: "capitalize" }}
+              >
+                {objects.map(obj => {
+                  return (
+                    <option key={"base" + obj} value={obj}>
+                      {obj}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-row">
+              <label htmlFor="rows">Rows </label>
+              <select
+                id="rows"
+                type="text"
+                value={this.state.quicker.rows}
+                onChange={x =>
+                  this.setState({
+                    quicker: { ...this.state.quicker, rows: x.target.value }
+                  })
                 }
-                return (
-                  <option key={"col" + obj} value={obj}>
-                    {obj}
-                  </option>
-                );
-              })}
-            </select>
+                style={{ textTransform: "capitalize" }}
+              >
+                {objects.map(obj => {
+                  if (obj === this.state.quicker.base) {
+                    return null;
+                  }
+                  return (
+                    <option key={"row" + obj} value={obj}>
+                      {obj}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-row">
+              <label htmlFor="cols">Columns </label>
+              <select
+                id="cols"
+                type="text"
+                value={this.state.quicker.cols}
+                onChange={x =>
+                  this.setState({
+                    quicker: { ...this.state.quicker, cols: x.target.value }
+                  })
+                }
+                style={{ textTransform: "capitalize" }}
+              >
+                {objects.map(obj => {
+                  if (
+                    obj === this.state.quicker.rows ||
+                    obj === this.state.quicker.base
+                  ) {
+                    return null;
+                  }
+                  return (
+                    <option key={"col" + obj} value={obj}>
+                      {obj}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
           </div>
-        </div>
-        <br />
-        <div>
-          <button
-            onClick={() => {
-              this.setState({ display: "main" });
-            }}
-          >
-            Cancel
-          </button>
-          &nbsp;
-          <button
-            onClick={() => {
-              let tables = [];
-              let tFor = objector[this.state.quicker.base];
-              tFor.forEach(base => {
-                tables.push({
-                  base: this.state.quicker.base,
-                  baseValue: base.id,
-                  rows: this.state.quicker.rows,
-                  cols: this.state.quicker.cols
+          <br />
+          <div>
+            <button
+              onClick={() => {
+                this.setState({ display: "main" });
+              }}
+            >
+              Cancel
+            </button>
+            &nbsp;
+            <button
+              onClick={() => {
+                let tables = [];
+                let tFor = objector[this.state.quicker.base];
+                tFor.forEach(base => {
+                  tables.push({
+                    base: this.state.quicker.base,
+                    baseValue: base.id,
+                    rows: this.state.quicker.rows,
+                    cols: this.state.quicker.cols
+                  });
                 });
-              });
-              tables.forEach(table => {
-                this.props.createTable(table);
-              });
-              this.setState({ display: "main" });
-            }}
-            className="black-btn"
-          >
-            Create Tables
-          </button>
+                tables.forEach(table => {
+                  this.props.createTable(table);
+                });
+                this.setState({ display: "main" });
+              }}
+              className="black-btn"
+            >
+              Create Tables
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -341,6 +348,7 @@ class Tables extends Component {
     }
     return (
       <div>
+        <h1>Tables</h1>
         <div style={{ margin: "1rem" }}>
           <button
             onClick={() => {

@@ -72,6 +72,7 @@ class Teachers extends Component {
   render() {
     return (
       <div>
+        <h1>Teachers</h1>
         <div style={{ margin: "1rem" }}>{this.creator()}</div>
         <div className="block-list">
           {this.props.teachers.map((teacher, index) => {

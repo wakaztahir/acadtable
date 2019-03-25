@@ -36,99 +36,106 @@ class Lectures extends Component {
       place: this.props.places
     };
     return (
-      <div className="full-wrapper flex-center">
-        <form
-          onSubmit={event => {
-            event.preventDefault();
-            if (this.state.creator.mode === "create") {
-              this.props.createLecture({
-                batch: this.state.creator.batch,
-                subject: this.state.creator.subject,
-                teacher: this.state.creator.teacher,
-                place: this.state.creator.place,
-                day: this.state.creator.day,
-                time: this.state.creator.time
-              });
-            } else {
-              this.props.updateLecture(this.state.creator.id, {
-                batch: this.state.creator.batch,
-                subject: this.state.creator.subject,
-                teacher: this.state.creator.teacher,
-                place: this.state.creator.place,
-                day: this.state.creator.day,
-                time: this.state.creator.time
-              });
-            }
-            this.setState({ display: "main" });
-          }}
-          className="form-table"
-        >
-          {Object.keys(objector).map(key => {
-            let list = objector[key];
-            if (this.state.creator[key] != null) {
-              if (
-                list.filter(item => item.id === this.state.creator[key])
-                  .length === 0
-              ) {
-                if (list.length > 0) {
-                  let creator = { ...this.state.creator };
-                  creator[key] = list[0].id;
-                  this.setState({ creator });
-                } else {
-                  let creator = { ...this.state.creator };
-                  creator[key] = null;
-                  this.setState({ creator });
+      <div>
+        <h1>Lectures</h1>
+
+        <div className="full-wrapper flex-center">
+          <form
+            onSubmit={event => {
+              event.preventDefault();
+              if (this.state.creator.mode === "create") {
+                this.props.createLecture({
+                  batch: this.state.creator.batch,
+                  subject: this.state.creator.subject,
+                  teacher: this.state.creator.teacher,
+                  place: this.state.creator.place,
+                  day: this.state.creator.day,
+                  time: this.state.creator.time
+                });
+              } else {
+                this.props.updateLecture(this.state.creator.id, {
+                  batch: this.state.creator.batch,
+                  subject: this.state.creator.subject,
+                  teacher: this.state.creator.teacher,
+                  place: this.state.creator.place,
+                  day: this.state.creator.day,
+                  time: this.state.creator.time
+                });
+              }
+              this.setState({ display: "main" });
+            }}
+            className="form-table"
+          >
+            {Object.keys(objector).map(key => {
+              let list = objector[key];
+              if (this.state.creator[key] != null) {
+                if (
+                  list.filter(item => item.id === this.state.creator[key])
+                    .length === 0
+                ) {
+                  if (list.length > 0) {
+                    let creator = { ...this.state.creator };
+                    creator[key] = list[0].id;
+                    this.setState({ creator });
+                  } else {
+                    let creator = { ...this.state.creator };
+                    creator[key] = null;
+                    this.setState({ creator });
+                  }
                 }
               }
-            }
-            return (
-              <div className="form-row" key={key}>
-                <label
-                  htmlFor={key + "sct"}
-                  style={{ textTransform: "capitalize" }}
-                >
-                  {key}
-                </label>
-                <select
-                  name={key}
-                  id={key + "sct"}
-                  value={this.state.creator[key] || ""}
-                  required={true}
-                  onChange={x => {
-                    let y = {};
-                    y[key] = x.target.value;
-                    this.setState({ creator: { ...this.state.creator, ...y } });
+              return (
+                <div className="form-row" key={key}>
+                  <label
+                    htmlFor={key + "sct"}
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {key}
+                  </label>
+                  <select
+                    name={key}
+                    id={key + "sct"}
+                    value={this.state.creator[key] || ""}
+                    required={true}
+                    onChange={x => {
+                      let y = {};
+                      y[key] = x.target.value;
+                      this.setState({
+                        creator: { ...this.state.creator, ...y }
+                      });
+                    }}
+                  >
+                    {list.map(item => {
+                      return (
+                        <option value={item.id} key={item.id}>
+                          {item.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              );
+            })}
+
+            <div className="form-row">
+              <div>
+                <button
+                  onClick={() => {
+                    this.setState({ display: "main" });
                   }}
                 >
-                  {list.map(item => {
-                    return (
-                      <option value={item.id} key={item.id}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                </select>
+                  Cancel
+                </button>
               </div>
-            );
-          })}
-
-          <div className="form-row">
-            <div>
-              <button
-                onClick={() => {
-                  this.setState({ display: "main" });
-                }}
-              >
-                Cancel
-              </button>
+              <input
+                type="submit"
+                value={this.state.creator.mode}
+                style={{ textTransform: "capitalize" }}
+                className="black-btn"
+              />
             </div>
-            <input
-              type="submit"
-              value={this.state.creator.mode}
-              style={{ textTransform: "capitalize" }}
-            />
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     );
   }
@@ -224,6 +231,7 @@ class Lectures extends Component {
 
     return (
       <div>
+        <h1>Lectures</h1>
         <div style={{ margin: "1rem" }}>
           <button
             onClick={() => {

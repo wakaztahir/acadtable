@@ -67,6 +67,7 @@ class Days extends Component {
   render() {
     return (
       <div>
+        <h1>Days</h1>
         <div style={{ margin: "1rem" }}>
           <button
             onClick={() => {
