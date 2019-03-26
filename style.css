@@ -292,3 +292,21 @@ span.info:hover > span {
   background: rgb(167, 114, 16);
   border-radius: 5px;
 }
+
+.color-btn {
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  opacity: 0.8;
+  border-radius: 50%;
+  border: 0;
+  border: 2px solid rgba(40, 120, 255, 0.5);
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.color-btn:hover,
+.color-btn.selected {
+  border: 2px solid rgba(0, 0, 0, 0.8);
+  opacity: 1;
+}
