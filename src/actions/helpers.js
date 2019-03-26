@@ -1,12 +1,19 @@
-export const COLORS = ["#ff5e52", "#fff60c", "#a7e034", "#e0dfc7", "#6777eb"];
+export const COLORS = [
+  "transparent",
+  "#ff5e52",
+  "#fff60c",
+  "#a7e034",
+  "#e0dfc7",
+  "#6777eb"
+];
 
 export const LECTURE_COLOR = "transparent";
-export const DAY_COLOR = "#ff5e52";
-export const TIME_COLOR = "#fff60c";
-export const PLACE_COLOR = "#a7e034";
-export const BATCH_COLOR = "#e0dfc7";
-export const SUBJECT_COLOR = "#6777eb";
-export const TEACHER_COLOR = "#6777eb";
+export const DAY_COLOR = "transparent";
+export const TIME_COLOR = "transparent";
+export const PLACE_COLOR = "transparent";
+export const BATCH_COLOR = "transparent";
+export const SUBJECT_COLOR = "transparent";
+export const TEACHER_COLOR = "transparent";
 
 export const random = (operator = "x", start = 3, end = 7) => {
   switch (operator) {

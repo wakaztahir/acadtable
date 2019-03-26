@@ -401,7 +401,11 @@ class Screen extends Component {
                                 tr => tr.id === lecture.teacher
                               )[0];
                               return (
-                                <td key={"b" + col.id} className="table-block">
+                                <td
+                                  key={"b" + col.id}
+                                  className="table-block"
+                                  style={{ background: lecture.color }}
+                                >
                                   {batch != null ? (
                                     <span>{batch.name}</span>
                                   ) : (

@@ -26,6 +26,8 @@ import {
   TEACHER_COLOR
 } from "../../actions/helpers";
 
+import ColorsPanel from "../others/ColorsPanel";
+
 class LectureModal extends Component {
   state = {
     params: this.props.params,
@@ -39,7 +41,8 @@ class LectureModal extends Component {
       place: null,
       batch: null,
       subject: null,
-      teacher: null,
+      color: null,
+      display: null,
       ...params
     };
     let toEdit = this.props.edit;
@@ -59,6 +62,7 @@ class LectureModal extends Component {
                   break;
                 }
               }
+              info.color = this.state.params.color;
               if (this.props.mode === "create") {
                 let validator = lectureValidator(this.props.lectures, info);
                 if (validator.value) {
@@ -68,7 +72,9 @@ class LectureModal extends Component {
                   this.props.showModal("message", validator.message);
                 }
               } else if (this.props.mode === "update") {
-                let validator = lectureValidator(this.props.lectures, info);
+                let validator = lectureValidator(this.props.lectures, info, {
+                  id: this.state.params.id
+                });
                 if (validator.value) {
                   this.props.updateLecture(this.props.id, info);
 
@@ -80,6 +86,7 @@ class LectureModal extends Component {
             }}
           >
             {toEdit.map(key => {
+              console.log(key);
               let list = this.props[keyList(key)];
               let value = params[key] != null ? params[key] : null;
               if (value == null || this.props.mode === "update") {
@@ -124,6 +131,15 @@ class LectureModal extends Component {
                 return null;
               }
             })}
+            <div className="form-row">
+              <label htmlFor="">Color </label>
+              <ColorsPanel
+                color={this.state.params.color}
+                change={color => {
+                  this.setState({ params: { ...this.state.params, color } });
+                }}
+              />
+            </div>
             <div className="form-row">
               <span>
                 <button onClick={this.props.unshowModal}>Cancel</button>
