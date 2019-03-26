@@ -13,15 +13,17 @@ import { SUBJECT_COLOR } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
+const DefaultCreator = {
+  id: null,
+  name: null,
+  color: SUBJECT_COLOR,
+  mode: "create"
+};
+
 class Subjects extends Component {
   state = {
     display: "main",
-    creator: {
-      id: null,
-      name: null,
-      color: SUBJECT_COLOR,
-      mode: "create"
-    }
+    creator: DefaultCreator
   };
   componentWillUnmount() {
     this.props.user.save();
@@ -44,11 +46,7 @@ class Subjects extends Component {
               });
             }
             this.setState({
-              creator: {
-                id: null,
-                name: null,
-                mode: "create"
-              }
+              creator: DefaultCreator
             });
           }}
           className="form-table"
@@ -95,7 +93,11 @@ class Subjects extends Component {
         <div className="block-list">
           {this.props.subjects.map((subject, index) => {
             return (
-              <div key={subject.id} className="block">
+              <div
+                key={subject.id}
+                className="block"
+                style={{ background: subject.color }}
+              >
                 <div className="block-txt">
                   <span>{subject.name}</span>
                 </div>

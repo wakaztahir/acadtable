@@ -2,7 +2,13 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { keyList, lectureValidator } from "../../actions/helpers";
+import {
+  keyList,
+  lectureValidator,
+  LECTURE_COLOR
+} from "../../actions/helpers";
+
+import ColorsPanel from "../others/ColorsPanel";
 
 import {
   createLecture,
@@ -11,23 +17,25 @@ import {
   showModal
 } from "../../actions";
 
+const DefaultCreator = {
+  id: null,
+  day: null,
+  time: null,
+  place: null,
+  subject: null,
+  teacher: null,
+  batch: null,
+  color: LECTURE_COLOR,
+  display: "%batch%%subject%%teacher%",
+  mode: "create"
+};
+
 class Lectures extends Component {
   state = {
     listshow: "all",
     showitem: "all",
     display: "main",
-    creator: {
-      id: null,
-      day: null,
-      time: null,
-      place: null,
-      subject: null,
-      teacher: null,
-      batch: null,
-      color: "transparent",
-      display: "%batch%%subject%%teacher%",
-      mode: "create"
-    }
+    creator: DefaultCreator
   };
   componentWillUnmount() {
     this.props.user.save();
@@ -73,9 +81,12 @@ class Lectures extends Component {
                   teacher: this.state.creator.teacher,
                   place: this.state.creator.place,
                   day: this.state.creator.day,
-                  time: this.state.creator.time
+                  time: this.state.creator.time,
+                  color: this.state.creator.color
                 };
-                let validator = lectureValidator(this.props.lectures, lecture);
+                let validator = lectureValidator(this.props.lectures, lecture, {
+                  id: this.state.creator.id
+                });
                 if (validator.value) {
                   this.props.updateLecture(this.state.creator.id, lecture);
                   this.setState({ display: "main" });
@@ -136,7 +147,15 @@ class Lectures extends Component {
                 </div>
               );
             })}
-
+            <div className="form-row">
+              <label htmlFor="">Color </label>
+              <ColorsPanel
+                color={this.state.creator.color}
+                change={color => {
+                  this.setState({ creator: { ...this.state.creator, color } });
+                }}
+              />
+            </div>
             <div className="form-row">
               <div>
                 <button
@@ -189,7 +208,11 @@ class Lectures extends Component {
       let place = this.props.places.filter(pc => pc.id === lecture.place)[0];
       let day = this.props.days.filter(dy => dy.id === lecture.day)[0];
       return (
-        <div key={lecture.id} className="block">
+        <div
+          key={lecture.id}
+          className="block"
+          style={{ background: lecture.color }}
+        >
           <div className="block-txt">
             {subject != null ? (
               <span>{subject.name}</span>
@@ -258,7 +281,7 @@ class Lectures extends Component {
               this.setState({
                 display: "create",
                 creator: {
-                  id: null,
+                  ...DefaultCreator,
                   day:
                     this.props.days[0] != null ? this.props.days[0].id : null,
                   time:
@@ -278,9 +301,7 @@ class Lectures extends Component {
                   batch:
                     this.props.batches[0] != null
                       ? this.props.batches[0].id
-                      : null,
-                  display: "%batch%%subject%%teacher%",
-                  mode: "create"
+                      : null
                 }
               });
             }}

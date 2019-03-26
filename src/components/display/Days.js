@@ -8,15 +8,17 @@ import { DAY_COLOR } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
+const DefaultCreator = {
+  id: null,
+  name: null,
+  color: DAY_COLOR,
+  mode: "create"
+};
+
 class Days extends Component {
   state = {
     display: "main",
-    creator: {
-      id: null,
-      name: null,
-      color: DAY_COLOR,
-      mode: "create"
-    }
+    creator: DefaultCreator
   };
   componentWillUnmount() {
     this.props.user.save();
@@ -39,11 +41,7 @@ class Days extends Component {
               });
             }
             this.setState({
-              creator: {
-                id: null,
-                name: null,
-                mode: "create"
-              }
+              creator: DefaultCreator
             });
           }}
           className="form-table"
@@ -99,7 +97,7 @@ class Days extends Component {
                 "Sunday"
               ];
               days.forEach(day => {
-                this.props.createDay({ name: day });
+                this.props.createDay({ name: day, color: DAY_COLOR });
               });
             }}
           >
@@ -110,7 +108,11 @@ class Days extends Component {
         <div className="block-list">
           {this.props.days.map((day, index) => {
             return (
-              <div key={day.id} className="block">
+              <div
+                key={day.id}
+                className="block"
+                style={{ background: day.color }}
+              >
                 <div className="block-txt">
                   <span>{day.name}</span>
                 </div>

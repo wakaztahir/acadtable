@@ -177,6 +177,7 @@ class Screen extends Component {
                   <div
                     className="warning screen-element"
                     style={{ marginBottom: 0 }}
+                    key={table.id + "error"}
                   >
                     There was a problem with one of the tables
                   </div>

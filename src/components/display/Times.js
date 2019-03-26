@@ -8,23 +8,27 @@ import { TIME_COLOR } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
+const DefaultCreator = {
+  id: null,
+  name: null,
+  color: TIME_COLOR,
+  mode: "create"
+};
+
+const DefaultQuicker = {
+  fromTime: "08",
+  fromMeridian: "AM",
+  toTime: "01",
+  toMeridian: "PM",
+  lectureTime: "60",
+  color: TIME_COLOR
+};
+
 class Times extends Component {
   state = {
     display: "main",
-    creator: {
-      id: null,
-      name: null,
-      color: TIME_COLOR,
-      mode: "create"
-    },
-    quicker: {
-      fromTime: "08",
-      fromMeridian: "AM",
-      toTime: "01",
-      toMeridian: "PM",
-      lectureTime: "60",
-      color: TIME_COLOR
-    }
+    creator: DefaultCreator,
+    quicker: DefaultQuicker
   };
   componentWillUnmount() {
     this.props.user.save();
@@ -222,11 +226,7 @@ class Times extends Component {
               });
             }
             this.setState({
-              creator: {
-                id: null,
-                name: null,
-                mode: "create"
-              }
+              creator: DefaultCreator
             });
           }}
           className="form-table"
@@ -288,7 +288,11 @@ class Times extends Component {
         <div className="block-list">
           {this.props.times.map((time, index) => {
             return (
-              <div key={time.id} className="block">
+              <div
+                key={time.id}
+                className="block"
+                style={{ background: time.color }}
+              >
                 <div className="block-txt">
                   <span>{time.name}</span>
                 </div>

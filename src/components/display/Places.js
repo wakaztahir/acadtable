@@ -13,16 +13,25 @@ import { PLACE_COLOR } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
+const DefaultCreator = {
+  id: null,
+  name: null,
+  color: PLACE_COLOR,
+  mode: "create"
+};
+
+const DefaultQuicker = {
+  name: "Room",
+  from: "1",
+  to: "10",
+  color: PLACE_COLOR
+};
+
 class Places extends Component {
   state = {
     display: "main",
-    creator: {
-      id: null,
-      name: null,
-      color: PLACE_COLOR,
-      mode: "create"
-    },
-    quicker: { name: "Room", from: "1", to: "10", color: PLACE_COLOR }
+    creator: DefaultCreator,
+    quicker: DefaultQuicker
   };
   componentWillUnmount() {
     this.props.user.save();
@@ -131,11 +140,7 @@ class Places extends Component {
               });
             }
             this.setState({
-              creator: {
-                id: null,
-                name: null,
-                mode: "create"
-              }
+              creator: DefaultCreator
             });
           }}
           className="form-table"
@@ -194,7 +199,11 @@ class Places extends Component {
         <div className="block-list">
           {this.props.places.map((place, index) => {
             return (
-              <div key={place.id} className="block">
+              <div
+                key={place.id}
+                className="block"
+                style={{ background: place.color }}
+              >
                 <div className="block-txt">
                   <span>{place.name}</span>
                 </div>

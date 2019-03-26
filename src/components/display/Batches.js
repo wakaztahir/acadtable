@@ -13,15 +13,17 @@ import { BATCH_COLOR } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
+const DefaultCreator = {
+  id: null,
+  name: null,
+  color: BATCH_COLOR,
+  mode: "create"
+};
+
 class Batches extends Component {
   state = {
     display: "main",
-    creator: {
-      id: null,
-      name: null,
-      color: BATCH_COLOR,
-      mode: "create"
-    }
+    creator: DefaultCreator
   };
   componentWillUnmount() {
     this.props.user.save();
@@ -45,7 +47,7 @@ class Batches extends Component {
               });
             }
             this.setState({
-              creator: { id: null, name: null, mode: "create" }
+              creator: DefaultCreator
             });
           }}
           className="form-table"
@@ -94,7 +96,11 @@ class Batches extends Component {
         <div className="block-list">
           {this.props.batches.map((batch, index) => {
             return (
-              <div key={batch.id} className="block">
+              <div
+                key={batch.id}
+                className="block"
+                style={{ background: batch.color }}
+              >
                 <div className="block-txt">
                   <span>{batch.name}</span>
                 </div>
