@@ -14,7 +14,17 @@ import {
   createTeacher,
   createSubject
 } from "../../actions/";
-import { keyList, lectureValidator } from "../../actions/helpers";
+
+import {
+  keyList,
+  lectureValidator,
+  DAY_COLOR,
+  TIME_COLOR,
+  PLACE_COLOR,
+  BATCH_COLOR,
+  SUBJECT_COLOR,
+  TEACHER_COLOR
+} from "../../actions/helpers";
 
 class LectureModal extends Component {
   state = {
@@ -131,24 +141,31 @@ class LectureModal extends Component {
       );
     } else {
       let creator;
+      let color = "transparent";
       switch (this.state.display) {
         case "day":
           creator = this.props.createDay;
+          color = DAY_COLOR;
           break;
         case "time":
           creator = this.props.createTime;
+          color = TIME_COLOR;
           break;
         case "place":
           creator = this.props.createPlace;
+          color = PLACE_COLOR;
           break;
         case "subject":
           creator = this.props.createSubject;
+          color = SUBJECT_COLOR;
           break;
         case "batch":
           creator = this.props.createBatch;
+          color = BATCH_COLOR;
           break;
         case "teacher":
           creator = this.props.createTeacher;
+          color = TEACHER_COLOR;
           break;
         default:
           creator = null;
@@ -170,7 +187,7 @@ class LectureModal extends Component {
                 onSubmit={e => {
                   e.preventDefault();
                   let name = e.target[0].value;
-                  creator({ name });
+                  creator({ name, color });
                   this.setState({ display: "main" });
                 }}
               >

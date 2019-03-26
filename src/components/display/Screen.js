@@ -12,7 +12,19 @@ import {
   swapPlace,
   swapTeacher,
   swapSubject,
-  swapTime
+  swapTime,
+  updateBatch,
+  updateDay,
+  updatePlace,
+  updateSubject,
+  updateTeacher,
+  updateTime,
+  deleteBatch,
+  deleteDay,
+  deletePlace,
+  deleteSubject,
+  deleteTeacher,
+  deleteTime
 } from "../../actions";
 
 import { listKey, lectureValidator } from "../../actions/helpers";
@@ -28,6 +40,7 @@ import "../../resources/screen.css";
 import "../../resources/render.css";
 
 import LectureModal from "../others/LectureModal";
+import AreaEditor from "../others/AreaEditor";
 
 class Screen extends Component {
   state = {
@@ -44,28 +57,21 @@ class Screen extends Component {
     }
     this.props.user.save();
   }
-  swapper(area, from, to) {
-    let swap;
-    switch (area) {
-      default:
-        swap = null;
-        break;
-      case "days":
-        swap = this.props.swapDay;
-        break;
-      case "times":
-        swap = this.props.swapTime;
-        break;
-      case "batches":
-        swap = this.props.swapBatch;
-        break;
-      case "places":
-        swap = this.props.swapPlace;
-        break;
-      case "subjects":
-        swap = this.props.swapSubject;
-        break;
+  switcher(area, request) {
+    let req = this.props[
+      `${request}${area[0].toUpperCase()}${listKey(area).substr(
+        1,
+        listKey(area).length
+      )}`
+    ];
+    if (req == null) {
+      return null;
     }
+    return req;
+  }
+  swapper(area, from, to) {
+    let swap = null;
+    swap = this.switcher(area, "swap");
     if (swap != null) {
       swap(from.id, to.id);
     }
@@ -108,6 +114,29 @@ class Screen extends Component {
       } else {
         this.props.showModal("message", validator.message);
       }
+    }
+  }
+  editor(area, element) {
+    this.props.showModal(
+      "content",
+      <AreaEditor
+        element={element}
+        update={data => {
+          this.switcher(area, "update")(element.id, data);
+        }}
+        delete={() => {
+          this.switcher(area, "delete")(element.id);
+        }}
+      />
+    );
+  }
+  deleter(area, element) {
+    let deletor = null;
+    deletor = this.switcher(area, "delete");
+    if (deletor != null) {
+      deletor(element.id);
+    } else {
+      console.log(deletor);
     }
   }
   render() {
@@ -195,7 +224,20 @@ class Screen extends Component {
                             : {}
                         }
                       >
-                        {base != null ? <span>{base.name}</span> : null}
+                        {base != null ? (
+                          <div>
+                            <span>{base.name}</span>
+                            <div className="block-buttons">
+                              <button
+                                className="edit"
+                                style={{ width: "60%", left: "20%" }}
+                                onClick={() => {
+                                  this.editor(table.base, base);
+                                }}
+                              />
+                            </div>
+                          </div>
+                        ) : null}
                       </td>
                       {cols.map((col, colIndex) => {
                         return (
@@ -234,6 +276,13 @@ class Screen extends Component {
                                   className="right"
                                 />
                               )}
+                              <button
+                                className="edit"
+                                style={{ width: "60%", left: "20%" }}
+                                onClick={() => {
+                                  this.editor(table.cols, col);
+                                }}
+                              />
                             </div>
                           </td>
                         );
@@ -278,6 +327,18 @@ class Screen extends Component {
                                   className="bottom"
                                 />
                               )}
+                              <button
+                                className="edit"
+                                onClick={() => {
+                                  this.editor(table.rows, row);
+                                }}
+                                style={{
+                                  width: "60%",
+                                  height: "50%",
+                                  top: "25%",
+                                  left: "20%"
+                                }}
+                              />
                             </div>
                           </td>
                           {cols.map((col, colIndex) => {
@@ -298,11 +359,26 @@ class Screen extends Component {
                                     params[listKey(table.base)] = base.id;
                                     params[listKey(table.rows)] = row.id;
                                     params[listKey(table.cols)] = col.id;
+                                    let toEdit = [
+                                      "day",
+                                      "time",
+                                      "place",
+                                      "batch",
+                                      "subject",
+                                      "teacher"
+                                    ];
                                     this.props.showModal(
                                       "content",
                                       <LectureModal
                                         params={params}
-                                        edit={["subject", "batch", "teacher"]}
+                                        edit={toEdit.filter(p => {
+                                          if (
+                                            Object.keys(params).indexOf(p) < 0
+                                          ) {
+                                            return p;
+                                          }
+                                          return null;
+                                        })}
                                         mode="create"
                                       />
                                     );
@@ -502,6 +578,18 @@ export default connect(
     swapPlace,
     swapSubject,
     swapTeacher,
-    swapTime
+    swapTime,
+    updateBatch,
+    updateDay,
+    updatePlace,
+    updateSubject,
+    updateTeacher,
+    updateTime,
+    deleteBatch,
+    deleteDay,
+    deletePlace,
+    deleteSubject,
+    deleteTeacher,
+    deleteTime
   }
 )(Screen);

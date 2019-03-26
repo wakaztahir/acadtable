@@ -43,14 +43,16 @@ table td {
   display: block;
   margin: 0 auto;
 }
-
-.table-block:hover > .block-buttons {
+.main-block:hover .block-buttons {
   display: block;
 }
-.col-block:hover > .block-buttons {
+.table-block:hover .block-buttons {
   display: block;
 }
-.row-block:hover > .block-buttons {
+.col-block:hover .block-buttons {
+  display: block;
+}
+.row-block:hover .block-buttons {
   display: block;
 }
 .block-buttons {
