@@ -24,6 +24,7 @@ class Lectures extends Component {
       subject: null,
       teacher: null,
       batch: null,
+      color: "transparent",
       display: "%batch%%subject%%teacher%",
       mode: "create"
     }
@@ -55,7 +56,8 @@ class Lectures extends Component {
                   teacher: this.state.creator.teacher,
                   place: this.state.creator.place,
                   day: this.state.creator.day,
-                  time: this.state.creator.time
+                  time: this.state.creator.time,
+                  color: this.state.creator.color
                 };
                 let validator = lectureValidator(this.props.lectures, lecture);
                 if (validator.value) {

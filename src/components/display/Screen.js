@@ -186,12 +186,27 @@ class Screen extends Component {
                 <table key={table.id} className="screen-table">
                   <thead>
                     <tr>
-                      <td className="main-block">
+                      <td
+                        className="main-block"
+                        style={
+                          base.color != null || base.color !== "transparent"
+                            ? { background: base.color }
+                            : {}
+                        }
+                      >
                         {base != null ? <span>{base.name}</span> : null}
                       </td>
                       {cols.map((col, colIndex) => {
                         return (
-                          <td key={"c" + col.id} className="col-block">
+                          <td
+                            key={"c" + col.id}
+                            className="col-block"
+                            style={
+                              col.color != null || col.color !== "transparent"
+                                ? { background: col.color }
+                                : {}
+                            }
+                          >
                             <span>{col.name}</span>
                             <div className="block-buttons">
                               {colIndex === 0 ? null : (
@@ -228,7 +243,14 @@ class Screen extends Component {
                     {rows.map((row, rowIndex) => {
                       return (
                         <tr key={"r" + row.id}>
-                          <td className="row-block">
+                          <td
+                            className="row-block"
+                            style={
+                              row.color != null || row.color !== "transparent"
+                                ? { background: row.color }
+                                : {}
+                            }
+                          >
                             <span>{row.name}</span>
                             <div className="block-buttons">
                               {rowIndex === 0 ? null : (

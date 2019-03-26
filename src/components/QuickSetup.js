@@ -694,7 +694,8 @@ class QuickSetup extends Component {
     days = days.map(day => {
       return createDay(
         {
-          name: `${day[0].toUpperCase()}${day.substr(1, day.length)}`
+          name: `${day[0].toUpperCase()}${day.substr(1, day.length)}`,
+          color: "transparent"
         },
         true
       );
@@ -702,7 +703,8 @@ class QuickSetup extends Component {
     times = times.map(time => {
       return createTime(
         {
-          name: time
+          name: time,
+          color: "transparent"
         },
         true
       );
@@ -710,7 +712,8 @@ class QuickSetup extends Component {
     places = places.map(place => {
       return createPlace(
         {
-          name: place
+          name: place,
+          color: "transparent"
         },
         true
       );
@@ -718,19 +721,22 @@ class QuickSetup extends Component {
 
     batches = batches.map(batch => {
       return createBatch({
-        name: batch
+        name: batch,
+        color: "transparent"
       });
     });
 
     subjects = subjects.map(subject => {
       return createSubject({
-        name: subject
+        name: subject,
+        color: "transparent"
       });
     });
 
     teachers = teachers.map(teacher => {
       return createTeacher({
-        name: teacher
+        name: teacher,
+        color: "transparent"
       });
     });
     /// CREATING TABLES
