@@ -279,7 +279,7 @@ class Screen extends Component {
                               )}
                             </div>
                           </td>
-                          {cols.map(col => {
+                          {cols.map((col, colIndex) => {
                             let block = objector["lectures"].filter(
                               block =>
                                 block[listKey(table.base)] === base.id &&
@@ -347,74 +347,82 @@ class Screen extends Component {
                                     </span>
                                   )}
                                   <div className="block-buttons">
-                                    <button
-                                      className="above"
-                                      onClick={() => {
-                                        let effectedRow = null;
-                                        rows.filter((r, i) => {
-                                          if (r.id === row.id) {
-                                            effectedRow = rows[i - 1];
+                                    {rowIndex === 0 ? null : (
+                                      <button
+                                        className="above"
+                                        onClick={() => {
+                                          let effectedRow = null;
+                                          rows.filter((r, i) => {
+                                            if (r.id === row.id) {
+                                              effectedRow = rows[i - 1];
+                                            }
+                                            return r;
+                                          });
+                                          if (effectedRow != null) {
+                                            lecture[listKey(table.rows)] =
+                                              effectedRow.id;
+                                            this.lectureSwap(block[0], lecture);
                                           }
-                                          return r;
-                                        });
-                                        if (effectedRow != null) {
-                                          lecture[listKey(table.rows)] =
-                                            effectedRow.id;
-                                          this.lectureSwap(block[0], lecture);
-                                        }
-                                      }}
-                                    />
-                                    <button
-                                      className="bottom"
-                                      onClick={() => {
-                                        let effectedRow = null;
-                                        rows.filter((r, i) => {
-                                          if (r.id === row.id) {
-                                            effectedRow = rows[i + 1];
+                                        }}
+                                      />
+                                    )}
+                                    {rowIndex === rows.length - 1 ? null : (
+                                      <button
+                                        className="bottom"
+                                        onClick={() => {
+                                          let effectedRow = null;
+                                          rows.filter((r, i) => {
+                                            if (r.id === row.id) {
+                                              effectedRow = rows[i + 1];
+                                            }
+                                            return r;
+                                          });
+                                          if (effectedRow != null) {
+                                            lecture[listKey(table.rows)] =
+                                              effectedRow.id;
+                                            this.lectureSwap(block[0], lecture);
                                           }
-                                          return r;
-                                        });
-                                        if (effectedRow != null) {
-                                          lecture[listKey(table.rows)] =
-                                            effectedRow.id;
-                                          this.lectureSwap(block[0], lecture);
-                                        }
-                                      }}
-                                    />
-                                    <button
-                                      className="right"
-                                      onClick={() => {
-                                        let effectedCol = null;
-                                        cols.filter((c, i) => {
-                                          if (c.id === col.id) {
-                                            effectedCol = cols[i + 1];
+                                        }}
+                                      />
+                                    )}
+                                    {colIndex === cols.length - 1 ? null : (
+                                      <button
+                                        className="right"
+                                        onClick={() => {
+                                          let effectedCol = null;
+                                          cols.filter((c, i) => {
+                                            if (c.id === col.id) {
+                                              effectedCol = cols[i + 1];
+                                            }
+                                            return c;
+                                          });
+                                          if (effectedCol != null) {
+                                            lecture[listKey(table.cols)] =
+                                              effectedCol.id;
+                                            this.lectureSwap(block[0], lecture);
                                           }
-                                          return c;
-                                        });
-                                        if (effectedCol != null) {
-                                          lecture[listKey(table.cols)] =
-                                            effectedCol.id;
-                                          this.lectureSwap(block[0], lecture);
-                                        }
-                                      }}
-                                    />
-                                    <button
-                                      className="left"
-                                      onClick={() => {
-                                        let effectedCol = null;
-                                        cols.filter((c, i) => {
-                                          if (c.id === col.id) {
-                                            effectedCol = cols[i - 1];
+                                        }}
+                                      />
+                                    )}
+                                    {colIndex === 0 ? null : (
+                                      <button
+                                        className="left"
+                                        onClick={() => {
+                                          let effectedCol = null;
+                                          cols.filter((c, i) => {
+                                            if (c.id === col.id) {
+                                              effectedCol = cols[i - 1];
+                                            }
+                                            return c;
+                                          });
+                                          if (effectedCol != null) {
+                                            lecture[listKey(table.cols)] =
+                                              effectedCol.id;
+                                            this.lectureSwap(block[0], lecture);
                                           }
-                                          return c;
-                                        });
-                                        if (effectedCol != null) {
-                                          lecture[listKey(table.cols)] =
-                                            effectedCol.id;
-                                          this.lectureSwap(block[0], lecture);
-                                        }
-                                      }}
-                                    />
+                                        }}
+                                      />
+                                    )}
                                     <button
                                       className="edit"
                                       onClick={() => {

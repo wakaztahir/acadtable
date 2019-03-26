@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 
-const colors = [
-  "#fff60c",
-  "#73ff81",
-  "#ff5e52",
-  "#fff00",
-  "#6777eb",
-  "#a7e034"
-];
+import { COLORS } from "../../actions/helpers";
 
 class ColorsPanel extends Component {
   render() {
     return (
       <div style={this.props.style == null ? {} : this.props.style}>
-        {colors.map(color => {
+        {COLORS.map(color => {
           let addClass = color === this.props.color ? "selected" : "";
           return (
             <span

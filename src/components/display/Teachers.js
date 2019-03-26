@@ -9,6 +9,8 @@ import {
   deleteTeacher
 } from "../../actions";
 
+import { TEACHER_COLOR } from "../../actions/helpers";
+
 import ColorsPanel from "../others/ColorsPanel";
 
 class Teachers extends Component {
@@ -17,7 +19,7 @@ class Teachers extends Component {
     creator: {
       id: null,
       name: null,
-      color: "#6777eb",
+      color: TEACHER_COLOR,
       mode: "create"
     }
   };

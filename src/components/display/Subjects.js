@@ -9,6 +9,8 @@ import {
   deleteSubject
 } from "../../actions";
 
+import { SUBJECT_COLOR } from "../../actions/helpers";
+
 import ColorsPanel from "../others/ColorsPanel";
 
 class Subjects extends Component {
@@ -17,7 +19,7 @@ class Subjects extends Component {
     creator: {
       id: null,
       name: null,
-      color: "#6777eb",
+      color: SUBJECT_COLOR,
       mode: "create"
     }
   };

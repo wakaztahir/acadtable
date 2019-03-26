@@ -9,6 +9,8 @@ import {
   deletePlace
 } from "../../actions";
 
+import { PLACE_COLOR } from "../../actions/helpers";
+
 import ColorsPanel from "../others/ColorsPanel";
 
 class Places extends Component {
@@ -17,10 +19,10 @@ class Places extends Component {
     creator: {
       id: null,
       name: null,
-      color: "#a7e034",
+      color: PLACE_COLOR,
       mode: "create"
     },
-    quicker: { name: "Room", from: "1", to: "10", color: "#a7e034" }
+    quicker: { name: "Room", from: "1", to: "10", color: PLACE_COLOR }
   };
   componentWillUnmount() {
     this.props.user.save();

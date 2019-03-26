@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { createDay, updateDay, swapDay, deleteDay } from "../../actions";
 
+import { DAY_COLOR } from "../../actions/helpers";
+
 import ColorsPanel from "../others/ColorsPanel";
 
 class Days extends Component {
@@ -12,7 +14,7 @@ class Days extends Component {
     creator: {
       id: null,
       name: null,
-      color: "#ff5e52",
+      color: DAY_COLOR,
       mode: "create"
     }
   };

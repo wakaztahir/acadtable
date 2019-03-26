@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { createTime, updateTime, swapTime, deleteTime } from "../../actions";
 
+import { TIME_COLOR } from "../../actions/helpers";
+
 import ColorsPanel from "../others/ColorsPanel";
 
 class Times extends Component {
@@ -12,7 +14,7 @@ class Times extends Component {
     creator: {
       id: null,
       name: null,
-      color: "#fff60c",
+      color: TIME_COLOR,
       mode: "create"
     },
     quicker: {
@@ -21,7 +23,7 @@ class Times extends Component {
       toTime: "01",
       toMeridian: "PM",
       lectureTime: "60",
-      color: "#fff60c"
+      color: TIME_COLOR
     }
   };
   componentWillUnmount() {

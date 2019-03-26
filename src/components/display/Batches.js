@@ -9,6 +9,8 @@ import {
   deleteBatch
 } from "../../actions";
 
+import { BATCH_COLOR } from "../../actions/helpers";
+
 import ColorsPanel from "../others/ColorsPanel";
 
 class Batches extends Component {
@@ -17,7 +19,7 @@ class Batches extends Component {
     creator: {
       id: null,
       name: null,
-      color: "#fff00",
+      color: BATCH_COLOR,
       mode: "create"
     }
   };
