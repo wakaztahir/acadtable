@@ -6,10 +6,11 @@ import {
   createSubject,
   updateSubject,
   swapSubject,
-  deleteSubject
+  deleteSubject,
+  showModal
 } from "../../actions";
 
-import { SUBJECT_COLOR } from "../../actions/helpers";
+import { SUBJECT_COLOR, subjectValidator } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
@@ -35,15 +36,27 @@ class Subjects extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createSubject({
+              let subject = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = subjectValidator(this.props.subjects, subject);
+              if (validator.value) {
+                this.props.createSubject(subject);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             } else {
-              this.props.updateSubject(this.state.creator.id, {
+              let subject = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = subjectValidator(this.props.subjects, subject);
+              if (validator.value) {
+                this.props.updateSubject(this.state.creator.id, subject);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             }
             this.setState({
               creator: DefaultCreator
@@ -169,6 +182,7 @@ export default connect(
     createSubject,
     updateSubject,
     swapSubject,
-    deleteSubject
+    deleteSubject,
+    showModal
   }
 )(Subjects);

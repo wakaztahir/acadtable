@@ -6,10 +6,11 @@ import {
   createPlace,
   updatePlace,
   swapPlace,
-  deletePlace
+  deletePlace,
+  showModal
 } from "../../actions";
 
-import { PLACE_COLOR } from "../../actions/helpers";
+import { PLACE_COLOR, placeValidator } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
@@ -106,10 +107,14 @@ class Places extends Component {
                   places.push(`${this.state.quicker.name} ${i}`);
                 }
                 places.forEach(place => {
-                  this.props.createPlace({
+                  let placeObj = {
                     name: place,
                     color: this.state.quicker.color
-                  });
+                  };
+                  let validator = placeValidator(this.props.places, placeObj);
+                  if (validator.value) {
+                    this.props.createPlace(placeObj);
+                  }
                 });
                 this.setState({ display: "main" });
               }}
@@ -129,15 +134,27 @@ class Places extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createPlace({
+              let place = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = placeValidator(this.props.places, place);
+              if (validator.value) {
+                this.props.createPlace(place);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             } else {
-              this.props.updatePlace(this.state.creator.id, {
+              let place = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = placeValidator(this.props.places, place);
+              if (validator.value) {
+                this.props.updatePlace(this.state.creator.id, place);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             }
             this.setState({
               creator: DefaultCreator
@@ -275,6 +292,7 @@ export default connect(
     createPlace,
     updatePlace,
     swapPlace,
-    deletePlace
+    deletePlace,
+    showModal
   }
 )(Places);

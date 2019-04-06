@@ -6,10 +6,11 @@ import {
   createTeacher,
   updateTeacher,
   swapTeacher,
-  deleteTeacher
+  deleteTeacher,
+  showModal
 } from "../../actions";
 
-import { TEACHER_COLOR } from "../../actions/helpers";
+import { TEACHER_COLOR, teacherValidator } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
@@ -35,15 +36,27 @@ class Teachers extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createTeacher({
+              let teacher = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = teacherValidator(this.props.teachers, teacher);
+              if (validator.value) {
+                this.props.createTeacher(teacher);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             } else {
-              this.props.updateTeacher(this.state.creator.id, {
+              let teacher = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = teacherValidator(this.props.teachers, teacher);
+              if (validator.value) {
+                this.props.updateTeacher(this.state.creator.id, teacher);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             }
             this.setState({
               creator: DefaultCreator
@@ -169,6 +182,7 @@ export default connect(
     createTeacher,
     updateTeacher,
     swapTeacher,
-    deleteTeacher
+    deleteTeacher,
+    showModal
   }
 )(Teachers);

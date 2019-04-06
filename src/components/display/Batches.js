@@ -6,10 +6,11 @@ import {
   createBatch,
   updateBatch,
   swapBatch,
-  deleteBatch
+  deleteBatch,
+  showModal
 } from "../../actions";
 
-import { BATCH_COLOR } from "../../actions/helpers";
+import { BATCH_COLOR, batchValidator } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
@@ -36,15 +37,27 @@ class Batches extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createBatch({
+              let batch = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = batchValidator(this.props.batches, batch);
+              if (validator.value) {
+                this.props.createBatch(batch);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             } else {
-              this.props.updateBatch(this.state.creator.id, {
+              let batch = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = batchValidator(this.props.batches, batch);
+              if (validator.value) {
+                this.props.updateBatch(this.state.creator.id, batch);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             }
             this.setState({
               creator: DefaultCreator
@@ -172,6 +185,7 @@ export default connect(
     createBatch,
     updateBatch,
     swapBatch,
-    deleteBatch
+    deleteBatch,
+    showModal
   }
 )(Batches);

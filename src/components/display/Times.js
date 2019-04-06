@@ -2,9 +2,15 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { createTime, updateTime, swapTime, deleteTime } from "../../actions";
+import {
+  createTime,
+  updateTime,
+  swapTime,
+  deleteTime,
+  showModal
+} from "../../actions";
 
-import { TIME_COLOR } from "../../actions/helpers";
+import { TIME_COLOR, timeValidator } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
@@ -192,10 +198,11 @@ class Times extends Component {
                   times.push(start + " - " + timeStringer(from));
                 }
                 times.forEach(time => {
-                  this.props.createTime({
-                    name: time,
-                    color: this.state.quicker.color
-                  });
+                  let timeObj = { name: time, color: this.state.quicker.color };
+                  let validator = timeValidator(this.props.times, timeObj);
+                  if (validator.value) {
+                    this.props.createTime(timeObj);
+                  }
                   this.setState({ display: "main" });
                 });
               }}
@@ -215,15 +222,27 @@ class Times extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createTime({
+              let time = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = timeValidator(this.props.times, time);
+              if (validator.value) {
+                this.props.createTime(time);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             } else {
-              this.props.updateTime(this.state.creator.id, {
+              let time = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = timeValidator(this.props.times, time);
+              if (validator.value) {
+                this.props.updateTime(this.state.creator.id, time);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             }
             this.setState({
               creator: DefaultCreator
@@ -364,6 +383,7 @@ export default connect(
     createTime,
     updateTime,
     swapTime,
-    deleteTime
+    deleteTime,
+    showModal
   }
 )(Times);
