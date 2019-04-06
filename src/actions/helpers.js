@@ -74,7 +74,11 @@ export const listKey = listName => {
 
 export const lectureValidator = (lectures, lect, ex = { id: "exception" }) => {
   let lectFind = lectures.filter(
-    l => l.time === lect.time && l.day === lect.day && l.place === lect.place
+    l =>
+      l.time === lect.time &&
+      l.day === lect.day &&
+      l.place === lect.place &&
+      l.id !== lect.id
   );
   if (lectFind.length > 0 && lectFind[0].id !== ex.id) {
     return {
@@ -92,13 +96,29 @@ export const lectureValidator = (lectures, lect, ex = { id: "exception" }) => {
     if (secLectFind.length > 0 && secLectFind[0].id !== ex.id) {
       return {
         value: false,
-        message: "This batch is already taking lecture on the same time & day."
+        message:
+          "This batch/class is already taking lecture on the same time & day."
       };
     } else {
-      return {
-        value: true,
-        message: ""
-      };
+      let secLectFind = lectures.filter(
+        l =>
+          l.teacher === lect.teacher &&
+          l.time === lect.time &&
+          l.day === lect.day &&
+          l.id !== lect.id
+      );
+      if (secLectFind.length > 0 && secLectFind[0].id !== ex.id) {
+        return {
+          value: false,
+          message:
+            "One teacher cannot teach two batches/classes at the same time."
+        };
+      } else {
+        return {
+          value: true,
+          message: ""
+        };
+      }
     }
   }
 };

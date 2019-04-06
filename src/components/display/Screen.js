@@ -81,7 +81,7 @@ class Screen extends Component {
       l => l.day === to.day && l.time === to.time && l.place === to.place
     );
     if (lectFind.length > 0) {
-      let otherLecture = lectFind[0];
+      let otherLecture = { ...lectFind[0] };
       otherLecture = {
         ...otherLecture,
         day: from.day,
@@ -440,9 +440,10 @@ class Screen extends Component {
                                             return r;
                                           });
                                           if (effectedRow != null) {
-                                            lecture[listKey(table.rows)] =
+                                            let to = { ...lecture };
+                                            to[listKey(table.rows)] =
                                               effectedRow.id;
-                                            this.lectureSwap(block[0], lecture);
+                                            this.lectureSwap(block[0], to);
                                           }
                                         }}
                                       />
@@ -459,9 +460,10 @@ class Screen extends Component {
                                             return r;
                                           });
                                           if (effectedRow != null) {
-                                            lecture[listKey(table.rows)] =
+                                            let to = { ...lecture };
+                                            to[listKey(table.rows)] =
                                               effectedRow.id;
-                                            this.lectureSwap(block[0], lecture);
+                                            this.lectureSwap(block[0], to);
                                           }
                                         }}
                                       />
@@ -478,9 +480,10 @@ class Screen extends Component {
                                             return c;
                                           });
                                           if (effectedCol != null) {
-                                            lecture[listKey(table.cols)] =
+                                            let to = { ...lecture };
+                                            to[listKey(table.cols)] =
                                               effectedCol.id;
-                                            this.lectureSwap(block[0], lecture);
+                                            this.lectureSwap(block[0], to);
                                           }
                                         }}
                                       />
@@ -497,9 +500,10 @@ class Screen extends Component {
                                             return c;
                                           });
                                           if (effectedCol != null) {
-                                            lecture[listKey(table.cols)] =
+                                            let to = { ...lecture };
+                                            to[listKey(table.cols)] =
                                               effectedCol.id;
-                                            this.lectureSwap(block[0], lecture);
+                                            this.lectureSwap(block[0], to);
                                           }
                                         }}
                                       />
