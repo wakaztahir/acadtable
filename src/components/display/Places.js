@@ -219,7 +219,12 @@ class Places extends Component {
               <div
                 key={place.id}
                 className="block"
-                style={{ background: place.color }}
+                style={{
+                  background:
+                    place.color === "transparent"
+                      ? "rgb(179, 178, 178)"
+                      : place.color
+                }}
               >
                 <div className="block-txt">
                   <span>{place.name}</span>

@@ -109,7 +109,12 @@ class Subjects extends Component {
               <div
                 key={subject.id}
                 className="block"
-                style={{ background: subject.color }}
+                style={{
+                  background:
+                    subject.color === "transparent"
+                      ? "rgb(179, 178, 178)"
+                      : subject.color
+                }}
               >
                 <div className="block-txt">
                   <span>{subject.name}</span>

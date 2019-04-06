@@ -109,7 +109,12 @@ class Teachers extends Component {
               <div
                 key={teacher.id}
                 className="block"
-                style={{ background: teacher.color }}
+                style={{
+                  background:
+                    teacher.color === "transparent"
+                      ? "rgb(179, 178, 178)"
+                      : teacher.color
+                }}
               >
                 <div className="block-txt">
                   <span>{teacher.name}</span>

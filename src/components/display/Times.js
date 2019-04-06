@@ -310,7 +310,12 @@ class Times extends Component {
               <div
                 key={time.id}
                 className="block"
-                style={{ background: time.color }}
+                style={{
+                  background:
+                    time.color === "transparent"
+                      ? "rgb(179, 178, 178)"
+                      : time.color
+                }}
               >
                 <div className="block-txt">
                   <span>{time.name}</span>

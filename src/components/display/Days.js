@@ -133,7 +133,12 @@ class Days extends Component {
               <div
                 key={day.id}
                 className="block"
-                style={{ background: day.color }}
+                style={{
+                  background:
+                    day.color === "transparent"
+                      ? "rgb(179, 178, 178)"
+                      : day.color
+                }}
               >
                 <div className="block-txt">
                   <span>{day.name}</span>

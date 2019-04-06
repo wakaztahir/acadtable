@@ -112,7 +112,12 @@ class Batches extends Component {
               <div
                 key={batch.id}
                 className="block"
-                style={{ background: batch.color }}
+                style={{
+                  background:
+                    batch.color === "transparent"
+                      ? "rgb(179, 178, 178)"
+                      : batch.color
+                }}
               >
                 <div className="block-txt">
                   <span>{batch.name}</span>
