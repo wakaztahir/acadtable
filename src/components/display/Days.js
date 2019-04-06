@@ -2,9 +2,15 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { createDay, updateDay, swapDay, deleteDay } from "../../actions";
+import {
+  createDay,
+  updateDay,
+  swapDay,
+  deleteDay,
+  showModal
+} from "../../actions";
 
-import { DAY_COLOR } from "../../actions/helpers";
+import { DAY_COLOR, dayValidator } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
 
@@ -30,15 +36,27 @@ class Days extends Component {
           onSubmit={event => {
             event.preventDefault();
             if (this.state.creator.mode === "create") {
-              this.props.createDay({
+              let day = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = dayValidator(this.props.days, day);
+              if (validator.value) {
+                this.props.createDay(day);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             } else {
-              this.props.updateDay(this.state.creator.id, {
+              let day = {
                 name: this.state.creator.name,
                 color: this.state.creator.color
-              });
+              };
+              let validator = dayValidator(this.props.days, day);
+              if (validator.value) {
+                this.props.updateDay(this.state.creator.id, day);
+              } else {
+                this.props.showModal("message", validator.message);
+              }
             }
             this.setState({
               creator: DefaultCreator
@@ -97,7 +115,11 @@ class Days extends Component {
                 "Sunday"
               ];
               days.forEach(day => {
-                this.props.createDay({ name: day, color: DAY_COLOR });
+                let dayObj = { name: day, color: DAY_COLOR };
+                let validator = dayValidator(this.props.days, dayObj);
+                if (validator.value) {
+                  this.props.createDay(dayObj);
+                }
               });
             }}
           >
@@ -185,6 +207,7 @@ export default connect(
     createDay,
     updateDay,
     swapDay,
-    deleteDay
+    deleteDay,
+    showModal
   }
 )(Days);

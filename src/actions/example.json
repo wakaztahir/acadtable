@@ -72,48 +72,148 @@
     }
   },
   "days": {
-    "dy7952700": { "name": "Monday", "id": "dy7952700" },
-    "dy3256093": { "name": "Tuesday", "id": "dy3256093" },
-    "dy4108701": { "name": "Wednesday", "id": "dy4108701" },
-    "dy1700065": { "name": "Thursday", "id": "dy1700065" },
-    "dy7678812": { "name": "Friday", "id": "dy7678812" },
-    "dy9991486": { "name": "Saturday", "id": "dy9991486" },
-    "dy4146822": { "name": "Sunday", "id": "dy4146822" }
+    "dy7952700": {
+      "name": "Monday",
+      "color": "transparent",
+      "id": "dy7952700"
+    },
+    "dy3256093": {
+      "name": "Tuesday",
+      "color": "transparent",
+      "id": "dy3256093"
+    },
+    "dy4108701": {
+      "name": "Wednesday",
+      "color": "transparent",
+      "id": "dy4108701"
+    },
+    "dy1700065": {
+      "name": "Thursday",
+      "color": "transparent",
+      "id": "dy1700065"
+    },
+    "dy7678812": {
+      "name": "Friday",
+      "color": "transparent",
+      "id": "dy7678812"
+    },
+    "dy9991486": {
+      "name": "Saturday",
+      "color": "transparent",
+      "id": "dy9991486"
+    },
+    "dy4146822": { "name": "Sunday", "color": "transparent", "id": "dy4146822" }
   },
   "times": {
-    "tm8685748": { "name": "8:00", "id": "tm8685748" },
-    "tm5024385": { "name": "9:00", "id": "tm5024385" },
-    "tm4190520": { "name": "10:00", "id": "tm4190520" },
-    "tm7584056": { "name": "11:00", "id": "tm7584056" },
-    "tm5771024": { "name": "12:00", "id": "tm5771024" }
+    "tm8685748": { "name": "8:00", "color": "transparent", "id": "tm8685748" },
+    "tm5024385": { "name": "9:00", "color": "transparent", "id": "tm5024385" },
+    "tm4190520": { "name": "10:00", "color": "transparent", "id": "tm4190520" },
+    "tm7584056": { "name": "11:00", "color": "transparent", "id": "tm7584056" },
+    "tm5771024": { "name": "12:00", "color": "transparent", "id": "tm5771024" }
   },
   "places": {
-    "pl9026267": { "name": "Room 1", "id": "pl9026267" },
-    "pl3909920": { "name": "Room 2", "id": "pl3909920" },
-    "pl6095855": { "name": "Room 3", "id": "pl6095855" },
-    "pl8388577": { "name": "Room 4", "id": "pl8388577" },
-    "pl2676232": { "name": "Room 5", "id": "pl2676232" }
+    "pl9026267": {
+      "name": "Room 1",
+      "color": "transparent",
+      "id": "pl9026267"
+    },
+    "pl3909920": {
+      "name": "Room 2",
+      "color": "transparent",
+      "id": "pl3909920"
+    },
+    "pl6095855": {
+      "name": "Room 3",
+      "color": "transparent",
+      "id": "pl6095855"
+    },
+    "pl8388577": {
+      "name": "Room 4",
+      "color": "transparent",
+      "id": "pl8388577"
+    },
+    "pl2676232": { "name": "Room 5", "color": "transparent", "id": "pl2676232" }
   },
   "batches": {
-    "bh2407037": { "name": "BSCS 1st Reg.", "id": "bh2407037" },
-    "bh6684699": { "name": "BSCS 1st Self.", "id": "bh6684699" },
-    "bh5873593": { "name": "BSIT 1st Reg.", "id": "bh5873593" },
-    "bh0060369": { "name": "BSIT 1st Self.", "id": "bh0060369" },
-    "bh7910571": { "name": "BSSE 1st Reg.", "id": "bh7910571" },
-    "bh5106239": { "name": "BSSE 1st Self.", "id": "bh5106239" }
+    "bh2407037": {
+      "name": "BSCS 1st Reg.",
+      "color": "transparent",
+      "id": "bh2407037"
+    },
+    "bh6684699": {
+      "name": "BSCS 1st Self.",
+      "color": "transparent",
+      "id": "bh6684699"
+    },
+    "bh5873593": {
+      "name": "BSIT 1st Reg.",
+      "color": "transparent",
+      "id": "bh5873593"
+    },
+    "bh0060369": {
+      "name": "BSIT 1st Self.",
+      "color": "transparent",
+      "id": "bh0060369"
+    },
+    "bh7910571": {
+      "name": "BSSE 1st Reg.",
+      "color": "transparent",
+      "id": "bh7910571"
+    },
+    "bh5106239": {
+      "name": "BSSE 1st Self.",
+      "color": "transparent",
+      "id": "bh5106239"
+    }
   },
   "subjects": {
-    "st9551921": { "name": "Functional English", "id": "st9551921" },
-    "st2000964": { "name": "Basic Electronics", "id": "st2000964" },
-    "st2944175": { "name": "Thomas Calculus", "id": "st2944175" },
-    "st4206733": { "name": "Programming Fundamentals", "id": "st4206733" },
-    "st9139652": { "name": "ICT", "id": "st9139652" }
+    "st9551921": {
+      "name": "Functional English",
+      "color": "transparent",
+      "id": "st9551921"
+    },
+    "st2000964": {
+      "name": "Basic Electronics",
+      "color": "transparent",
+      "id": "st2000964"
+    },
+    "st2944175": {
+      "name": "Thomas Calculus",
+      "color": "transparent",
+      "id": "st2944175"
+    },
+    "st4206733": {
+      "name": "Programming Fundamentals",
+      "color": "transparent",
+      "id": "st4206733"
+    },
+    "st9139652": { "name": "ICT", "color": "transparent", "id": "st9139652" }
   },
   "teachers": {
-    "tr1506142": { "name": "Prof. Abdur Rauf", "id": "tr1506142" },
-    "tr6695021": { "name": "Sir Khaleel", "id": "tr6695021" },
-    "tr7099462": { "name": "Sir Ayaaz", "id": "tr7099462" },
-    "tr2977862": { "name": "Sir Ahsan", "id": "tr2977862" },
-    "tr4218605": { "name": "Mis. Madiha", "id": "tr4218605" }
+    "tr1506142": {
+      "name": "Prof. Abdur Rauf",
+      "color": "transparent",
+      "id": "tr1506142"
+    },
+    "tr6695021": {
+      "name": "Sir Khaleel",
+      "color": "transparent",
+      "id": "tr6695021"
+    },
+    "tr7099462": {
+      "name": "Sir Ayaaz",
+      "color": "transparent",
+      "id": "tr7099462"
+    },
+    "tr2977862": {
+      "name": "Sir Ahsan",
+      "color": "transparent",
+      "id": "tr2977862"
+    },
+    "tr4218605": {
+      "name": "Mis. Madiha",
+      "color": "transparent",
+      "id": "tr4218605"
+    }
   }
 }

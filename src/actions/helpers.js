@@ -122,3 +122,104 @@ export const lectureValidator = (lectures, lect, ex = { id: "exception" }) => {
     }
   }
 };
+
+export const batchValidator = (batches, batch, ex = { id: "exception" }) => {
+  let batchFind = batches.filter(
+    b => b.name === batch.name && b.id !== batch.id
+  );
+  if (batchFind.length > 0 && batchFind[0].id !== ex.id) {
+    return {
+      value: false,
+      message: "A batch with same name already exists."
+    };
+  } else {
+    return {
+      value: true,
+      message: ""
+    };
+  }
+};
+export const dayValidator = (days, day, ex = { id: "exception" }) => {
+  let dayFind = days.filter(d => d.name === day.name && d.id !== day.id);
+  if (dayFind.length > 0 && dayFind[0].id !== ex.id) {
+    return {
+      value: false,
+      message: "A day with same name already exists."
+    };
+  } else {
+    return {
+      value: true,
+      message: ""
+    };
+  }
+};
+export const timeValidator = (times, time, ex = { id: "exception" }) => {
+  let timeFind = times.filter(t => t.name === time.name && t.id !== time.id);
+  if (timeFind.length > 0 && timeFind[0].id !== ex.id) {
+    return {
+      value: false,
+      message: "A time with same name already exists."
+    };
+  } else {
+    return {
+      value: true,
+      message: ""
+    };
+  }
+};
+export const placeValidator = (places, place, ex = { id: "exception" }) => {
+  let placeFind = places.filter(
+    p => p.name === place.name && p.id !== place.id
+  );
+  if (placeFind.length > 0 && placeFind[0].id !== ex.id) {
+    return {
+      value: false,
+      message: "A place with same name already exists."
+    };
+  } else {
+    return {
+      value: true,
+      message: ""
+    };
+  }
+};
+export const subjectValidator = (
+  subjects,
+  subject,
+  ex = { id: "exception" }
+) => {
+  let subjectFind = subjects.filter(
+    s => s.name === subject.name && s.id !== subject.id
+  );
+  if (subjectFind.length > 0 && subjectFind[0].id !== ex.id) {
+    return {
+      value: false,
+      message: "A subject with same name already exists."
+    };
+  } else {
+    return {
+      value: true,
+      message: ""
+    };
+  }
+};
+export const teacherValidator = (
+  teachers,
+  teacher,
+  ex = { id: "exception" }
+) => {
+  let teacherFind = teachers.filter(
+    t => t.name === teacher.name && t.id !== teacher.id
+  );
+  if (teacherFind.length > 0 && teacherFind[0].id !== ex.id) {
+    return {
+      value: false,
+      message: "A teacher with same name already exists."
+    };
+  } else {
+    return {
+      value: true,
+      message: ""
+    };
+  }
+};
