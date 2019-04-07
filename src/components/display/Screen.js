@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {
   showModal,
   unshowModal,
+  updateTable,
   updateLecture,
   deleteLecture,
   swapDay,
@@ -214,9 +215,45 @@ class Screen extends Component {
               }
               return (
                 <table key={table.id} className="screen-table">
-                  <thead>
+                  {table.header.text.length > 0 ? (
+                    <thead
+                      className="table-header"
+                      style={{ background: table.header.color }}
+                    >
+                      <tr>
+                        <td colSpan={cols.length + 1}>
+                          <span>{table.header.text}</span>
+
+                          <div className="block-buttons">
+                            <button className="edit" />
+                            <button
+                              className="delete"
+                              onClick={() => {
+                                this.props.updateTable(table.id, {
+                                  ...table,
+                                  header: {
+                                    ...table.header,
+                                    text: ""
+                                  }
+                                });
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    </thead>
+                  ) : (
+                    <thead className="screen-element">
+                      <tr>
+                        <td colSpan={cols.length + 1}>
+                          <button>+</button>
+                        </td>
+                      </tr>
+                    </thead>
+                  )}
+                  <tbody>
                     <tr>
-                      <td
+                      <th
                         className="main-block"
                         style={
                           base.color != null || base.color !== "transparent"
@@ -238,10 +275,10 @@ class Screen extends Component {
                             </div>
                           </div>
                         ) : null}
-                      </td>
+                      </th>
                       {cols.map((col, colIndex) => {
                         return (
-                          <td
+                          <th
                             key={"c" + col.id}
                             className="col-block"
                             style={
@@ -284,16 +321,15 @@ class Screen extends Component {
                                 }}
                               />
                             </div>
-                          </td>
+                          </th>
                         );
                       })}
                     </tr>
-                  </thead>
-                  <tbody>
+
                     {rows.map((row, rowIndex) => {
                       return (
                         <tr key={"r" + row.id}>
-                          <td
+                          <th
                             className="row-block"
                             style={
                               row.color != null || row.color !== "transparent"
@@ -340,7 +376,7 @@ class Screen extends Component {
                                 }}
                               />
                             </div>
-                          </td>
+                          </th>
                           {cols.map((col, colIndex) => {
                             let block = objector["lectures"].filter(
                               block =>
@@ -551,6 +587,39 @@ class Screen extends Component {
                       );
                     })}
                   </tbody>
+                  {table.footer.text.length > 0 ? (
+                    <tfoot
+                      className="table-footer"
+                      style={{ background: table.footer.color }}
+                    >
+                      <tr>
+                        <td colSpan={cols.length + 1}>
+                          <span>{table.footer.text}</span>
+
+                          <div className="block-buttons">
+                            <button className="edit" />
+                            <button
+                              className="delete"
+                              onClick={() => {
+                                this.props.updateTable(table.id, {
+                                  ...table,
+                                  footer: { ...table.footer, text: "" }
+                                });
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  ) : (
+                    <tfoot className="screen-element">
+                      <tr>
+                        <td colSpan={cols.length + 1}>
+                          <button>+</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  )}
                 </table>
               );
             })}
@@ -579,6 +648,7 @@ export default connect(
   {
     showModal,
     unshowModal,
+    updateTable,
     updateLecture,
     deleteLecture,
     swapBatch,

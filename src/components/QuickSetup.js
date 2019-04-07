@@ -748,7 +748,9 @@ class QuickSetup extends Component {
         base: this.state.tables.base,
         baseValue: base.id,
         rows: this.state.tables.rows,
-        cols: this.state.tables.cols
+        cols: this.state.tables.cols,
+        header: { text: "Quick Table", color: "transparent" },
+        footer: { text: "Quick Table", color: "transparent" }
       });
     });
     tables = tables.map(table => {

@@ -5,13 +5,17 @@
 .screen .screen-table {
   margin: 1rem 0;
 }
-table td {
+table td,
+table th {
   border: 2px solid rgb(104, 104, 104);
   padding: 0.4rem;
   text-align: center;
   border-radius: 2px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   position: relative;
+}
+table th {
+  font-weight: normal;
 }
 .row-block {
   padding: 1rem 0.4rem;
@@ -31,6 +35,10 @@ table td {
   min-width: 2rem;
   padding: 0.6rem;
 }
+.table-header > tr > td,
+.table-footer > tr > td {
+  padding: 0.8rem;
+}
 .main-block > span,
 .table-block > span,
 .row-block > span,
@@ -43,6 +51,9 @@ table td {
   display: block;
   margin: 0 auto;
 }
+.table-header:hover .block-buttons {
+  display: block;
+}
 .main-block:hover .block-buttons {
   display: block;
 }
@@ -53,6 +64,9 @@ table td {
   display: block;
 }
 .row-block:hover .block-buttons {
+  display: block;
+}
+.table-footer:hover .block-buttons {
   display: block;
 }
 .block-buttons {

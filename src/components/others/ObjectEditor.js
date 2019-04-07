@@ -80,7 +80,11 @@ class AreaEditor extends Component {
               </button>
             ) : null}
             &nbsp;
-            <input type="submit" value="Update" className="black-btn" />
+            <input
+              type="submit"
+              value={this.props.updateValue}
+              className="black-btn"
+            />
           </div>
         </div>
       </form>

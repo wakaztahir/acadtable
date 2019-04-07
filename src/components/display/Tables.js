@@ -4,7 +4,13 @@ import storage from "../../actions/storage";
 
 import { connect } from "react-redux";
 
-import { listKey } from "../../actions/helpers";
+import {
+  listKey,
+  TABLE_HEADER_COLOR,
+  TABLE_FOOTER_COLOR
+} from "../../actions/helpers";
+
+import ColorsPanel from "../others/ColorsPanel";
 
 import {
   createTable,
@@ -23,12 +29,16 @@ class Tables extends Component {
       base: "days",
       baseValue: null,
       rows: "times",
-      cols: "places"
+      cols: "places",
+      header: { text: "", color: TABLE_HEADER_COLOR },
+      footer: { text: "", color: TABLE_FOOTER_COLOR }
     },
     quicker: {
       base: "days",
       rows: "places",
-      cols: "times"
+      cols: "times",
+      header: "",
+      footer: ""
     }
   };
   componentWillUnmount() {
@@ -43,11 +53,40 @@ class Tables extends Component {
             onSubmit={event => {
               event.preventDefault();
               if (this.state.creator.action === "create") {
-                let { base, baseValue, rows, cols } = this.state.creator;
-                this.props.createTable({ base, baseValue, rows, cols });
+                let {
+                  base,
+                  baseValue,
+                  rows,
+                  cols,
+                  header,
+                  footer
+                } = this.state.creator;
+                this.props.createTable({
+                  base,
+                  baseValue,
+                  rows,
+                  cols,
+                  header,
+                  footer
+                });
               } else if (this.state.creator.action === "update") {
-                let { id, base, baseValue, rows, cols } = this.state.creator;
-                this.props.updateTable(id, { base, baseValue, rows, cols });
+                let {
+                  id,
+                  base,
+                  baseValue,
+                  rows,
+                  cols,
+                  header,
+                  footer
+                } = this.state.creator;
+                this.props.updateTable(id, {
+                  base,
+                  baseValue,
+                  rows,
+                  cols,
+                  header,
+                  footer
+                });
               }
               this.setState({ display: "main" });
             }}
@@ -181,6 +220,72 @@ class Tables extends Component {
               </select>
             </div>
             <div className="form-row">
+              <label htmlFor="header-tarea">Header</label>
+              <input
+                type="text"
+                style={{ width: "20rem" }}
+                value={this.state.creator.header.text}
+                onChange={e => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      header: {
+                        ...this.state.creator.header,
+                        text: e.target.value
+                      }
+                    }
+                  });
+                }}
+              />
+            </div>
+            <div className="form-row">
+              <span />
+              <ColorsPanel
+                color={this.state.creator.header.color}
+                change={color => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      header: { ...this.state.creator.header, color }
+                    }
+                  });
+                }}
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="">Footer</label>
+              <input
+                type="text"
+                style={{ width: "20rem" }}
+                value={this.state.creator.footer.text}
+                onChange={e => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      footer: {
+                        ...this.state.creator.footer,
+                        text: e.target.value
+                      }
+                    }
+                  });
+                }}
+              />
+            </div>
+            <div className="form-row">
+              <span />
+              <ColorsPanel
+                color={this.state.creator.footer.color}
+                change={color => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      footer: { ...this.state.creator.footer, color }
+                    }
+                  });
+                }}
+              />
+            </div>
+            <div className="form-row">
               <button
                 onClick={() => {
                   this.setState({ display: "main" });
@@ -295,6 +400,32 @@ class Tables extends Component {
                 })}
               </select>
             </div>
+            <div className="form-row">
+              <label htmlFor="header-tarea">Header</label>
+              <input
+                type="text"
+                style={{ width: "20rem" }}
+                value={this.state.quicker.header}
+                onChange={e => {
+                  this.setState({
+                    quicker: { ...this.state.quicker, header: e.target.value }
+                  });
+                }}
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="">Footer</label>
+              <input
+                type="text"
+                style={{ width: "20rem" }}
+                value={this.state.quicker.footer}
+                onChange={e => {
+                  this.setState({
+                    quicker: { ...this.state.quicker, footer: e.target.value }
+                  });
+                }}
+              />
+            </div>
           </div>
           <br />
           <div>
@@ -315,7 +446,15 @@ class Tables extends Component {
                     base: this.state.quicker.base,
                     baseValue: base.id,
                     rows: this.state.quicker.rows,
-                    cols: this.state.quicker.cols
+                    cols: this.state.quicker.cols,
+                    header: {
+                      text: this.state.quicker.header,
+                      color: "transparent"
+                    },
+                    footer: {
+                      text: this.state.quicker.footer,
+                      color: "transparent"
+                    }
                   });
                 });
                 tables.forEach(table => {

@@ -5,6 +5,8 @@
       "cols": "times",
       "base": "days",
       "baseValue": "dy7952700",
+      "header": { "text": "Example Header", "color": "transparent" },
+      "footer": { "text": "Example Footer", "color": "transparent" },
       "id": "tl5786835"
     },
     "tl6756441": {
@@ -12,6 +14,8 @@
       "rows": "places",
       "cols": "times",
       "base": "days",
+      "header": { "text": "Example Header", "color": "transparent" },
+      "footer": { "text": "Example Footer", "color": "transparent" },
       "id": "tl6756441"
     },
     "tl0912359": {
@@ -19,6 +23,8 @@
       "rows": "places",
       "cols": "times",
       "base": "days",
+      "header": { "text": "Example Header", "color": "transparent" },
+      "footer": { "text": "Example Footer", "color": "transparent" },
       "id": "tl0912359"
     },
     "tl6539478": {
@@ -26,6 +32,8 @@
       "rows": "places",
       "cols": "times",
       "base": "days",
+      "header": { "text": "Example Header", "color": "transparent" },
+      "footer": { "text": "Example Footer", "color": "transparent" },
       "id": "tl6539478"
     },
     "tl4565578": {
@@ -33,6 +41,8 @@
       "rows": "places",
       "cols": "times",
       "base": "days",
+      "header": { "text": "Example Header", "color": "transparent" },
+      "footer": { "text": "Example Footer", "color": "transparent" },
       "id": "tl4565578"
     }
   },
@@ -45,7 +55,7 @@
       "batch": "bh6684699",
       "subject": "st9551921",
       "teacher": "tr1506142",
-      "display": "%batch%%subject%%teacher%",
+      "display": "batch,subject,teacher",
       "id": "bk3481321"
     },
     "bk2462084": {
@@ -56,7 +66,7 @@
       "batch": "bh2407037",
       "subject": "st2944175",
       "teacher": "tr7099462",
-      "display": "%batch%%subject%%teacher%",
+      "display": "batch,subject,teacher",
       "id": "bk2462084"
     },
     "bk3598322": {
@@ -67,7 +77,7 @@
       "batch": "bh0060369",
       "subject": "st9551921",
       "teacher": "tr4218605",
-      "display": "%batch%%subject%%teacher%",
+      "display": "batch,subject,teacher",
       "id": "bk3598322"
     }
   },
