@@ -16,14 +16,21 @@ export const downloadPDF = (screen, finish) => {
       domtoimage
         .toPng(table, {
           bgcolor: "#fff",
-          width: tableWidth,
-          height: tableHeight
+          width: tableWidth + 600,
+          height: tableHeight + 600
         })
         .then(dataUrl => {
           if (on > 0) {
-            doc.addPage([tableWidth, tableHeight], "landscape");
+            doc.addPage([tableWidth + 30, tableHeight + 40], "landscape");
           }
-          doc.addImage(dataUrl, "PNG", 20, 20);
+          doc.addImage(
+            dataUrl,
+            "PNG",
+            30,
+            40,
+            doc.internal.pageSize.getWidth() - 60,
+            doc.internal.pageSize.getHeight() - 80
+          );
           drawTable(++on);
         })
         .catch(ex => {
