@@ -7,7 +7,8 @@ import { connect } from "react-redux";
 import {
   listKey,
   TABLE_HEADER_COLOR,
-  TABLE_FOOTER_COLOR
+  TABLE_FOOTER_COLOR,
+  TABLE_SIDEBAR_COLOR
 } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
@@ -31,14 +32,16 @@ class Tables extends Component {
       rows: "times",
       cols: "places",
       header: { text: "", color: TABLE_HEADER_COLOR },
-      footer: { text: "", color: TABLE_FOOTER_COLOR }
+      footer: { text: "", color: TABLE_FOOTER_COLOR },
+      sidebar: { text: "", color: TABLE_SIDEBAR_COLOR }
     },
     quicker: {
       base: "days",
       rows: "places",
       cols: "times",
       header: "",
-      footer: ""
+      footer: "",
+      sidebar: ""
     }
   };
   componentWillUnmount() {
@@ -59,7 +62,9 @@ class Tables extends Component {
                   rows,
                   cols,
                   header,
-                  footer
+
+                  footer,
+                  sidebar
                 } = this.state.creator;
                 this.props.createTable({
                   base,
@@ -67,7 +72,8 @@ class Tables extends Component {
                   rows,
                   cols,
                   header,
-                  footer
+                  footer,
+                  sidebar
                 });
               } else if (this.state.creator.action === "update") {
                 let {
@@ -77,7 +83,8 @@ class Tables extends Component {
                   rows,
                   cols,
                   header,
-                  footer
+                  footer,
+                  sidebar
                 } = this.state.creator;
                 this.props.updateTable(id, {
                   base,
@@ -85,7 +92,8 @@ class Tables extends Component {
                   rows,
                   cols,
                   header,
-                  footer
+                  footer,
+                  sidebar
                 });
               }
               this.setState({ display: "main" });
@@ -286,6 +294,39 @@ class Tables extends Component {
               />
             </div>
             <div className="form-row">
+              <label htmlFor="">Sidebar</label>
+              <input
+                type="text"
+                style={{ width: "20rem" }}
+                value={this.state.creator.sidebar.text}
+                onChange={e => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      sidebar: {
+                        ...this.state.creator.sidebar,
+                        text: e.target.value
+                      }
+                    }
+                  });
+                }}
+              />
+            </div>
+            <div className="form-row">
+              <span />
+              <ColorsPanel
+                color={this.state.creator.sidebar.color}
+                change={color => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      sidebar: { ...this.state.creator.sidebar, color }
+                    }
+                  });
+                }}
+              />
+            </div>
+            <div className="form-row">
               <button
                 onClick={() => {
                   this.setState({ display: "main" });
@@ -453,6 +494,10 @@ class Tables extends Component {
                     },
                     footer: {
                       text: this.state.quicker.footer,
+                      color: "transparent"
+                    },
+                    sidebar: {
+                      text: this.state.quicker.sidebar,
                       color: "transparent"
                     }
                   });

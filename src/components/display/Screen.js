@@ -28,7 +28,7 @@ import {
   deleteTime
 } from "../../actions";
 
-import { listKey, lectureValidator } from "../../actions/helpers";
+import { listKey, keyList, lectureValidator } from "../../actions/helpers";
 
 import {
   downloadPNG,
@@ -42,6 +42,7 @@ import "../../resources/render.css";
 
 import LectureModal from "../others/LectureModal";
 import AreaEditor from "../others/AreaEditor";
+import ObjectEditor from "../others/ObjectEditor";
 
 class Screen extends Component {
   state = {
@@ -117,7 +118,7 @@ class Screen extends Component {
       }
     }
   }
-  editor(area, element) {
+  AreaEdit(area, element) {
     this.props.showModal(
       "content",
       <AreaEditor
@@ -128,6 +129,19 @@ class Screen extends Component {
         delete={() => {
           this.switcher(area, "delete")(element.id);
         }}
+      />
+    );
+  }
+  ObjectEdit(area, obj, element) {
+    this.props.showModal(
+      "content",
+      <ObjectEditor
+        element={element}
+        obj={obj}
+        update={data => {
+          this.switcher(keyList(area), "update")(element.id, data);
+        }}
+        delete={null}
       />
     );
   }
@@ -215,17 +229,22 @@ class Screen extends Component {
               }
               return (
                 <table key={table.id} className="screen-table">
-                  {table.header.text.length > 0 ? (
-                    <thead
-                      className="table-header"
-                      style={{ background: table.header.color }}
-                    >
-                      <tr>
-                        <td colSpan={cols.length + 1}>
+                  <thead>
+                    {table.header.text.length > 0 ? (
+                      <tr
+                        className="table-header"
+                        style={{ background: table.header.color }}
+                      >
+                        <td colSpan={cols.length + 2}>
                           <span>{table.header.text}</span>
 
                           <div className="block-buttons">
-                            <button className="edit" />
+                            <button
+                              className="edit"
+                              onClick={() => {
+                                this.ObjectEdit("table", "header", table);
+                              }}
+                            />
                             <button
                               className="delete"
                               onClick={() => {
@@ -241,17 +260,65 @@ class Screen extends Component {
                           </div>
                         </td>
                       </tr>
-                    </thead>
-                  ) : (
-                    <thead className="screen-element">
-                      <tr>
-                        <td colSpan={cols.length + 1}>
-                          <button>+</button>
+                    ) : (
+                      <tr className="screen-element">
+                        <td colSpan={cols.length + 2}>
+                          <button
+                            onClick={() => {
+                              this.ObjectEdit("table", "header", table);
+                            }}
+                          >
+                            +
+                          </button>
                         </td>
                       </tr>
-                    </thead>
-                  )}
+                    )}
+                  </thead>
                   <tbody>
+                    {table.sidebar.text.length > 0 ? (
+                      <tr
+                        className="table-sidebar"
+                        style={{ background: table.sidebar.color }}
+                      >
+                        <td rowSpan={rows.length + 2}>
+                          <div>
+                            <span>{table.sidebar.text}</span>
+                          </div>
+                          <div className="block-buttons">
+                            <button
+                              className="edit"
+                              onClick={() => {
+                                this.ObjectEdit("table", "sidebar", table);
+                              }}
+                            />
+                            <button
+                              className="delete"
+                              onClick={() => {
+                                this.props.updateTable(table.id, {
+                                  ...table,
+                                  sidebar: {
+                                    ...table.sidebar,
+                                    text: ""
+                                  }
+                                });
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ) : (
+                      <tr className="table-sidebar">
+                        <td rowSpan={rows.length + 2}>
+                          <button
+                            onClick={() => {
+                              this.ObjectEdit("table", "sidebar", table);
+                            }}
+                          >
+                            +
+                          </button>
+                        </td>
+                      </tr>
+                    )}
                     <tr>
                       <th
                         className="main-block"
@@ -269,7 +336,7 @@ class Screen extends Component {
                                 className="edit"
                                 style={{ width: "60%", left: "20%" }}
                                 onClick={() => {
-                                  this.editor(table.base, base);
+                                  this.AreaEdit(table.base, base);
                                 }}
                               />
                             </div>
@@ -317,7 +384,7 @@ class Screen extends Component {
                                 className="edit"
                                 style={{ width: "60%", left: "20%" }}
                                 onClick={() => {
-                                  this.editor(table.cols, col);
+                                  this.AreaEdit(table.cols, col);
                                 }}
                               />
                             </div>
@@ -366,7 +433,7 @@ class Screen extends Component {
                               <button
                                 className="edit"
                                 onClick={() => {
-                                  this.editor(table.rows, row);
+                                  this.AreaEdit(table.rows, row);
                                 }}
                                 style={{
                                   width: "60%",
@@ -587,17 +654,22 @@ class Screen extends Component {
                       );
                     })}
                   </tbody>
-                  {table.footer.text.length > 0 ? (
-                    <tfoot
-                      className="table-footer"
-                      style={{ background: table.footer.color }}
-                    >
-                      <tr>
-                        <td colSpan={cols.length + 1}>
+                  <tfoot>
+                    {table.footer.text.length > 0 ? (
+                      <tr
+                        className="table-footer"
+                        style={{ background: table.footer.color }}
+                      >
+                        <td colSpan={cols.length + 2}>
                           <span>{table.footer.text}</span>
 
                           <div className="block-buttons">
-                            <button className="edit" />
+                            <button
+                              className="edit"
+                              onClick={() => {
+                                this.ObjectEdit("table", "footer", table);
+                              }}
+                            />
                             <button
                               className="delete"
                               onClick={() => {
@@ -610,16 +682,20 @@ class Screen extends Component {
                           </div>
                         </td>
                       </tr>
-                    </tfoot>
-                  ) : (
-                    <tfoot className="screen-element">
-                      <tr>
-                        <td colSpan={cols.length + 1}>
-                          <button>+</button>
+                    ) : (
+                      <tr className="screen-element">
+                        <td colSpan={cols.length + 2}>
+                          <button
+                            onClick={() => {
+                              this.ObjectEdit("table", "footer", table);
+                            }}
+                          >
+                            +
+                          </button>
                         </td>
                       </tr>
-                    </tfoot>
-                  )}
+                    )}
+                  </tfoot>
                 </table>
               );
             })}

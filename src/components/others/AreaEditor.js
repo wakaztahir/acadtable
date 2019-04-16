@@ -47,11 +47,11 @@ class AreaEditor extends Component {
                 </label>
                 <input
                   type="text"
-                  value={this.props.element[e]}
-                  onChange={e => {
+                  value={this.state.element[e]}
+                  onChange={ex => {
                     let element = { ...this.state.element };
-                    element[e] = e.target.value;
-                    this.setState({ element: element });
+                    element[e] = ex.target.value;
+                    this.setState({ element });
                   }}
                 />
               </div>

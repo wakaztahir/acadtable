@@ -16,6 +16,7 @@ export const SUBJECT_COLOR = "transparent";
 export const TEACHER_COLOR = "transparent";
 export const TABLE_HEADER_COLOR = "transparent";
 export const TABLE_FOOTER_COLOR = "transparent";
+export const TABLE_SIDEBAR_COLOR = "transparent";
 
 export const random = (operator = "x", start = 3, end = 7) => {
   switch (operator) {

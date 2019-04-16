@@ -35,9 +35,31 @@ table th {
   min-width: 2rem;
   padding: 0.6rem;
 }
-.table-header > tr > td,
-.table-footer > tr > td {
+.table-sidebar td {
   padding: 0.8rem;
+  max-width: 2rem;
+}
+.table-sidebar td div {
+  height: max-content;
+  min-height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.table-sidebar td div span {
+  min-width: max-content;
+  display: block;
+  transform: rotate(-90deg);
+  width: max-content;
+}
+.table-sidebar .block-buttons {
+  display: none;
+}
+.table-header td,
+.table-footer td {
+  padding: 1rem;
 }
 .main-block > span,
 .table-block > span,
@@ -69,6 +91,10 @@ table th {
 .table-footer:hover .block-buttons {
   display: block;
 }
+.table-sidebar:hover .block-buttons {
+  display: block;
+}
+
 .block-buttons {
   display: none;
   width: 100%;
@@ -145,6 +171,19 @@ table th {
   height: 50%;
   width: 30%;
   z-index: 2;
+}
+.table-sidebar .block-buttons .edit {
+  width: 60%;
+  height: 30%;
+  top: 10%;
+  left: 20%;
+}
+.table-sidebar .block-buttons .delete {
+  width: 60%;
+  height: 30%;
+  bottom: 20% !important;
+  left: 20%;
+  top: auto;
 }
 
 .left::before {

@@ -6,7 +6,7 @@ import { unshowModal } from "../../actions";
 
 import ColorsPanel from "../others/ColorsPanel";
 
-class AreaEditor extends Component {
+class ObjectEditor extends Component {
   state = {
     element: {
       ...this.props.element
@@ -22,7 +22,7 @@ class AreaEditor extends Component {
         }}
         className="form-table"
       >
-        {Object.keys(this.props.element).map(e => {
+        {Object.keys(this.props.element[this.props.obj]).map(e => {
           if (e === "id") {
             return null;
           } else if (e === "color") {
@@ -30,11 +30,11 @@ class AreaEditor extends Component {
               <div className="form-row" key="areacolor">
                 <label htmlFor="">Color </label>
                 <ColorsPanel
-                  color={this.state.element.color}
+                  color={this.state.element[this.props.obj].color}
                   change={color => {
-                    this.setState({
-                      element: { ...this.state.element, color }
-                    });
+                    let element = { ...this.state.element };
+                    element[this.props.obj].color = color;
+                    this.setState({ element });
                   }}
                 />
               </div>
@@ -47,11 +47,11 @@ class AreaEditor extends Component {
                 </label>
                 <input
                   type="text"
-                  value={this.props.element[e]}
-                  onChange={e => {
+                  value={this.state.element[this.props.obj][e]}
+                  onChange={ex => {
                     let element = { ...this.state.element };
-                    element[e] = e.target.value;
-                    this.setState({ element: element });
+                    element[this.props.obj][e] = ex.target.value;
+                    this.setState({ element });
                   }}
                 />
               </div>
@@ -97,4 +97,4 @@ export default connect(
   {
     unshowModal
   }
-)(AreaEditor);
+)(ObjectEditor);
