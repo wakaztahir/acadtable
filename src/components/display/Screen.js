@@ -30,12 +30,6 @@ import {
 
 import { listKey, keyList, lectureValidator } from "../../actions/helpers";
 
-import {
-  downloadPNG,
-  downloadJPEG,
-  downloadPDF
-} from "../../actions/downloader";
-
 import "../../resources/screen.css";
 
 import "../../resources/render.css";
@@ -43,6 +37,7 @@ import "../../resources/render.css";
 import LectureModal from "../others/LectureModal";
 import AreaEditor from "../others/AreaEditor";
 import ObjectEditor from "../others/ObjectEditor";
+import Exporter from "../others/Exporter";
 
 class Screen extends Component {
   state = {
@@ -173,39 +168,10 @@ class Screen extends Component {
         >
           <button
             onClick={() => {
-              this.props.showModal();
-              this.setState({
-                tableMode: "pdfrender render",
-                downloader: downloadPDF,
-                download: true
-              });
+              this.props.showModal("content", <Exporter screen={this} />);
             }}
           >
-            Download PDF
-          </button>
-          <button
-            onClick={() => {
-              this.props.showModal();
-              this.setState({
-                tableMode: "imgrender render",
-                downloader: downloadJPEG,
-                download: true
-              });
-            }}
-          >
-            Download JPEG
-          </button>
-          <button
-            onClick={() => {
-              this.props.showModal();
-              this.setState({
-                tableMode: "imgrender render",
-                downloader: downloadPNG,
-                download: true
-              });
-            }}
-          >
-            Download PNG
+            Export
           </button>
         </div>
         <div className="flex-center" style={{ minWidth: "50em" }}>
