@@ -16,8 +16,8 @@ export const downloadPDF = (screen, finish) => {
       domtoimage
         .toPng(table, {
           bgcolor: "#fff",
-          width: tableWidth + 600,
-          height: tableHeight + 600
+          width: tableWidth + tableWidth / 2,
+          height: tableHeight + tableHeight / 2
         })
         .then(dataUrl => {
           if (on > 0) {
@@ -47,7 +47,11 @@ export const downloadPDF = (screen, finish) => {
 };
 export const downloadPNG = (screen, finish) => {
   domtoimage
-    .toPng(screen, { bgcolor: "#fff" })
+    .toPng(screen, {
+      bgcolor: "#fff",
+      width: screen.offsetWidth,
+      height: screen.offsetHeight
+    })
     .then(function(dataUrl) {
       let link = document.createElement("a");
       link.href = dataUrl;
@@ -62,7 +66,11 @@ export const downloadPNG = (screen, finish) => {
 };
 export const downloadJPEG = (screen, finish) => {
   domtoimage
-    .toJpeg(screen, { bgcolor: "#fff" })
+    .toJpeg(screen, {
+      bgcolor: "#fff",
+      width: screen.offsetWidth,
+      height: screen.offsetHeight
+    })
     .then(function(dataUrl) {
       let link = document.createElement("a");
       link.download = "file.jpeg";
