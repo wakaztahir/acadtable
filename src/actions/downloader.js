@@ -49,8 +49,8 @@ export const downloadPNG = (screen, finish) => {
   domtoimage
     .toPng(screen, {
       bgcolor: "#fff",
-      width: screen.offsetWidth,
-      height: screen.offsetHeight
+      width: screen.offsetWidth + 60,
+      height: screen.offsetHeight + 80
     })
     .then(function(dataUrl) {
       let link = document.createElement("a");
@@ -68,8 +68,8 @@ export const downloadJPEG = (screen, finish) => {
   domtoimage
     .toJpeg(screen, {
       bgcolor: "#fff",
-      width: screen.offsetWidth,
-      height: screen.offsetHeight
+      width: screen.offsetWidth + 60,
+      height: screen.offsetHeight + 80
     })
     .then(function(dataUrl) {
       let link = document.createElement("a");
