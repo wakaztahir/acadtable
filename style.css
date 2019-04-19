@@ -129,6 +129,8 @@ span.info::after {
   color: rgb(196, 195, 195);
   line-height: 1.3em;
   margin: 1em;
+  position: absolute;
+  top: -0.2em;
 }
 span.info > span:before {
   content: "";
