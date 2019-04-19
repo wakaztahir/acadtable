@@ -8,7 +8,14 @@ import Modal from "./Modal";
 
 import { connect } from "react-redux";
 
+import { deselectCollection } from "../actions";
+
 class App extends Component {
+  componentDidMount() {
+    window.onerror = function(e) {
+      this.props.deselectCollection();
+    };
+  }
   render() {
     return (
       <div style={{ position: "relative" }}>
@@ -25,4 +32,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(
+  mapStateToProps,
+  {
+    deselectCollection
+  }
+)(App);

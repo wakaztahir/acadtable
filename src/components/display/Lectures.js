@@ -26,7 +26,7 @@ const DefaultCreator = {
   teacher: null,
   batch: null,
   color: LECTURE_COLOR,
-  display: "%batch%%subject%%teacher%",
+  display: ["batch", "subject", "teacher"],
   mode: "create"
 };
 
@@ -65,7 +65,8 @@ class Lectures extends Component {
                   place: this.state.creator.place,
                   day: this.state.creator.day,
                   time: this.state.creator.time,
-                  color: this.state.creator.color
+                  color: this.state.creator.color,
+                  display: this.state.creator.display
                 };
                 let validator = lectureValidator(this.props.lectures, lecture);
                 if (validator.value) {
@@ -82,7 +83,8 @@ class Lectures extends Component {
                   place: this.state.creator.place,
                   day: this.state.creator.day,
                   time: this.state.creator.time,
-                  color: this.state.creator.color
+                  color: this.state.creator.color,
+                  display: this.state.creator.display
                 };
                 let validator = lectureValidator(this.props.lectures, lecture, {
                   id: this.state.creator.id
@@ -157,6 +159,40 @@ class Lectures extends Component {
               />
             </div>
             <div className="form-row">
+              <label htmlFor="">Display </label>
+              <select
+                name=""
+                id=""
+                multiple
+                value={this.state.creator.display}
+                onChange={ex => {
+                  this.setState({
+                    creator: {
+                      ...this.state.creator,
+                      display: [...ex.target.selectedOptions]
+                        .filter(({ selected }) => selected)
+                        .map(({ value }) => value)
+                    }
+                  });
+                }}
+                size="6"
+              >
+                <option value="batch">Batch</option>
+                <option value="teacher">Teacher</option>
+                <option value="subject">Subject</option>
+                <option value="place">Place</option>
+                <option value="day">Day</option>
+                <option value="time">Time</option>
+              </select>
+
+              <span className="info" style={{ display: "inline" }}>
+                <span>
+                  These things will be displayed in the table,Hold control to
+                  select multiple options
+                </span>
+              </span>
+            </div>
+            <div className="form-row">
               <div>
                 <button
                   onClick={() => {
@@ -211,7 +247,12 @@ class Lectures extends Component {
         <div
           key={lecture.id}
           className="block"
-          style={{ background: lecture.color }}
+          style={{
+            background:
+              lecture.color !== "transparent"
+                ? lecture.color
+                : "rgb(179,178,178)"
+          }}
         >
           <div className="block-txt">
             {subject != null ? (

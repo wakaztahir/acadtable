@@ -460,42 +460,38 @@ class Screen extends Component {
                               );
                             } else {
                               let lecture = { ...block[0] };
-                              let subject = this.props.subjects.filter(
-                                st => st.id === lecture.subject
-                              )[0];
-                              let batch = this.props.batches.filter(
-                                bh => bh.id === lecture.batch
-                              )[0];
-                              let teacher = this.props.teachers.filter(
-                                tr => tr.id === lecture.teacher
-                              )[0];
                               return (
                                 <td
                                   key={"b" + col.id}
                                   className="table-block"
                                   style={{ background: lecture.color }}
                                 >
-                                  {batch != null ? (
-                                    <span>{batch.name}</span>
-                                  ) : (
-                                    <span className="warning screen-element">
-                                      Batch Error
-                                    </span>
-                                  )}
-                                  {subject != null ? (
-                                    <span>{subject.name}</span>
-                                  ) : (
-                                    <span className="warning screen-element">
-                                      Subject Error
-                                    </span>
-                                  )}
-                                  {teacher != null ? (
-                                    <span>{teacher.name}</span>
-                                  ) : (
-                                    <span className="warning screen-element">
-                                      Teacher Error
-                                    </span>
-                                  )}
+                                  {lecture.display.map(thing => {
+                                    let loot = this.props[
+                                      keyList(thing)
+                                    ].filter(th => th.id === lecture[thing])[0];
+                                    if (loot != null) {
+                                      return (
+                                        <span
+                                          key={loot.name + lecture.id + "thing"}
+                                        >
+                                          {loot.name}
+                                        </span>
+                                      );
+                                    } else {
+                                      return (
+                                        <span
+                                          className="warning screen-element"
+                                          style={{
+                                            textTransform: "capitalize"
+                                          }}
+                                        >
+                                          {loot} Error
+                                        </span>
+                                      );
+                                    }
+                                  })}
+
                                   <div className="block-buttons">
                                     {rowIndex === 0 ? null : (
                                       <button

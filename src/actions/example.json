@@ -60,7 +60,7 @@
       "batch": "bh6684699",
       "subject": "st9551921",
       "teacher": "tr1506142",
-      "display": "batch,subject,teacher",
+      "display": ["batch", "subject", "teacher"],
       "id": "bk3481321"
     },
     "bk2462084": {
@@ -71,7 +71,7 @@
       "batch": "bh2407037",
       "subject": "st2944175",
       "teacher": "tr7099462",
-      "display": "batch,subject,teacher",
+      "display": ["batch", "subject", "teacher"],
       "id": "bk2462084"
     },
     "bk3598322": {
@@ -82,7 +82,7 @@
       "batch": "bh0060369",
       "subject": "st9551921",
       "teacher": "tr4218605",
-      "display": "batch,subject,teacher",
+      "display": ["batch", "subject", "teacher"],
       "id": "bk3598322"
     }
   },

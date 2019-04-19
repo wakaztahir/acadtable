@@ -23,7 +23,8 @@ import {
   PLACE_COLOR,
   BATCH_COLOR,
   SUBJECT_COLOR,
-  TEACHER_COLOR
+  TEACHER_COLOR,
+  LECTURE_COLOR
 } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
@@ -36,13 +37,15 @@ class LectureModal extends Component {
   render() {
     let params = this.props.params;
     let info = {
+      id: null,
       day: null,
       time: null,
       place: null,
-      batch: null,
       subject: null,
-      color: null,
-      display: null,
+      teacher: null,
+      batch: null,
+      color: LECTURE_COLOR,
+      display: ["batch", "subject", "teacher"],
       ...params
     };
     let toEdit = this.props.edit;
@@ -63,6 +66,7 @@ class LectureModal extends Component {
                 }
               }
               info.color = this.state.params.color;
+              info.display = this.state.params.display;
               if (this.props.mode === "create") {
                 let validator = lectureValidator(this.props.lectures, info);
                 if (validator.value) {
@@ -139,6 +143,40 @@ class LectureModal extends Component {
                   this.setState({ params: { ...this.state.params, color } });
                 }}
               />
+            </div>
+            <div className="form-row">
+              <label htmlFor="">Display </label>
+              <select
+                name=""
+                id=""
+                multiple
+                value={this.state.params.display}
+                onChange={ex => {
+                  this.setState({
+                    params: {
+                      ...this.state.params,
+                      display: [...ex.target.selectedOptions]
+                        .filter(({ selected }) => selected)
+                        .map(({ value }) => value)
+                    }
+                  });
+                }}
+                size="6"
+              >
+                <option value="batch">Batch</option>
+                <option value="teacher">Teacher</option>
+                <option value="subject">Subject</option>
+                <option value="place">Place</option>
+                <option value="day">Day</option>
+                <option value="time">Time</option>
+              </select>
+
+              <span className="info" style={{ display: "inline" }}>
+                <span>
+                  These things will be displayed in the table in the order of
+                  selection,Hold control to select multiple options
+                </span>
+              </span>
             </div>
             <div className="form-row">
               <span>
