@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/acadtable/static/css/main.685add5c.chunk.css"
   },
   {
-    "revision": "cc6cdaf3614fd0d1d1a5967da79469bd",
+    "revision": "9006b3b706039d0d7207e590ac2e5353",
     "url": "/acadtable/index.html"
   }
 ];
