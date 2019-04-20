@@ -18,6 +18,18 @@ export const TABLE_HEADER_COLOR = "transparent";
 export const TABLE_FOOTER_COLOR = "transparent";
 export const TABLE_SIDEBAR_COLOR = "transparent";
 
+export const DEFAULT_LECTURE = {
+  id: null,
+  day: null,
+  time: null,
+  place: null,
+  subject: null,
+  teacher: null,
+  batch: null,
+  color: LECTURE_COLOR,
+  display: ["batch", "subject", "teacher"]
+};
+
 export const random = (operator = "x", start = 3, end = 7) => {
   switch (operator) {
     case "collection":
@@ -26,7 +38,7 @@ export const random = (operator = "x", start = 3, end = 7) => {
     case "table":
       operator = "tl";
       break;
-    case "block":
+    case "lecture":
       operator = "bk";
       break;
     case "day":

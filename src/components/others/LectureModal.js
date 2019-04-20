@@ -24,7 +24,7 @@ import {
   BATCH_COLOR,
   SUBJECT_COLOR,
   TEACHER_COLOR,
-  LECTURE_COLOR
+  DEFAULT_LECTURE
 } from "../../actions/helpers";
 
 import ColorsPanel from "../others/ColorsPanel";
@@ -37,15 +37,7 @@ class LectureModal extends Component {
   render() {
     let params = this.props.params;
     let info = {
-      id: null,
-      day: null,
-      time: null,
-      place: null,
-      subject: null,
-      teacher: null,
-      batch: null,
-      color: LECTURE_COLOR,
-      display: ["batch", "subject", "teacher"],
+      ...DEFAULT_LECTURE,
       ...params
     };
     let toEdit = this.props.edit;
@@ -66,7 +58,10 @@ class LectureModal extends Component {
                 }
               }
               info.color = this.state.params.color;
-              info.display = this.state.params.display;
+              info.display =
+                this.state.params.display !== undefined
+                  ? this.state.params.display
+                  : info.display;
               if (this.props.mode === "create") {
                 let validator = lectureValidator(this.props.lectures, info);
                 if (validator.value) {
