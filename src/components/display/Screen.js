@@ -38,6 +38,7 @@ import LectureModal from "../others/LectureModal";
 import AreaEditor from "../others/AreaEditor";
 import ObjectEditor from "../others/ObjectEditor";
 import Exporter from "../others/Exporter";
+import TableActions from "../others/TableActions";
 
 class Screen extends Component {
   state = {
@@ -166,6 +167,14 @@ class Screen extends Component {
           style={{ marginTop: "1rem", flexDirection: "row" }}
           className="flex-center"
         >
+          <button
+            onClick={() => {
+              this.props.showModal("content", <TableActions screen={this} />);
+            }}
+          >
+            Table Actions
+          </button>
+          &nbsp;
           <button
             onClick={() => {
               this.props.showModal("content", <Exporter screen={this} />);

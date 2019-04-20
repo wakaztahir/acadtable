@@ -31,7 +31,7 @@ class Welcome extends Component {
     }
     return (
       <div>
-        <h2>Looks like its your first time visiting acadtable.</h2>
+        <h2>Start by creating a collection or loading an example.</h2>
         <div className="welcome-buttons">
           <button
             className="black-btn"
