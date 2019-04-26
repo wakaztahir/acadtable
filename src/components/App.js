@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import "../resources/app.css";
+
 import Welcome from "./Welcome";
 
 import Display from "./display";

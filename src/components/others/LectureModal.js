@@ -18,6 +18,12 @@ import {
 import {
   keyList,
   lectureValidator,
+  dayValidator,
+  timeValidator,
+  batchValidator,
+  placeValidator,
+  teacherValidator,
+  subjectValidator,
   DAY_COLOR,
   TIME_COLOR,
   PLACE_COLOR,
@@ -85,7 +91,6 @@ class LectureModal extends Component {
             }}
           >
             {toEdit.map(key => {
-              console.log(key);
               let list = this.props[keyList(key)];
               let value = params[key] != null ? params[key] : null;
               if (value == null || this.props.mode === "update") {
@@ -145,7 +150,7 @@ class LectureModal extends Component {
                 name=""
                 id=""
                 multiple
-                value={this.state.params.display}
+                value={info.display}
                 onChange={ex => {
                   this.setState({
                     params: {
@@ -189,32 +194,50 @@ class LectureModal extends Component {
         </div>
       );
     } else {
-      let creator;
+      let creator, validator;
       let color = "transparent";
       switch (this.state.display) {
         case "day":
           creator = this.props.createDay;
           color = DAY_COLOR;
+          validator = data => {
+            return dayValidator(this.props.days, data);
+          };
           break;
         case "time":
           creator = this.props.createTime;
           color = TIME_COLOR;
+          validator = data => {
+            return timeValidator(this.props.times, data);
+          };
           break;
         case "place":
           creator = this.props.createPlace;
           color = PLACE_COLOR;
+          validator = data => {
+            return placeValidator(this.props.places, data);
+          };
           break;
         case "subject":
           creator = this.props.createSubject;
           color = SUBJECT_COLOR;
+          validator = data => {
+            return subjectValidator(this.props.subjects, data);
+          };
           break;
         case "batch":
           creator = this.props.createBatch;
           color = BATCH_COLOR;
+          validator = data => {
+            return batchValidator(this.props.batches, data);
+          };
           break;
         case "teacher":
           creator = this.props.createTeacher;
           color = TEACHER_COLOR;
+          validator = data => {
+            return teacherValidator(this.props.teachers, data);
+          };
           break;
         default:
           creator = null;
@@ -236,7 +259,13 @@ class LectureModal extends Component {
                 onSubmit={e => {
                   e.preventDefault();
                   let name = e.target[0].value;
-                  creator({ name, color });
+                  let data = { name, color };
+                  let validation = validator(data);
+                  if (validation.value) {
+                    creator(data);
+                  } else {
+                    this.props.showModal("message", validation.message);
+                  }
                   this.setState({ display: "main" });
                 }}
               >
