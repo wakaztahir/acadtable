@@ -28,17 +28,16 @@ import {
   deleteTime
 } from "../../actions";
 
-import { listKey, keyList, lectureValidator } from "../../actions/helpers";
+import { listKey, keyList } from "../../actions/helpers";
 
 import "../../resources/screen.css";
 
 import "../../resources/render.css";
 
-import LectureModal from "../others/LectureModal";
-import AreaEditor from "../others/AreaEditor";
-import ObjectEditor from "../others/ObjectEditor";
-import Exporter from "../others/Exporter";
-import TableActions from "../others/TableActions";
+import LectureModal from "../modals/LectureModal";
+
+import Exporter from "../modals/Exporter";
+import TableActions from "../modals/TableActions";
 
 class Screen extends Component {
   state = {
@@ -55,101 +54,7 @@ class Screen extends Component {
     }
     this.props.user.save();
   }
-  switcher(area, request) {
-    let req = this.props[
-      `${request}${area[0].toUpperCase()}${listKey(area).substr(
-        1,
-        listKey(area).length
-      )}`
-    ];
-    if (req == null) {
-      return null;
-    }
-    return req;
-  }
-  swapper(area, from, to) {
-    let swap = null;
-    swap = this.switcher(area, "swap");
-    if (swap != null) {
-      swap(from.id, to.id);
-    }
-  }
-  lectureSwap(from, to) {
-    let lectFind = this.props.lectures.filter(
-      l => l.day === to.day && l.time === to.time && l.place === to.place
-    );
-    if (lectFind.length > 0) {
-      let otherLecture = { ...lectFind[0] };
-      otherLecture = {
-        ...otherLecture,
-        day: from.day,
-        time: from.time,
-        place: from.place
-      };
-      let otherValidator = lectureValidator(
-        this.props.lectures,
-        otherLecture,
-        from
-      );
-      if (otherValidator.value) {
-        this.props.updateLecture(otherLecture.id, otherLecture);
-        let validator = lectureValidator(this.props.lectures, to, otherLecture);
-        if (validator.value) {
-          this.props.updateLecture(to.id, to);
-        } else {
-          this.props.showModal("message", validator.message);
-        }
-      } else {
-        this.props.showModal(
-          "message",
-          "2nd lecture error , " + otherValidator.message
-        );
-      }
-    } else {
-      let validator = lectureValidator(this.props.lectures, to);
-      if (validator.value) {
-        this.props.updateLecture(to.id, to);
-      } else {
-        this.props.showModal("message", validator.message);
-      }
-    }
-  }
-  AreaEdit(area, element) {
-    this.props.showModal(
-      "content",
-      <AreaEditor
-        element={element}
-        update={data => {
-          this.switcher(area, "update")(element.id, data);
-        }}
-        delete={() => {
-          this.switcher(area, "delete")(element.id);
-        }}
-      />
-    );
-  }
-  ObjectEdit(area, obj, element) {
-    this.props.showModal(
-      "content",
-      <ObjectEditor
-        element={element}
-        obj={obj}
-        update={data => {
-          this.switcher(keyList(area), "update")(element.id, data);
-        }}
-        delete={null}
-      />
-    );
-  }
-  deleter(area, element) {
-    let deletor = null;
-    deletor = this.switcher(area, "delete");
-    if (deletor != null) {
-      deletor(element.id);
-    } else {
-      console.log(deletor);
-    }
-  }
+
   render() {
     let objector = {
       tables: this.props.tables,
@@ -212,27 +117,6 @@ class Screen extends Component {
                       >
                         <td colSpan={cols.length + 2}>
                           <span>{table.header.text}</span>
-
-                          <div className="block-buttons">
-                            <button
-                              className="edit"
-                              onClick={() => {
-                                this.ObjectEdit("table", "header", table);
-                              }}
-                            />
-                            <button
-                              className="delete"
-                              onClick={() => {
-                                this.props.updateTable(table.id, {
-                                  ...table,
-                                  header: {
-                                    ...table.header,
-                                    text: ""
-                                  }
-                                });
-                              }}
-                            />
-                          </div>
                         </td>
                       </tr>
                     ) : (
@@ -258,26 +142,6 @@ class Screen extends Component {
                         <td rowSpan={rows.length + 2}>
                           <div>
                             <span>{table.sidebar.text}</span>
-                          </div>
-                          <div className="block-buttons">
-                            <button
-                              className="edit"
-                              onClick={() => {
-                                this.ObjectEdit("table", "sidebar", table);
-                              }}
-                            />
-                            <button
-                              className="delete"
-                              onClick={() => {
-                                this.props.updateTable(table.id, {
-                                  ...table,
-                                  sidebar: {
-                                    ...table.sidebar,
-                                    text: ""
-                                  }
-                                });
-                              }}
-                            />
                           </div>
                         </td>
                       </tr>
@@ -306,15 +170,6 @@ class Screen extends Component {
                         {base != null ? (
                           <div>
                             <span>{base.name}</span>
-                            <div className="block-buttons">
-                              <button
-                                className="edit"
-                                style={{ width: "60%", left: "20%" }}
-                                onClick={() => {
-                                  this.AreaEdit(table.base, base);
-                                }}
-                              />
-                            </div>
                           </div>
                         ) : null}
                       </th>
@@ -330,39 +185,6 @@ class Screen extends Component {
                             }
                           >
                             <span>{col.name}</span>
-                            <div className="block-buttons">
-                              {colIndex === 0 ? null : (
-                                <button
-                                  onClick={() => {
-                                    this.swapper(
-                                      table.cols,
-                                      col,
-                                      cols[colIndex - 1]
-                                    );
-                                  }}
-                                  className="left"
-                                />
-                              )}
-                              {colIndex === cols.length - 1 ? null : (
-                                <button
-                                  onClick={() => {
-                                    this.swapper(
-                                      table.cols,
-                                      col,
-                                      cols[colIndex + 1]
-                                    );
-                                  }}
-                                  className="right"
-                                />
-                              )}
-                              <button
-                                className="edit"
-                                style={{ width: "60%", left: "20%" }}
-                                onClick={() => {
-                                  this.AreaEdit(table.cols, col);
-                                }}
-                              />
-                            </div>
                           </th>
                         );
                       })}
@@ -380,44 +202,6 @@ class Screen extends Component {
                             }
                           >
                             <span>{row.name}</span>
-                            <div className="block-buttons">
-                              {rowIndex === 0 ? null : (
-                                <button
-                                  onClick={() => {
-                                    this.swapper(
-                                      table.rows,
-                                      row,
-                                      rows[rowIndex - 1]
-                                    );
-                                  }}
-                                  className="above"
-                                />
-                              )}
-                              {rowIndex === rows.length - 1 ? null : (
-                                <button
-                                  onClick={() => {
-                                    this.swapper(
-                                      table.rows,
-                                      row,
-                                      rows[rowIndex + 1]
-                                    );
-                                  }}
-                                  className="bottom"
-                                />
-                              )}
-                              <button
-                                className="edit"
-                                onClick={() => {
-                                  this.AreaEdit(table.rows, row);
-                                }}
-                                style={{
-                                  width: "60%",
-                                  height: "50%",
-                                  top: "25%",
-                                  left: "20%"
-                                }}
-                              />
-                            </div>
                           </th>
                           {cols.map((col, colIndex) => {
                             let block = objector["lectures"].filter(
@@ -500,123 +284,6 @@ class Screen extends Component {
                                       );
                                     }
                                   })}
-
-                                  <div className="block-buttons">
-                                    {rowIndex === 0 ? null : (
-                                      <button
-                                        className="above"
-                                        onClick={() => {
-                                          let effectedRow = null;
-                                          rows.filter((r, i) => {
-                                            if (r.id === row.id) {
-                                              effectedRow = rows[i - 1];
-                                            }
-                                            return r;
-                                          });
-                                          if (effectedRow != null) {
-                                            let to = { ...lecture };
-                                            to[listKey(table.rows)] =
-                                              effectedRow.id;
-                                            this.lectureSwap(block[0], to);
-                                          }
-                                        }}
-                                      />
-                                    )}
-                                    {rowIndex === rows.length - 1 ? null : (
-                                      <button
-                                        className="bottom"
-                                        onClick={() => {
-                                          let effectedRow = null;
-                                          rows.filter((r, i) => {
-                                            if (r.id === row.id) {
-                                              effectedRow = rows[i + 1];
-                                            }
-                                            return r;
-                                          });
-                                          if (effectedRow != null) {
-                                            let to = { ...lecture };
-                                            to[listKey(table.rows)] =
-                                              effectedRow.id;
-                                            this.lectureSwap(block[0], to);
-                                          }
-                                        }}
-                                      />
-                                    )}
-                                    {colIndex === cols.length - 1 ? null : (
-                                      <button
-                                        className="right"
-                                        onClick={() => {
-                                          let effectedCol = null;
-                                          cols.filter((c, i) => {
-                                            if (c.id === col.id) {
-                                              effectedCol = cols[i + 1];
-                                            }
-                                            return c;
-                                          });
-                                          if (effectedCol != null) {
-                                            let to = { ...lecture };
-                                            to[listKey(table.cols)] =
-                                              effectedCol.id;
-                                            this.lectureSwap(block[0], to);
-                                          }
-                                        }}
-                                      />
-                                    )}
-                                    {colIndex === 0 ? null : (
-                                      <button
-                                        className="left"
-                                        onClick={() => {
-                                          let effectedCol = null;
-                                          cols.filter((c, i) => {
-                                            if (c.id === col.id) {
-                                              effectedCol = cols[i - 1];
-                                            }
-                                            return c;
-                                          });
-                                          if (effectedCol != null) {
-                                            let to = { ...lecture };
-                                            to[listKey(table.cols)] =
-                                              effectedCol.id;
-                                            this.lectureSwap(block[0], to);
-                                          }
-                                        }}
-                                      />
-                                    )}
-                                    <button
-                                      className="edit"
-                                      onClick={() => {
-                                        this.props.showModal(
-                                          "content",
-                                          <LectureModal
-                                            id={lecture.id}
-                                            params={{ ...lecture }}
-                                            edit={[
-                                              "subject",
-                                              "batch",
-                                              "teacher"
-                                            ]}
-                                            mode="update"
-                                          />
-                                        );
-                                      }}
-                                    />
-                                    <button
-                                      className="delete"
-                                      onClick={() => {
-                                        this.props.showModal(
-                                          "confirm",
-                                          "Are you sure ?",
-                                          [
-                                            () => {
-                                              this.props.deleteLecture(
-                                                lecture.id
-                                              );
-                                            }
-                                          ]
-                                        );
-                                      }}
-                                    />
-                                  </div>
                                 </td>
                               );
                             }
@@ -633,24 +300,6 @@ class Screen extends Component {
                       >
                         <td colSpan={cols.length + 2}>
                           <span>{table.footer.text}</span>
-
-                          <div className="block-buttons">
-                            <button
-                              className="edit"
-                              onClick={() => {
-                                this.ObjectEdit("table", "footer", table);
-                              }}
-                            />
-                            <button
-                              className="delete"
-                              onClick={() => {
-                                this.props.updateTable(table.id, {
-                                  ...table,
-                                  footer: { ...table.footer, text: "" }
-                                });
-                              }}
-                            />
-                          </div>
                         </td>
                       </tr>
                     ) : (

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { unshowModal } from "../../actions";
 
-import ColorsPanel from "../others/ColorsPanel";
+import ColorsPanel from "./ColorsPanel";
 
 class ObjectEditor extends Component {
   state = {

@@ -2,7 +2,6 @@ import types from "../actions/types";
 
 const initial_state = {
   modal: {
-    display: false,
     type: null,
     content: null,
     buttons: null

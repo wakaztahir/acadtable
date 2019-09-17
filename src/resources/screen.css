@@ -2,9 +2,11 @@
   display: flex;
   flex-direction: column;
 }
+
 .screen .screen-table {
   margin: 1rem 0;
 }
+
 table td,
 table th {
   border: 2px solid rgb(104, 104, 104);
@@ -14,15 +16,19 @@ table th {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   position: relative;
 }
+
 table th {
   font-weight: normal;
 }
+
 .row-block {
   padding: 1rem 0.4rem;
 }
+
 .col-block {
   padding: 0.4rem 1rem;
 }
+
 .table-block {
   border: 2px solid rgb(33, 61, 114);
   background: #fff;
@@ -31,14 +37,17 @@ table th {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   position: relative;
 }
+
 .empty-block {
   min-width: 2rem;
   padding: 0.6rem;
 }
+
 .table-sidebar td {
   padding: 0.8rem;
   max-width: 2rem;
 }
+
 .table-sidebar td div {
   height: max-content;
   min-height: 100%;
@@ -48,159 +57,54 @@ table th {
   align-items: center;
   margin: 0 auto;
 }
+
 .table-sidebar td div span {
   min-width: max-content;
   display: block;
   transform: rotate(-90deg);
   width: max-content;
 }
-.table-sidebar .block-buttons {
-  display: none;
-}
+
 .table-header td,
 .table-footer td {
   padding: 1rem;
 }
-.main-block > span,
-.table-block > span,
-.row-block > span,
-.col-block > span {
+
+.main-block>span,
+.table-block>span,
+.row-block>span,
+.col-block>span {
   display: block;
   margin: 0.3em 0;
   text-align: center;
 }
-.table-block > button {
+
+.table-block>button {
   display: block;
   margin: 0 auto;
 }
-.table-header:hover .block-buttons {
-  display: block;
-}
-.main-block:hover .block-buttons {
-  display: block;
-}
-.table-block:hover .block-buttons {
-  display: block;
-}
-.col-block:hover .block-buttons {
-  display: block;
-}
-.row-block:hover .block-buttons {
-  display: block;
-}
-.table-footer:hover .block-buttons {
-  display: block;
-}
-.table-sidebar:hover .block-buttons {
-  display: block;
-}
 
-.block-buttons {
-  display: none;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.block-buttons > button {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: rgb(73, 73, 73);
-  color: #fff;
-  min-width: 1em;
-  min-height: 1em;
-}
-
-.block-buttons > button:hover {
-  z-index: 3;
-}
-
-.block-buttons .above {
-  position: absolute;
-  width: 75%;
-  height: 15%;
-  top: 0;
-  left: 12.5%;
-  z-index: 2;
-}
-
-.block-buttons .right {
-  position: absolute;
-  right: 0;
-  height: 75%;
-  top: 12.5%;
-  width: 10%;
-  z-index: 1;
-}
-.block-buttons .left {
-  position: absolute;
-  left: 0;
-  height: 75%;
-  top: 12.5%;
-  width: 10%;
-  z-index: 1;
-}
-.block-buttons .bottom {
-  position: absolute;
-  bottom: 0;
-  left: 12.5%;
-  width: 75%;
-  height: 20%;
-  z-index: 2;
-}
-
-.block-buttons .edit {
-  position: absolute;
-  top: 22.5%;
-  left: 15%;
-  height: 50%;
-  width: 30%;
-  z-index: 2;
-}
-
-.block-buttons .delete {
-  position: absolute;
-  top: 22.5%;
-  right: 15%;
-  height: 50%;
-  width: 30%;
-  z-index: 2;
-}
-.table-sidebar .block-buttons .edit {
-  width: 60%;
-  height: 30%;
-  top: 10%;
-  left: 20%;
-}
-.table-sidebar .block-buttons .delete {
-  width: 60%;
-  height: 30%;
-  bottom: 20% !important;
-  left: 20%;
-  top: auto;
-}
 
 .left::before {
   content: "\02C2";
 }
+
 .right::before {
   content: "\02C3";
 }
+
 .bottom::before {
   content: "\02C5";
 }
+
 .above::before {
   content: "\02C4";
 }
+
 .edit::before {
   content: "Edit";
 }
+
 .delete::before {
   content: "Delete";
 }
