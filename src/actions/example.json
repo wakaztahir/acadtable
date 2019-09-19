@@ -7,9 +7,9 @@
       "baseValue": "dy7952700",
       "header": {
         "text": "Don't take it seriously bruh !",
-        "color": "#e0dfc7"
+        "color": "transparent"
       },
-      "footer": { "text": "Hallelujah", "color": "#6777eb" },
+      "footer": { "text": "Hallelujah", "color": "transparent" },
       "sidebar": {
         "text": "This is a table , you can write anything here",
         "color": "transparent"

@@ -96,45 +96,20 @@ class Screen extends Component {
               )[0];
               let rows = objector[table.rows];
               let cols = objector[table.cols];
-              if (base == null || rows == null || cols == null) {
-                return (
-                  <div
-                    className="warning screen-element"
-                    style={{ marginBottom: 0 }}
-                    key={table.id + "error"}
-                  >
-                    There was a problem with one of the tables
-                  </div>
-                );
-              }
               return (
                 <table key={table.id} className="screen-table">
                   <thead>
-                    {table.header.text.length > 0 ? (
-                      <tr
-                        className="table-header"
-                        style={{ background: table.header.color }}
-                      >
-                        <td colSpan={cols.length + 2}>
-                          <span>{table.header.text}</span>
-                        </td>
-                      </tr>
-                    ) : (
-                      <tr className="screen-element">
-                        <td colSpan={cols.length + 2}>
-                          <button
-                            onClick={() => {
-                              this.ObjectEdit("table", "header", table);
-                            }}
-                          >
-                            +
-                          </button>
-                        </td>
-                      </tr>
-                    )}
+                    <tr
+                      className="table-header"
+                      style={{ background: table.header.color }}
+                    >
+                      <td colSpan={cols.length + 1}>
+                        <span>{table.header.text}</span>
+                      </td>
+                    </tr>
                   </thead>
                   <tbody>
-                    {table.sidebar.text.length > 0 ? (
+                    {/* {table.sidebar.text.length > 0 ? (
                       <tr
                         className="table-sidebar"
                         style={{ background: table.sidebar.color }}
@@ -157,16 +132,9 @@ class Screen extends Component {
                           </button>
                         </td>
                       </tr>
-                    )}
+                    )} */}
                     <tr>
-                      <th
-                        className="main-block"
-                        style={
-                          base.color != null || base.color !== "transparent"
-                            ? { background: base.color }
-                            : {}
-                        }
-                      >
+                      <th className="main-block">
                         {base != null ? (
                           <div>
                             <span>{base.name}</span>
@@ -175,16 +143,10 @@ class Screen extends Component {
                       </th>
                       {cols.map((col, colIndex) => {
                         return (
-                          <th
-                            key={"c" + col.id}
-                            className="col-block"
-                            style={
-                              col.color != null || col.color !== "transparent"
-                                ? { background: col.color }
-                                : {}
-                            }
-                          >
-                            <span>{col.name}</span>
+                          <th key={"c" + col.id} className="col-block">
+                            <div>
+                              <span>{col.name}</span>
+                            </div>
                           </th>
                         );
                       })}
@@ -193,15 +155,10 @@ class Screen extends Component {
                     {rows.map((row, rowIndex) => {
                       return (
                         <tr key={"r" + row.id}>
-                          <th
-                            className="row-block"
-                            style={
-                              row.color != null || row.color !== "transparent"
-                                ? { background: row.color }
-                                : {}
-                            }
-                          >
-                            <span>{row.name}</span>
+                          <th className="row-block">
+                            <div>
+                              <span>{row.name}</span>
+                            </div>
                           </th>
                           {cols.map((col, colIndex) => {
                             let block = objector["lectures"].filter(
@@ -254,35 +211,18 @@ class Screen extends Component {
                             } else {
                               let lecture = { ...block[0] };
                               return (
-                                <td
-                                  key={"b" + col.id}
-                                  className="table-block"
-                                  style={{ background: lecture.color }}
-                                >
+                                <td key={"b" + col.id} className="table-block">
                                   {lecture.display.map(thing => {
                                     let loot = this.props[
                                       keyList(thing)
                                     ].filter(th => th.id === lecture[thing])[0];
-                                    if (loot != null) {
-                                      return (
-                                        <span
-                                          key={loot.name + lecture.id + "thing"}
-                                        >
-                                          {loot.name}
-                                        </span>
-                                      );
-                                    } else {
-                                      return (
-                                        <span
-                                          className="warning screen-element"
-                                          style={{
-                                            textTransform: "capitalize"
-                                          }}
-                                        >
-                                          {loot} Error
-                                        </span>
-                                      );
-                                    }
+                                    return (
+                                      <span
+                                        key={loot.name + lecture.id + "thing"}
+                                      >
+                                        {loot.name}
+                                      </span>
+                                    );
                                   })}
                                 </td>
                               );
@@ -293,28 +233,14 @@ class Screen extends Component {
                     })}
                   </tbody>
                   <tfoot>
-                    {table.footer.text.length > 0 ? (
-                      <tr
-                        className="table-footer"
-                        style={{ background: table.footer.color }}
-                      >
-                        <td colSpan={cols.length + 2}>
-                          <span>{table.footer.text}</span>
-                        </td>
-                      </tr>
-                    ) : (
-                      <tr className="screen-element">
-                        <td colSpan={cols.length + 2}>
-                          <button
-                            onClick={() => {
-                              this.ObjectEdit("table", "footer", table);
-                            }}
-                          >
-                            +
-                          </button>
-                        </td>
-                      </tr>
-                    )}
+                    <tr
+                      className="table-footer"
+                      style={{ background: table.footer.color }}
+                    >
+                      <td colSpan={cols.length + 1}>
+                        <span>{table.footer.text}</span>
+                      </td>
+                    </tr>
                   </tfoot>
                 </table>
               );

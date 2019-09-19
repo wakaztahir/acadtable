@@ -1,3 +1,6 @@
+* {
+  transition: background 0.1s ease-in, color 0.1s linear;
+}
 .flex-center-h,
 .flex-center {
   display: flex;
@@ -73,7 +76,8 @@ input[type="submit"]:hover:not(:disabled),
   color: rgb(196, 195, 195) !important;
 }
 .black-btn:hover {
-  background: rgb(199, 30, 30) !important;
+  background: rgb(26, 106, 211) !important;
+  color: white !important;
 }
 
 input[type="text"],
