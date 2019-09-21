@@ -101,73 +101,83 @@ class Teachers extends Component {
   render() {
     return (
       <div>
-        <h1>Teachers</h1>
+        <h1>Create Teacher</h1>
         <div style={{ margin: "1rem" }}>{this.creator()}</div>
-        <div className="block-list">
-          {this.props.teachers.map((teacher, index) => {
-            return (
-              <div
-                key={teacher.id}
-                className="block"
-                style={{
-                  background:
-                    teacher.color === "transparent"
-                      ? "rgb(179, 178, 178)"
-                      : teacher.color
-                }}
-              >
-                <div className="block-txt">
-                  <span>{teacher.name}</span>
-                </div>
-                <div className="block-btns">
-                  {index === 0 ? null : (
-                    <button
-                      onClick={() => {
-                        this.props.swapTeacher(
-                          teacher.id,
-                          this.props.teachers[index - 1].id
-                        );
-                      }}
-                    >
-                      {"<"}
-                    </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      this.setState({
-                        creator: {
-                          ...this.state.creator,
-                          ...teacher,
-                          mode: "update"
-                        }
-                      });
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => {
-                      this.props.deleteTeacher(teacher.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                  {index === this.props.teachers.length - 1 ? null : (
-                    <button
-                      onClick={() => {
-                        this.props.swapTeacher(
-                          teacher.id,
-                          this.props.teachers[index + 1].id
-                        );
-                      }}
-                    >
-                      >
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+
+        <div className="table-list">
+          <h1>Teachers List</h1>
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Move</td>
+                <td>Actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.teachers.map((teacher, index) => {
+                return (
+                  <tr>
+                    <td>
+                      <span>{teacher.name}</span>
+                    </td>
+                    <td>
+                      <div className="btn-container">
+                        {index === 0 ? null : (
+                          <button
+                            onClick={() => {
+                              this.props.swapTeacher(
+                                teacher.id,
+                                this.props.teachers[index - 1].id
+                              );
+                            }}
+                          >
+                            Up
+                          </button>
+                        )}
+                        {index === this.props.teachers.length - 1 ? null : (
+                          <button
+                            onClick={() => {
+                              this.props.swapTeacher(
+                                teacher.id,
+                                this.props.teachers[index + 1].id
+                              );
+                            }}
+                          >
+                            Down
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="btn-container">
+                        <button
+                          onClick={() => {
+                            this.setState({
+                              creator: {
+                                ...this.state.creator,
+                                ...teacher,
+                                mode: "update"
+                              }
+                            });
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            this.props.deleteTeacher(teacher.id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     );

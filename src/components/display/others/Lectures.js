@@ -52,7 +52,6 @@ class Lectures extends Component {
     return (
       <div>
         <h1>Lectures</h1>
-
         <div className="full-wrapper flex-center">
           <form
             onSubmit={event => {
@@ -382,6 +381,10 @@ class Lectures extends Component {
             })}
           </select>
         </div>
+        <p style={{ color: "rgb(90, 90, 90)" }}>
+          &nbsp;&nbsp; * Any lecture containing an error won't be displayed on
+          screen
+        </p>
         <div style={{ paddingBottom: "1rem" }}>
           {this.state.listshow === "all" ? (
             <div className="block-list">

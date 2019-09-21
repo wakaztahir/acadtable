@@ -32,7 +32,6 @@ class Batches extends Component {
   creator() {
     return (
       <div>
-        <h1> Batches </h1>
         <form
           onSubmit={event => {
             event.preventDefault();
@@ -115,78 +114,83 @@ class Batches extends Component {
     }
     return (
       <div>
-        <div
-          style={{
-            margin: "1rem"
-          }}
-        >
-          {this.creator()}
-        </div>
-        <div className="block-list">
-          {this.props.batches.map((batch, index) => {
-            return (
-              <div
-                key={batch.id}
-                className="block"
-                style={{
-                  background:
-                    batch.color === "transparent"
-                      ? "rgb(179, 178, 178)"
-                      : batch.color
-                }}
-              >
-                <div className="block-txt">
-                  <span> {batch.name} </span>
-                </div>
-                <div className="block-btns">
-                  {index === 0 ? null : (
-                    <button
-                      onClick={() => {
-                        this.props.swapBatch(
-                          batch.id,
-                          this.props.batches[index - 1].id
-                        );
-                      }}
-                    >
-                      {"<"}
-                    </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      this.setState({
-                        creator: {
-                          ...this.state.creator,
-                          ...batch,
-                          mode: "update"
-                        }
-                      });
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => {
-                      this.props.deleteBatch(batch.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                  {index === this.props.batches.length - 1 ? null : (
-                    <button
-                      onClick={() => {
-                        this.props.swapBatch(
-                          batch.id,
-                          this.props.batches[index + 1].id
-                        );
-                      }}
-                    >
-                      >
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+        <h1>Create Batch</h1>
+        <div style={{ margin: "1rem" }}>{this.creator()}</div>
+
+        <div className="table-list">
+          <h1>Batches List</h1>
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Move</td>
+                <td>Actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.batches.map((batch, index) => {
+                return (
+                  <tr>
+                    <td>
+                      <span>{batch.name}</span>
+                    </td>
+                    <td>
+                      <div className="btn-container">
+                        {index === 0 ? null : (
+                          <button
+                            onClick={() => {
+                              this.props.swapBatch(
+                                batch.id,
+                                this.props.batches[index - 1].id
+                              );
+                            }}
+                          >
+                            Up
+                          </button>
+                        )}
+                        {index === this.props.batches.length - 1 ? null : (
+                          <button
+                            onClick={() => {
+                              this.props.swapBatch(
+                                batch.id,
+                                this.props.batches[index + 1].id
+                              );
+                            }}
+                          >
+                            Down
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="btn-container">
+                        <button
+                          onClick={() => {
+                            this.setState({
+                              creator: {
+                                ...this.state.creator,
+                                ...batch,
+                                mode: "update"
+                              }
+                            });
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            this.props.deleteBatch(batch.id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     );

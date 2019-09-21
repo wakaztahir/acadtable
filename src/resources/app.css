@@ -155,12 +155,18 @@ span.info:hover > span {
 }
 .form-table > .form-row > * {
   margin: 1em 0;
-  display: table-cell;
+  display: table-cell !important;
   vertical-align: middle;
 }
 
 .form-row > label {
   margin: 0 !important;
+  margin-right: 10px !important;
+}
+
+.form-row.submit-row {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .cards-container {
@@ -305,4 +311,37 @@ span.info:hover > span {
 }
 .elebtn.selected {
   opacity: 1;
+}
+
+.table-list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.table-list > table {
+  min-width: 500px;
+}
+.table-list > table > thead {
+  background: rgb(51, 51, 51);
+  border-radius: 2px;
+}
+.table-list > table > thead > tr > td {
+  padding: 1rem;
+  color: white;
+  border-radius: 2px;
+}
+
+.table-list > table > tbody > tr:nth-of-type(1n) {
+  background: rgb(255, 255, 255);
+}
+.table-list > table > tbody > tr:nth-of-type(2n) {
+  background: rgb(209, 209, 209);
+}
+.table-list > table > tbody > tr > td {
+  padding: 0.7rem;
+}
+
+.table-list > table > tbody > tr > td > .btn-container {
+  display: flex;
+  justify-content: center;
 }

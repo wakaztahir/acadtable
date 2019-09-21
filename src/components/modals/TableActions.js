@@ -274,7 +274,7 @@ class TableActions extends Component {
                 }}
               />
             </div>
-            <div className="form-row">
+            <div className="form-row submit-row">
               <div>
                 <input
                   type="submit"
@@ -373,7 +373,7 @@ class TableActions extends Component {
               })}
             </select>
           </div>
-          <div className="form-row">
+          <div className="form-row submit-row">
             <span />
             <input type="submit" value="Copy Table" />
           </div>
@@ -424,7 +424,7 @@ class TableActions extends Component {
               })}
             </select>
           </div>
-          <div className="form-row">
+          <div className="form-row submit-row">
             <span />
             <input type="submit" value="Delete" />
           </div>
@@ -483,7 +483,7 @@ class TableActions extends Component {
             </label>
             <input type="text" id="rowtext" name="rowtext" />
           </div>
-          <div className="form-row">
+          <div className="form-row submit-row">
             <span />
             <input
               type="submit"

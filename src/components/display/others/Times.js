@@ -290,85 +290,93 @@ class Times extends Component {
     }
     return (
       <div>
-        <h1>Times</h1>
-        <div style={{ margin: "1rem" }}>
-          <button
-            onClick={() => {
-              this.setState({
-                display: "quick",
-                creator: { id: null, name: null, mode: "create" }
-              });
-            }}
-          >
-            Quick Times
-          </button>
-        </div>
+        <h1>Create Time</h1>
+        <button
+          onClick={() => {
+            this.setState({
+              display: "quick",
+              creator: { id: null, name: null, mode: "create" }
+            });
+          }}
+        >
+          Quick Times
+        </button>
         <div style={{ margin: "1rem" }}>{this.creator()}</div>
-        <div className="block-list">
-          {this.props.times.map((time, index) => {
-            return (
-              <div
-                key={time.id}
-                className="block"
-                style={{
-                  background:
-                    time.color === "transparent"
-                      ? "rgb(179, 178, 178)"
-                      : time.color
-                }}
-              >
-                <div className="block-txt">
-                  <span>{time.name}</span>
-                </div>
-                <div className="block-btns">
-                  {index === 0 ? null : (
-                    <button
-                      onClick={() => {
-                        this.props.swapTime(
-                          time.id,
-                          this.props.times[index - 1].id
-                        );
-                      }}
-                    >
-                      {"<"}
-                    </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      this.setState({
-                        creator: {
-                          ...this.state.creator,
-                          ...time,
-                          mode: "update"
-                        }
-                      });
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => {
-                      this.props.deleteTime(time.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                  {index === this.props.times.length - 1 ? null : (
-                    <button
-                      onClick={() => {
-                        this.props.swapTime(
-                          time.id,
-                          this.props.times[index + 1].id
-                        );
-                      }}
-                    >
-                      >
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+
+        <div className="table-list">
+          <h1>Times List</h1>
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Move</td>
+                <td>Actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.times.map((time, index) => {
+                return (
+                  <tr>
+                    <td>
+                      <span>{time.name}</span>
+                    </td>
+                    <td>
+                      <div className="btn-container">
+                        {index === 0 ? null : (
+                          <button
+                            onClick={() => {
+                              this.props.swapTime(
+                                time.id,
+                                this.props.times[index - 1].id
+                              );
+                            }}
+                          >
+                            Up
+                          </button>
+                        )}
+                        {index === this.props.times.length - 1 ? null : (
+                          <button
+                            onClick={() => {
+                              this.props.swapTime(
+                                time.id,
+                                this.props.times[index + 1].id
+                              );
+                            }}
+                          >
+                            Down
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="btn-container">
+                        <button
+                          onClick={() => {
+                            this.setState({
+                              creator: {
+                                ...this.state.creator,
+                                ...time,
+                                mode: "update"
+                              }
+                            });
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            this.props.deleteTime(time.id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     );

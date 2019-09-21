@@ -101,73 +101,83 @@ class Subjects extends Component {
   render() {
     return (
       <div>
-        <h1>Subjects</h1>
+        <h1>Create Subject</h1>
         <div style={{ margin: "1rem" }}>{this.creator()}</div>
-        <div className="block-list">
-          {this.props.subjects.map((subject, index) => {
-            return (
-              <div
-                key={subject.id}
-                className="block"
-                style={{
-                  background:
-                    subject.color === "transparent"
-                      ? "rgb(179, 178, 178)"
-                      : subject.color
-                }}
-              >
-                <div className="block-txt">
-                  <span>{subject.name}</span>
-                </div>
-                <div className="block-btns">
-                  {index === 0 ? null : (
-                    <button
-                      onClick={() => {
-                        this.props.swapSubject(
-                          subject.id,
-                          this.props.subjects[index - 1].id
-                        );
-                      }}
-                    >
-                      {"<"}
-                    </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      this.setState({
-                        creator: {
-                          ...this.state.creator,
-                          ...subject,
-                          mode: "update"
-                        }
-                      });
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => {
-                      this.props.deleteSubject(subject.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                  {index === this.props.subjects.length - 1 ? null : (
-                    <button
-                      onClick={() => {
-                        this.props.swapSubject(
-                          subject.id,
-                          this.props.subjects[index + 1].id
-                        );
-                      }}
-                    >
-                      >
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+
+        <div className="table-list">
+          <h1>Subjects List</h1>
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Move</td>
+                <td>Actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.subjects.map((subject, index) => {
+                return (
+                  <tr>
+                    <td>
+                      <span>{subject.name}</span>
+                    </td>
+                    <td>
+                      <div className="btn-container">
+                        {index === 0 ? null : (
+                          <button
+                            onClick={() => {
+                              this.props.swapSubject(
+                                subject.id,
+                                this.props.subjects[index - 1].id
+                              );
+                            }}
+                          >
+                            Up
+                          </button>
+                        )}
+                        {index === this.props.subjects.length - 1 ? null : (
+                          <button
+                            onClick={() => {
+                              this.props.swapSubject(
+                                subject.id,
+                                this.props.subjects[index + 1].id
+                              );
+                            }}
+                          >
+                            Down
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="btn-container">
+                        <button
+                          onClick={() => {
+                            this.setState({
+                              creator: {
+                                ...this.state.creator,
+                                ...subject,
+                                mode: "update"
+                              }
+                            });
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            this.props.deleteSubject(subject.id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     );
