@@ -1,13 +1,13 @@
 {
-  "main.css": "/acadtable/static/css/main.37e35a88.chunk.css",
-  "main.js": "/acadtable/static/js/main.7d437793.chunk.js",
-  "main.js.map": "/acadtable/static/js/main.7d437793.chunk.js.map",
-  "static/js/1.15524669.chunk.js": "/acadtable/static/js/1.15524669.chunk.js",
-  "static/js/1.15524669.chunk.js.map": "/acadtable/static/js/1.15524669.chunk.js.map",
-  "runtime~main.js": "/acadtable/static/js/runtime~main.1d65f624.js",
-  "runtime~main.js.map": "/acadtable/static/js/runtime~main.1d65f624.js.map",
-  "static/css/main.37e35a88.chunk.css.map": "/acadtable/static/css/main.37e35a88.chunk.css.map",
+  "main.css": "/acadtable/static/css/main.3babb0d6.chunk.css",
+  "main.js": "/acadtable/static/js/main.2e3d4385.chunk.js",
+  "main.js.map": "/acadtable/static/js/main.2e3d4385.chunk.js.map",
+  "runtime~main.js": "/acadtable/static/js/runtime~main.d2a60c75.js",
+  "runtime~main.js.map": "/acadtable/static/js/runtime~main.d2a60c75.js.map",
+  "static/js/2.8162ba18.chunk.js": "/acadtable/static/js/2.8162ba18.chunk.js",
+  "static/js/2.8162ba18.chunk.js.map": "/acadtable/static/js/2.8162ba18.chunk.js.map",
   "index.html": "/acadtable/index.html",
-  "precache-manifest.d9901b0c21486d4477d507cb1b5568d4.js": "/acadtable/precache-manifest.d9901b0c21486d4477d507cb1b5568d4.js",
-  "service-worker.js": "/acadtable/service-worker.js"
+  "precache-manifest.0a16a37583c426f5d25a50fa7fc5286c.js": "/acadtable/precache-manifest.0a16a37583c426f5d25a50fa7fc5286c.js",
+  "service-worker.js": "/acadtable/service-worker.js",
+  "static/css/main.3babb0d6.chunk.css.map": "/acadtable/static/css/main.3babb0d6.chunk.css.map"
 }
