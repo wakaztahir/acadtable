@@ -289,7 +289,7 @@ class Times extends Component {
       return this.quicker();
     }
     return (
-      <div>
+      <div style={{ marginBottom: "50px" }}>
         <h1>Create Time</h1>
         <button
           onClick={() => {

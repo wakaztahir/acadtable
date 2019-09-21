@@ -38,6 +38,26 @@ export const unshowModal = () => {
   };
 };
 
+export const showMenu = type => {
+  return {
+    type: types.SHOW_MENU,
+    payload: {
+      display: true,
+      type
+    }
+  };
+};
+
+export const unshowMenu = type => {
+  return {
+    type: types.UNSHOW_MENU,
+    payload: {
+      display: false,
+      type
+    }
+  };
+};
+
 //USER ACTIONS
 export const exampleCollection = () => {
   let id =

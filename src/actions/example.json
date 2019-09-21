@@ -10,10 +10,6 @@
         "color": "transparent"
       },
       "footer": { "text": "Hallelujah", "color": "transparent" },
-      "sidebar": {
-        "text": "This is a table , you can write anything here",
-        "color": "transparent"
-      },
       "id": "tl5786835"
     },
     "tl6756441": {
@@ -23,7 +19,6 @@
       "base": "days",
       "header": { "text": "Example Header", "color": "transparent" },
       "footer": { "text": "Example Footer", "color": "transparent" },
-      "sidebar": { "text": "Example Sidebar", "color": "transparent" },
       "id": "tl6756441"
     },
     "tl0912359": {
@@ -33,7 +28,6 @@
       "base": "days",
       "header": { "text": "Example Header", "color": "transparent" },
       "footer": { "text": "Example Footer", "color": "transparent" },
-      "sidebar": { "text": "Example Sidebar", "color": "transparent" },
       "id": "tl0912359"
     },
     "tl6539478": {
@@ -43,7 +37,6 @@
       "base": "days",
       "header": { "text": "Example Header", "color": "transparent" },
       "footer": { "text": "Example Footer", "color": "transparent" },
-      "sidebar": { "text": "Example Sidebar", "color": "transparent" },
       "id": "tl6539478"
     },
     "tl4565578": {
@@ -53,7 +46,6 @@
       "base": "days",
       "header": { "text": "Example Header", "color": "transparent" },
       "footer": { "text": "Example Footer", "color": "transparent" },
-      "sidebar": { "text": "Example Sidebar", "color": "transparent" },
       "id": "tl4565578"
     }
   },

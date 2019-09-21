@@ -108,7 +108,7 @@ class Teachers extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{ marginBottom: "50px" }}>
         <h1>Create Teacher</h1>
         <div style={{ margin: "1rem" }}>{this.creator()}</div>
 

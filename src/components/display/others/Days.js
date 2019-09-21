@@ -100,7 +100,7 @@ class Days extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{ marginBottom: "50px" }}>
         <h1>Create Day</h1>
         <div style={{ margin: "1rem" }}>
           <button

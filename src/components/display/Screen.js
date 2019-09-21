@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import {
   showModal,
   unshowModal,
+  showMenu,
+  unshowMenu,
   updateTable,
   updateLecture,
   deleteLecture,
@@ -35,7 +37,6 @@ import "../../resources/screen.css";
 import "../../resources/render.css";
 
 import LectureModal from "../modals/LectureModal";
-
 import Exporter from "../modals/Exporter";
 import TableActions from "../modals/TableActions";
 
@@ -54,7 +55,13 @@ class Screen extends Component {
     }
     this.props.user.save();
   }
-
+  menu(event, element, tochange = null) {
+    this.props.showMenu({
+      event,
+      element,
+      tochange
+    });
+  }
   render() {
     let objector = {
       tables: this.props.tables,
@@ -106,14 +113,24 @@ class Screen extends Component {
                       className="table-header"
                       style={{ background: table.header.color }}
                     >
-                      <td colSpan={cols.length + 1}>
+                      <td
+                        colSpan={cols.length + 1}
+                        onContextMenu={x => {
+                          this.menu(x, table, "header");
+                        }}
+                      >
                         <span>{table.header.text}</span>
                       </td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <th className="main-block">
+                      <th
+                        className="main-block"
+                        onContextMenu={x => {
+                          this.menu(x, base);
+                        }}
+                      >
                         {base != null ? (
                           <div>
                             <span>{base.name}</span>
@@ -125,7 +142,13 @@ class Screen extends Component {
 
                       {cols.map(col => {
                         return (
-                          <th key={"c" + col.id} className="col-block">
+                          <th
+                            key={"c" + col.id}
+                            className="col-block"
+                            onContextMenu={x => {
+                              this.menu(x, col);
+                            }}
+                          >
                             <div>
                               <span>{col.name}</span>
                             </div>
@@ -138,7 +161,12 @@ class Screen extends Component {
 
                     {rows.map(row => {
                       return (
-                        <tr key={"r" + row.id}>
+                        <tr
+                          key={"r" + row.id}
+                          onContextMenu={x => {
+                            this.menu(x, row);
+                          }}
+                        >
                           <th className="row-block">
                             <div>
                               <span>{row.name}</span>
@@ -198,7 +226,13 @@ class Screen extends Component {
                             } else {
                               let lecture = { ...block[0] };
                               return (
-                                <td key={"b" + col.id} className="table-block">
+                                <td
+                                  key={"b" + col.id}
+                                  className="table-block"
+                                  onContextMenu={x => {
+                                    this.menu(x, col);
+                                  }}
+                                >
                                   {lecture.display.map(thing => {
                                     let loot = this.props[
                                       keyList(thing)
@@ -223,6 +257,9 @@ class Screen extends Component {
                     <tr
                       className="table-footer"
                       style={{ background: table.footer.color }}
+                      onContextMenu={x => {
+                        this.menu(x, table, "footer");
+                      }}
                     >
                       <td colSpan={cols.length + 1}>
                         <span>{table.footer.text}</span>
@@ -257,6 +294,8 @@ export default connect(
   {
     showModal,
     unshowModal,
+    showMenu,
+    unshowMenu,
     updateTable,
     updateLecture,
     deleteLecture,

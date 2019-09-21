@@ -205,7 +205,7 @@ class Places extends Component {
       return this.quicker();
     }
     return (
-      <div>
+      <div style={{ marginBottom: "50px" }}>
         <div style={{ margin: "1rem" }}>
           <h1>Create Place</h1>
           <button

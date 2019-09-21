@@ -113,7 +113,7 @@ class Batches extends Component {
       return this.creator();
     }
     return (
-      <div>
+      <div style={{ marginBottom: "50px" }}>
         <h1>Create Batch</h1>
         <div style={{ margin: "1rem" }}>{this.creator()}</div>
 
