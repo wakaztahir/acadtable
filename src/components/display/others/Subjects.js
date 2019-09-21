@@ -51,7 +51,11 @@ class Subjects extends Component {
                 name: this.state.creator.name,
                 color: this.state.creator.color
               };
-              let validator = subjectValidator(this.props.subjects, subject);
+              let validator = subjectValidator(
+                this.props.subjects,
+                subject,
+                subject
+              );
               if (validator.value) {
                 this.props.updateSubject(this.state.creator.id, subject);
               } else {

@@ -111,7 +111,11 @@ class Places extends Component {
                     name: place,
                     color: this.state.quicker.color
                   };
-                  let validator = placeValidator(this.props.places, placeObj);
+                  let validator = placeValidator(
+                    this.props.places,
+                    placeObj,
+                    placeObj
+                  );
                   if (validator.value) {
                     this.props.createPlace(placeObj);
                   }

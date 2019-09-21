@@ -40,7 +40,11 @@ class Teachers extends Component {
                 name: this.state.creator.name,
                 color: this.state.creator.color
               };
-              let validator = teacherValidator(this.props.teachers, teacher);
+              let validator = teacherValidator(
+                this.props.teachers,
+                teacher,
+                teacher
+              );
               if (validator.value) {
                 this.props.createTeacher(teacher);
               } else {
@@ -51,7 +55,11 @@ class Teachers extends Component {
                 name: this.state.creator.name,
                 color: this.state.creator.color
               };
-              let validator = teacherValidator(this.props.teachers, teacher);
+              let validator = teacherValidator(
+                this.props.teachers,
+                teacher,
+                teacher
+              );
               if (validator.value) {
                 this.props.updateTeacher(this.state.creator.id, teacher);
               } else {

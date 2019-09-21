@@ -40,7 +40,7 @@ class Days extends Component {
                 name: this.state.creator.name,
                 color: this.state.creator.color
               };
-              let validator = dayValidator(this.props.days, day);
+              let validator = dayValidator(this.props.days, day, day);
               if (validator.value) {
                 this.props.createDay(day);
               } else {

@@ -40,7 +40,7 @@ class Batches extends Component {
                 name: this.state.creator.name,
                 color: this.state.creator.color
               };
-              let validator = batchValidator(this.props.batches, batch);
+              let validator = batchValidator(this.props.batches, batch, batch);
               if (validator.value) {
                 this.props.createBatch(batch);
               } else {

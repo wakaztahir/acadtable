@@ -237,7 +237,7 @@ class Times extends Component {
                 name: this.state.creator.name,
                 color: this.state.creator.color
               };
-              let validator = timeValidator(this.props.times, time);
+              let validator = timeValidator(this.props.times, time, time);
               if (validator.value) {
                 this.props.updateTime(this.state.creator.id, time);
               } else {

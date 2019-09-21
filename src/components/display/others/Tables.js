@@ -8,7 +8,6 @@ import {
   listKey,
   TABLE_HEADER_COLOR,
   TABLE_FOOTER_COLOR,
-  TABLE_SIDEBAR_COLOR
 } from "../../../actions/helpers";
 
 import ColorsPanel from "../../modals/ColorsPanel";
