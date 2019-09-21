@@ -1,6 +1,7 @@
 .screen {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .screen .screen-table {
@@ -71,15 +72,6 @@ table th {
   min-width: 2rem;
   padding: 0.6rem;
 }
-
-/* .table-sidebar td {
-  padding: 0.5rem;
-  max-width: 2rem;
-  background: #727272;
-  color: #fff;
-  font-family: "Raleway", sans-serif;
-  font-family: 14px;
-} */
 
 .table-sidebar td div {
   height: max-content;

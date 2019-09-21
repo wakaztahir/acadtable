@@ -19,7 +19,7 @@ class Display extends Component {
     return (
       <div className="wrapper">
         <Header />
-        <Screen params={this.state.params} actor={this.changeDisplay} />;
+        <Screen params={this.state.params} />;
       </div>
     );
   }

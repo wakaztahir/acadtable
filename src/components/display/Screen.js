@@ -66,6 +66,9 @@ class Screen extends Component {
       subjects: this.props.subjects,
       teachers: this.props.teachers
     };
+
+    //ALL IMPLEMENTATION
+
     return (
       <div>
         <div
@@ -109,30 +112,6 @@ class Screen extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {table.sidebar.text.length > 0 ? (
-                      <tr
-                        className="table-sidebar"
-                        style={{ background: table.sidebar.color }}
-                      >
-                        <td rowSpan={rows.length + 2}>
-                          <div>
-                            <span>{table.sidebar.text}</span>
-                          </div>
-                        </td>
-                      </tr>
-                    ) : (
-                      <tr className="table-sidebar">
-                        <td rowSpan={rows.length + 2}>
-                          <button
-                            onClick={() => {
-                              this.ObjectEdit("table", "sidebar", table);
-                            }}
-                          >
-                            +
-                          </button>
-                        </td>
-                      </tr>
-                    )} */}
                     <tr>
                       <th className="main-block">
                         {base != null ? (
@@ -141,7 +120,10 @@ class Screen extends Component {
                           </div>
                         ) : null}
                       </th>
-                      {cols.map((col, colIndex) => {
+
+                      {/* COLOUMNS HEADINGS */}
+
+                      {cols.map(col => {
                         return (
                           <th key={"c" + col.id} className="col-block">
                             <div>
@@ -152,7 +134,9 @@ class Screen extends Component {
                       })}
                     </tr>
 
-                    {rows.map((row, rowIndex) => {
+                    {/* ROWS MAPPING */}
+
+                    {rows.map(row => {
                       return (
                         <tr key={"r" + row.id}>
                           <th className="row-block">
@@ -160,7 +144,10 @@ class Screen extends Component {
                               <span>{row.name}</span>
                             </div>
                           </th>
-                          {cols.map((col, colIndex) => {
+
+                          {/* COLOUMNS MAPPING */}
+
+                          {cols.map(col => {
                             let block = objector["lectures"].filter(
                               block =>
                                 block[listKey(table.base)] === base.id &&
@@ -202,7 +189,7 @@ class Screen extends Component {
                                       />
                                     );
                                   }}
-                                  key={"b" + col.id}
+                                  key={"emp" + col.id}
                                   className="table-block empty-block"
                                 >
                                   <button>+</button>
