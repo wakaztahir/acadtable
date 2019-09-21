@@ -8,11 +8,11 @@ import {
   swapTime,
   deleteTime,
   showModal
-} from "../../actions";
+} from "../../../actions";
 
-import { TIME_COLOR, timeValidator } from "../../actions/helpers";
+import { TIME_COLOR, timeValidator } from "../../../actions/helpers";
 
-import ColorsPanel from "../others/ColorsPanel";
+import ColorsPanel from "../../modals/ColorsPanel";
 
 const DefaultCreator = {
   id: null,

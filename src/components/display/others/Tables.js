@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import storage from "../../actions/storage";
+import storage from "../../../actions/storage";
 
 import { connect } from "react-redux";
 
@@ -9,9 +9,9 @@ import {
   TABLE_HEADER_COLOR,
   TABLE_FOOTER_COLOR,
   TABLE_SIDEBAR_COLOR
-} from "../../actions/helpers";
+} from "../../../actions/helpers";
 
-import ColorsPanel from "../others/ColorsPanel";
+import ColorsPanel from "../../modals/ColorsPanel";
 
 import {
   createTable,
@@ -19,30 +19,32 @@ import {
   deleteTable,
   showModal,
   unshowModal
-} from "../../actions";
+} from "../../../actions";
+
+const DefaultCreator = {
+  action: "create",
+  id: null,
+  base: "days",
+  baseValue: null,
+  rows: "times",
+  cols: "places",
+  header: { text: "", color: TABLE_HEADER_COLOR },
+  footer: { text: "", color: TABLE_FOOTER_COLOR }
+};
+
+const DefaultQuicker = {
+  base: "days",
+  rows: "places",
+  cols: "times",
+  header: "",
+  footer: ""
+};
 
 class Tables extends Component {
   state = {
     display: "main",
-    creator: {
-      action: "create",
-      id: null,
-      base: "days",
-      baseValue: null,
-      rows: "times",
-      cols: "places",
-      header: { text: "", color: TABLE_HEADER_COLOR },
-      footer: { text: "", color: TABLE_FOOTER_COLOR },
-      sidebar: { text: "", color: TABLE_SIDEBAR_COLOR }
-    },
-    quicker: {
-      base: "days",
-      rows: "places",
-      cols: "times",
-      header: "",
-      footer: "",
-      sidebar: ""
-    }
+    creator: DefaultCreator,
+    quicker: DefaultQuicker
   };
   componentWillUnmount() {
     storage.save();
@@ -293,39 +295,7 @@ class Tables extends Component {
                 }}
               />
             </div>
-            <div className="form-row">
-              <label htmlFor="">Sidebar</label>
-              <input
-                type="text"
-                style={{ width: "20rem" }}
-                value={this.state.creator.sidebar.text}
-                onChange={e => {
-                  this.setState({
-                    creator: {
-                      ...this.state.creator,
-                      sidebar: {
-                        ...this.state.creator.sidebar,
-                        text: e.target.value
-                      }
-                    }
-                  });
-                }}
-              />
-            </div>
-            <div className="form-row">
-              <span />
-              <ColorsPanel
-                color={this.state.creator.sidebar.color}
-                change={color => {
-                  this.setState({
-                    creator: {
-                      ...this.state.creator,
-                      sidebar: { ...this.state.creator.sidebar, color }
-                    }
-                  });
-                }}
-              />
-            </div>
+
             <div className="form-row">
               <button
                 onClick={() => {
@@ -537,15 +507,7 @@ class Tables extends Component {
           <button
             onClick={() => {
               this.setState({
-                display: "create",
-                creator: {
-                  action: "create",
-                  id: null,
-                  base: "days",
-                  baseValue: null,
-                  rows: "times",
-                  cols: "places"
-                }
+                display: "create"
               });
             }}
           >
@@ -554,7 +516,9 @@ class Tables extends Component {
           &nbsp;
           <button
             onClick={() => {
-              this.setState({ display: "quick" });
+              this.setState({
+                display: "quick"
+              });
             }}
           >
             Quick Tables

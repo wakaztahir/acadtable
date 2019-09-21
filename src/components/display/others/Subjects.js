@@ -8,11 +8,11 @@ import {
   swapSubject,
   deleteSubject,
   showModal
-} from "../../actions";
+} from "../../../actions";
 
-import { SUBJECT_COLOR, subjectValidator } from "../../actions/helpers";
+import { SUBJECT_COLOR, subjectValidator } from "../../../actions/helpers";
 
-import ColorsPanel from "../others/ColorsPanel";
+import ColorsPanel from "../../modals/ColorsPanel";
 
 const DefaultCreator = {
   id: null,

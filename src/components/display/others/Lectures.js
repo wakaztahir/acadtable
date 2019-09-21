@@ -6,16 +6,16 @@ import {
   keyList,
   lectureValidator,
   LECTURE_COLOR
-} from "../../actions/helpers";
+} from "../../../actions/helpers";
 
-import ColorsPanel from "../others/ColorsPanel";
+import ColorsPanel from "../../modals/ColorsPanel";
 
 import {
   createLecture,
   updateLecture,
   deleteLecture,
   showModal
-} from "../../actions";
+} from "../../../actions";
 
 const DefaultCreator = {
   id: null,

@@ -8,11 +8,11 @@ import {
   swapDay,
   deleteDay,
   showModal
-} from "../../actions";
+} from "../../../actions";
 
-import { DAY_COLOR, dayValidator } from "../../actions/helpers";
+import { DAY_COLOR, dayValidator } from "../../../actions/helpers";
 
-import ColorsPanel from "../others/ColorsPanel";
+import ColorsPanel from "../../modals/ColorsPanel";
 
 const DefaultCreator = {
   id: null,

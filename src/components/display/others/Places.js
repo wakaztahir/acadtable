@@ -8,11 +8,11 @@ import {
   swapPlace,
   deletePlace,
   showModal
-} from "../../actions";
+} from "../../../actions";
 
-import { PLACE_COLOR, placeValidator } from "../../actions/helpers";
+import { PLACE_COLOR, placeValidator } from "../../../actions/helpers";
 
-import ColorsPanel from "../others/ColorsPanel";
+import ColorsPanel from "../../modals/ColorsPanel";
 
 const DefaultCreator = {
   id: null,

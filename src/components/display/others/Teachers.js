@@ -8,11 +8,11 @@ import {
   swapTeacher,
   deleteTeacher,
   showModal
-} from "../../actions";
+} from "../../../actions";
 
-import { TEACHER_COLOR, teacherValidator } from "../../actions/helpers";
+import { TEACHER_COLOR, teacherValidator } from "../../../actions/helpers";
 
-import ColorsPanel from "../others/ColorsPanel";
+import ColorsPanel from "../../modals/ColorsPanel";
 
 const DefaultCreator = {
   id: null,

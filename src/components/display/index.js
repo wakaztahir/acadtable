@@ -3,7 +3,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Screen from "./Screen";
-import Header from "./Header";
+import Tables from "./others/Tables";
+import Lectures from "./others/Lectures";
+import Batches from "./others/Batches";
+import Days from "./others/Days";
+import Times from "./others/Times";
+import Places from "./others/Places";
+import Subjects from "./others/Subjects";
+import Teachers from "./others/Teachers";
 
 import {
   selectCollection,
@@ -13,13 +20,85 @@ import {
 
 class Display extends Component {
   state = {
+    display: "screen",
     params: null
   };
+  changeDisplay = (display, params = null) => {
+    this.setState({ display, params });
+  };
+  actor() {
+    switch (this.state.display) {
+      case "screen":
+        return <Screen params={this.state.params} actor={this.changeDisplay} />;
+      case "tables":
+        return <Tables params={this.state.params} actor={this.changeDisplay} />;
+      case "lectures":
+        return (
+          <Lectures params={this.state.params} actor={this.changeDisplay} />
+        );
+      case "batches":
+        return (
+          <Batches params={this.state.params} actor={this.changeDisplay} />
+        );
+      case "days":
+        return <Days params={this.state.params} actor={this.changeDisplay} />;
+      case "times":
+        return <Times params={this.state.params} actor={this.changeDisplay} />;
+      case "places":
+        return <Places params={this.state.params} actor={this.changeDisplay} />;
+      case "subjects":
+        return (
+          <Subjects params={this.state.params} actor={this.changeDisplay} />
+        );
+      case "teachers":
+        return (
+          <Teachers params={this.state.params} actor={this.changeDisplay} />
+        );
+      default:
+        return null;
+    }
+  }
   render() {
+    let objector = {
+      screen: null,
+      tables: this.props.tables,
+      lectures: this.props.lectures,
+      batches: this.props.batches,
+      days: this.props.days,
+      times: this.props.times,
+      places: this.props.places,
+      subjects: this.props.subjects,
+      teachers: this.props.teachers
+    };
     return (
       <div className="wrapper">
-        <Header />
-        <Screen params={this.state.params} />;
+        <h1>Acadtable</h1>
+        <button
+          onClick={() => {
+            this.props.deselectCollection();
+          }}
+        >
+          Back
+        </button>
+        <div className="full-wrapper flex-center">
+          <div>
+            {Object.keys(objector).map(btn => {
+              return (
+                <button
+                  onClick={() => this.setState({ display: btn })}
+                  className={
+                    this.state.display === btn ? "selected elebtn" : "elebtn"
+                  }
+                  style={{ textTransform: "capitalize" }}
+                  key={btn + "-menuBtn"}
+                >
+                  {btn}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        {this.actor()}
       </div>
     );
   }
