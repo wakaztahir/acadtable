@@ -16,7 +16,6 @@ export const SUBJECT_COLOR = "transparent";
 export const TEACHER_COLOR = "transparent";
 export const TABLE_HEADER_COLOR = "transparent";
 export const TABLE_FOOTER_COLOR = "transparent";
-export const TABLE_SIDEBAR_COLOR = "transparent";
 
 export const DEFAULT_LECTURE = {
   id: null,
@@ -67,6 +66,43 @@ export const random = (operator = "x", start = 3, end = 7) => {
     .split(".")[1]
     .substr(start, end);
   return operator + id;
+};
+
+export const reverse = id => {
+  let operator = id[0] + id[1];
+  switch (operator) {
+    case "cn":
+      operator = "collection";
+      break;
+    case "tl":
+      operator = "table";
+      break;
+    case "bk":
+      operator = "lecture";
+      break;
+    case "dy":
+      operator = "day";
+      break;
+    case "tm":
+      operator = "time";
+      break;
+    case "pl":
+      operator = "place";
+      break;
+    case "bh":
+      operator = "batch";
+      break;
+    case "st":
+      operator = "subject";
+      break;
+    case "tr":
+      operator = "teacher";
+      break;
+    default:
+      operator = null;
+      break;
+  }
+  return operator;
 };
 
 export const keyList = keyName => {

@@ -130,7 +130,7 @@ class Batches extends Component {
             <tbody>
               {this.props.batches.map((batch, index) => {
                 return (
-                  <tr>
+                  <tr key={batch.id}>
                     <td>
                       <span>{batch.name}</span>
                     </td>

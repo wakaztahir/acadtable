@@ -316,7 +316,7 @@ class Times extends Component {
             <tbody>
               {this.props.times.map((time, index) => {
                 return (
-                  <tr>
+                  <tr key={time.id}>
                     <td>
                       <span>{time.name}</span>
                     </td>

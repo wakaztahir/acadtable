@@ -121,7 +121,7 @@ class Subjects extends Component {
             <tbody>
               {this.props.subjects.map((subject, index) => {
                 return (
-                  <tr>
+                  <tr key={subject.id}>
                     <td>
                       <span>{subject.name}</span>
                     </td>

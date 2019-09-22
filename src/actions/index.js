@@ -48,12 +48,11 @@ export const showMenu = type => {
   };
 };
 
-export const unshowMenu = type => {
+export const unshowMenu = () => {
   return {
     type: types.UNSHOW_MENU,
     payload: {
-      display: false,
-      type
+      display: false
     }
   };
 };
@@ -158,6 +157,29 @@ export const updateTable = (tableID, data) => {
   return {
     type: types.UPDATE_TABLE,
     payload: table
+  };
+};
+export const swapTable = (tableID, withID) => {
+  let tables = Object.values(storage.getDataKey("tables"));
+  let current = tables.filter(table => table.id === tableID)[0];
+  let future = tables.filter(table => table.id === withID)[0];
+  for (let i = 0; i < tables.length; i++) {
+    if (tables[i].id === tableID) {
+      tables[i] = future;
+    } else if (tables[i].id === withID) {
+      tables[i] = current;
+    }
+  }
+  let newTables = {};
+  tables.forEach(table => {
+    newTables[table.id] = table;
+  });
+  storage.setDataKey("tables", newTables);
+  return {
+    type: types.SWAP_TABLE,
+    payload: {
+      tables: storage.getDataKey("tables")
+    }
   };
 };
 export const deleteTable = tableID => {

@@ -4,6 +4,8 @@ export default (state = [], action) => {
   switch (action.type) {
     case types.SELECT_COLLECTION:
       return Object.values(action.payload.tables);
+    case types.SWAP_TABLE:
+      return Object.values(action.payload.tables);
     case types.CREATE_TABLE:
       return [...state, action.payload];
     case types.UPDATE_TABLE:

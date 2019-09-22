@@ -141,7 +141,7 @@ class Days extends Component {
             <tbody>
               {this.props.days.map((day, index) => {
                 return (
-                  <tr>
+                  <tr key={day.id}>
                     <td>
                       <span>{day.name}</span>
                     </td>

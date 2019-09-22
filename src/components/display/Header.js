@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 
 import { deselectCollection } from "../../actions";
 
-import Menu from "../Menu";
-
 class Header extends Component {
   state = {};
   render() {
@@ -19,7 +17,6 @@ class Header extends Component {
         >
           Back
         </button>
-        <Menu />
       </div>
     );
   }

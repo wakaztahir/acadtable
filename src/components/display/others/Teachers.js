@@ -125,7 +125,7 @@ class Teachers extends Component {
             <tbody>
               {this.props.teachers.map((teacher, index) => {
                 return (
-                  <tr>
+                  <tr key={teacher.id}>
                     <td>
                       <span>{teacher.name}</span>
                     </td>

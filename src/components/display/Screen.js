@@ -55,12 +55,14 @@ class Screen extends Component {
     }
     this.props.user.save();
   }
-  menu(event, element, tochange = null) {
+  menu(event, element, tochange = null, additional = null) {
     this.props.showMenu({
       event,
       element,
-      tochange
+      tochange,
+      additional
     });
+    return false;
   }
   render() {
     let objector = {
@@ -98,6 +100,7 @@ class Screen extends Component {
             Export
           </button>
         </div>
+        <p style={{ color: "rgba(0,0,0,.6)" }}>* Don't forget to right click</p>
         <div className="flex-center" style={{ minWidth: "50em" }}>
           <div className={`screen ${this.state.tableMode}`} ref="screen">
             {objector.tables.map(table => {
@@ -106,6 +109,9 @@ class Screen extends Component {
               )[0];
               let rows = objector[table.rows];
               let cols = objector[table.cols];
+              if (base == null) {
+                return null;
+              }
               return (
                 <table key={table.id} className="screen-table">
                   <thead>
@@ -116,7 +122,12 @@ class Screen extends Component {
                       <td
                         colSpan={cols.length + 1}
                         onContextMenu={x => {
-                          this.menu(x, table, "header");
+                          x.preventDefault();
+                          return this.menu(
+                            { x: x.clientX, y: x.clientY },
+                            table,
+                            "header"
+                          );
                         }}
                       >
                         <span>{table.header.text}</span>
@@ -128,7 +139,13 @@ class Screen extends Component {
                       <th
                         className="main-block"
                         onContextMenu={x => {
-                          this.menu(x, base);
+                          x.preventDefault();
+                          return this.menu(
+                            { x: x.clientX, y: x.clientY },
+                            base,
+                            null,
+                            { moveBlock: true, block: table }
+                          );
                         }}
                       >
                         {base != null ? (
@@ -146,7 +163,11 @@ class Screen extends Component {
                             key={"c" + col.id}
                             className="col-block"
                             onContextMenu={x => {
-                              this.menu(x, col);
+                              x.preventDefault();
+                              return this.menu(
+                                { x: x.clientX, y: x.clientY },
+                                col
+                              );
                             }}
                           >
                             <div>
@@ -161,13 +182,17 @@ class Screen extends Component {
 
                     {rows.map(row => {
                       return (
-                        <tr
-                          key={"r" + row.id}
-                          onContextMenu={x => {
-                            this.menu(x, row);
-                          }}
-                        >
-                          <th className="row-block">
+                        <tr key={"r" + row.id}>
+                          <th
+                            className="row-block"
+                            onContextMenu={x => {
+                              x.preventDefault();
+                              return this.menu(
+                                { x: x.clientX, y: x.clientY },
+                                row
+                              );
+                            }}
+                          >
                             <div>
                               <span>{row.name}</span>
                             </div>
@@ -230,7 +255,13 @@ class Screen extends Component {
                                   key={"b" + col.id}
                                   className="table-block"
                                   onContextMenu={x => {
-                                    this.menu(x, col);
+                                    x.preventDefault();
+                                    return this.menu(
+                                      { x: x.clientX, y: x.clientY },
+                                      lecture,
+                                      null,
+                                      { row, col }
+                                    );
                                   }}
                                 >
                                   {lecture.display.map(thing => {
@@ -257,11 +288,17 @@ class Screen extends Component {
                     <tr
                       className="table-footer"
                       style={{ background: table.footer.color }}
-                      onContextMenu={x => {
-                        this.menu(x, table, "footer");
-                      }}
                     >
-                      <td colSpan={cols.length + 1}>
+                      <td
+                        colSpan={cols.length + 1}
+                        onContextMenu={x => {
+                          return this.menu(
+                            { x: x.clientX, y: x.clientY },
+                            table,
+                            "footer"
+                          );
+                        }}
+                      >
                         <span>{table.footer.text}</span>
                       </td>
                     </tr>

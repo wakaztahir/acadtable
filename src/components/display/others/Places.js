@@ -231,7 +231,7 @@ class Places extends Component {
               <tbody>
                 {this.props.places.map((place, index) => {
                   return (
-                    <tr>
+                    <tr key={place.id}>
                       <td>
                         <span>{place.name}</span>
                       </td>
