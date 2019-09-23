@@ -6,37 +6,58 @@
       "base": "days",
       "baseValue": "dy7952700",
       "header": {
-        "text": "Don't take it seriously bruh !",
+        "text": "This is an example of what you can do with this Web App !",
         "color": "transparent"
       },
-      "footer": { "text": "Hallelujah", "color": "transparent" },
+      "footer": {
+        "text": "This is a simple table with timings in columns and places as rows",
+        "color": "transparent"
+      },
       "id": "tl5786835"
     },
     "tl6756441": {
       "baseValue": "dy3256093",
       "rows": "places",
-      "cols": "times",
+      "cols": "subjects",
       "base": "days",
-      "header": { "text": "Example Header", "color": "transparent" },
-      "footer": { "text": "Example Footer", "color": "transparent" },
+      "header": {
+        "text": "You can have subjects as rows/columns",
+        "color": "transparent"
+      },
+      "footer": {
+        "text": "The table will always arrange the lectures that fits the row/column",
+        "color": "transparent"
+      },
       "id": "tl6756441"
     },
     "tl0912359": {
       "baseValue": "dy4108701",
-      "rows": "places",
-      "cols": "times",
+      "rows": "teachers",
+      "cols": "batches",
       "base": "days",
-      "header": { "text": "Example Header", "color": "transparent" },
-      "footer": { "text": "Example Footer", "color": "transparent" },
+      "header": {
+        "text": "Teachers as rows,Batches as columns",
+        "color": "transparent"
+      },
+      "footer": {
+        "text": "Right click to delete a lecture",
+        "color": "transparent"
+      },
       "id": "tl0912359"
     },
     "tl6539478": {
       "baseValue": "dy1700065",
-      "rows": "places",
+      "rows": "days",
       "cols": "times",
       "base": "days",
-      "header": { "text": "Example Header", "color": "transparent" },
-      "footer": { "text": "Example Footer", "color": "transparent" },
+      "header": {
+        "text": "Lectures are unique in different tables but if you delete a row/column , Changes are reflected in all the tables",
+        "color": "transparent"
+      },
+      "footer": {
+        "text": "You can move the lectures between rows and columns , There are rules in place which you can remove clicking on settings",
+        "color": "transparent"
+      },
       "id": "tl6539478"
     },
     "tl4565578": {
@@ -44,8 +65,14 @@
       "rows": "places",
       "cols": "times",
       "base": "days",
-      "header": { "text": "Example Header", "color": "transparent" },
-      "footer": { "text": "Example Footer", "color": "transparent" },
+      "header": {
+        "text": "Rules validate things like No two batches have lecture at the same time & place but you can disable them ",
+        "color": "transparent"
+      },
+      "footer": {
+        "text": "You can copy tables & collections & have them converted to pdf",
+        "color": "transparent"
+      },
       "id": "tl4565578"
     }
   },

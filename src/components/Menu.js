@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import {
+  showModal,
   unshowMenu,
   deleteDay,
   deleteBatch,
@@ -11,6 +12,7 @@ import {
   deletePlace,
   deleteSubject,
   deleteLecture,
+  updateLecture,
   swapDay,
   swapBatch,
   swapTeacher,
@@ -20,13 +22,95 @@ import {
   swapTable
 } from "../actions";
 
-import { reverse, keyList } from "../actions/helpers";
+import {
+  reverse,
+  keyList,
+  listKey,
+  lectureValidator
+} from "../actions/helpers";
 
 import "../resources/menu.css";
 
 class Menu extends Component {
   editor(tochange) {}
   move(direction, thing, way = null) {
+    let mover = (man, range) => {
+      let {
+        rname,
+        cname,
+        rindex,
+        rows,
+        base,
+        cols,
+        cindex,
+        lecture,
+        tableBase
+      } = way;
+      let index, length;
+      if (man === "row") {
+        index = rindex + range;
+        length = rows.length;
+      } else {
+        index = cindex + range;
+        length = cols.length;
+      }
+      if (index > -1 && index < length) {
+        let otherLecture = this.props.lectures.filter(
+          block =>
+            block[listKey(tableBase)] === base.id &&
+            block[listKey(rname)] ===
+              (man === "row" ? rows[rindex + range].id : rows[rindex].id) &&
+            block[listKey(cname)] ===
+              (man === "col" ? cols[cindex + range].id : cols[cindex].id)
+        );
+
+        if (otherLecture.length > 0) {
+          otherLecture = {
+            ...otherLecture[0],
+            [listKey(man === "row" ? rname : cname)]:
+              man === "row" ? rows[rindex].id : cols[cindex].id
+          };
+          let otherValidator = lectureValidator(
+            this.props.lectures,
+            otherLecture,
+            lecture
+          );
+          if (otherValidator.value) {
+            this.props.updateLecture(otherLecture.id, otherLecture);
+            lecture = {
+              ...lecture,
+              [listKey(man === "row" ? rname : cname)]:
+                man === "row"
+                  ? rows[rindex + range].id
+                  : cols[cindex + range].id
+            };
+            let validator = lectureValidator(this.props.lectures, lecture);
+            if (validator.value) {
+              this.props.updateLecture(lecture.id, lecture);
+            } else {
+              this.props.showModal("message", validator.message);
+            }
+          } else {
+            this.props.showModal(
+              "message",
+              "2nd lecture error , " + otherValidator.message
+            );
+          }
+        } else {
+          lecture = {
+            ...lecture,
+            [listKey(man === "row" ? rname : cname)]:
+              man === "row" ? rows[rindex + range].id : cols[cindex + range].id
+          };
+          let validator = lectureValidator(this.props.lectures, lecture);
+          if (validator.value) {
+            this.props.updateLecture(lecture.id, lecture);
+          } else {
+            this.props.showModal("message", validator.message);
+          }
+        }
+      }
+    };
     if (way === null) {
       switch (direction) {
         case "up":
@@ -55,12 +139,16 @@ class Menu extends Component {
     } else {
       switch (direction) {
         case "up":
+          mover("row", -1);
           break;
         case "down":
+          mover("row", 1);
           break;
         case "left":
+          mover("col", -1);
           break;
         case "right":
+          mover("col", 1);
           break;
         default:
           return false;
@@ -118,14 +206,23 @@ class Menu extends Component {
         } else {
           moveEle = ele;
         }
-        menuItems["Edit"] = () => {
-          this.editor(obj.tochange);
-        };
-        menuItems["Move Up"] = () => {
+        let up = "Up";
+        let down = "Down";
+        if (obj.additional != null && obj.additional.rowsLine) {
+          up = "Down";
+          down = "Up";
+        } else if (obj.additional != null && obj.additional.colsLine) {
+          up = "Right";
+          down = "Left";
+        }
+        menuItems["Move " + up] = () => {
           this.move("up", moveEle);
         };
-        menuItems["Move Down"] = () => {
+        menuItems["Move " + down] = () => {
           this.move("down", moveEle);
+        };
+        menuItems["Edit"] = () => {
+          this.editor(obj.tochange);
         };
         menuItems["Delete"] = () => {
           this.delete(dealing, obj.element);
@@ -217,6 +314,7 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
+    showModal,
     unshowMenu,
     deleteDay,
     deleteBatch,
@@ -225,6 +323,7 @@ export default connect(
     deletePlace,
     deleteSubject,
     deleteLecture,
+    updateLecture,
     swapDay,
     swapBatch,
     swapTeacher,

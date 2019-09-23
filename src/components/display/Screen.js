@@ -144,7 +144,7 @@ class Screen extends Component {
                             { x: x.clientX, y: x.clientY },
                             base,
                             null,
-                            { moveBlock: true, block: table }
+                            { moveBlock: true, block: table, rowsLine: true }
                           );
                         }}
                       >
@@ -166,7 +166,9 @@ class Screen extends Component {
                               x.preventDefault();
                               return this.menu(
                                 { x: x.clientX, y: x.clientY },
-                                col
+                                col,
+                                null,
+                                { colsLine: true }
                               );
                             }}
                           >
@@ -180,7 +182,7 @@ class Screen extends Component {
 
                     {/* ROWS MAPPING */}
 
-                    {rows.map(row => {
+                    {rows.map((row, rindex) => {
                       return (
                         <tr key={"r" + row.id}>
                           <th
@@ -189,7 +191,9 @@ class Screen extends Component {
                               x.preventDefault();
                               return this.menu(
                                 { x: x.clientX, y: x.clientY },
-                                row
+                                row,
+                                null,
+                                { rowsLine: true }
                               );
                             }}
                           >
@@ -200,7 +204,7 @@ class Screen extends Component {
 
                           {/* COLOUMNS MAPPING */}
 
-                          {cols.map(col => {
+                          {cols.map((col, cindex) => {
                             let block = objector["lectures"].filter(
                               block =>
                                 block[listKey(table.base)] === base.id &&
@@ -260,7 +264,17 @@ class Screen extends Component {
                                       { x: x.clientX, y: x.clientY },
                                       lecture,
                                       null,
-                                      { row, col }
+                                      {
+                                        tableBase: table.base,
+                                        base: base,
+                                        rname: table.rows,
+                                        cname: table.cols,
+                                        rows,
+                                        cols,
+                                        rindex,
+                                        cindex,
+                                        lecture
+                                      }
                                     );
                                   }}
                                 >
