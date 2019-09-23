@@ -84,7 +84,11 @@ class Menu extends Component {
                   ? rows[rindex + range].id
                   : cols[cindex + range].id
             };
-            let validator = lectureValidator(this.props.lectures, lecture);
+            let validator = lectureValidator(
+              this.props.lectures,
+              lecture,
+              otherLecture
+            );
             if (validator.value) {
               this.props.updateLecture(lecture.id, lecture);
             } else {
@@ -102,12 +106,7 @@ class Menu extends Component {
             [listKey(man === "row" ? rname : cname)]:
               man === "row" ? rows[rindex + range].id : cols[cindex + range].id
           };
-          let validator = lectureValidator(this.props.lectures, lecture);
-          if (validator.value) {
-            this.props.updateLecture(lecture.id, lecture);
-          } else {
-            this.props.showModal("message", validator.message);
-          }
+          this.props.updateLecture(lecture.id, lecture);
         }
       }
     };
