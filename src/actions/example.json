@@ -85,7 +85,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -97,33 +97,31 @@
       "subject": "st2000964",
       "teacher": "tr6695021",
       "batch": "bh6684699",
-      "color": "transparent",
+      "color": "rgba(66,133,244,.3)",
       "display": ["batch", "teacher", "subject"],
       "": "update"
     },
     "bk6645853": {
-      "id": "bk6645853",
-      "day": "dy7952700",
-      "time": "tm8685748",
-      "place": "pl6095855",
+      "batch": "bh5873593",
       "subject": "st2944175",
       "teacher": "tr7099462",
-      "batch": "bh5873593",
-      "color": "#e0dfc7",
-      "display": ["batch", "subject", "teacher"],
-      "": "create"
-    },
-    "bk7925846": {
-      "id": "bk7925846",
+      "place": "pl6095855",
       "day": "dy7952700",
       "time": "tm8685748",
-      "place": "pl8388577",
+      "color": "rgba(219,68,55,.3)",
+      "display": ["batch", "subject", "teacher"],
+      "id": "bk6645853"
+    },
+    "bk7925846": {
+      "batch": "bh0060369",
       "subject": "st4206733",
       "teacher": "tr2977862",
-      "batch": "bh0060369",
-      "color": "#6777eb",
+      "place": "pl8388577",
+      "day": "dy7952700",
+      "time": "tm8685748",
+      "color": "rgba(15,157,88,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "create"
+      "id": "bk7925846"
     },
     "bk7409447": {
       "id": "bk7409447",
@@ -145,7 +143,7 @@
       "subject": "st9139652",
       "teacher": "tr1506142",
       "batch": "bh5106239",
-      "color": "#a7e034",
+      "color": "rgba(66,133,244,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -157,7 +155,7 @@
       "subject": "st4206733",
       "teacher": "tr6695021",
       "batch": "bh7910571",
-      "color": "#e0dfc7",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -181,7 +179,7 @@
       "subject": "st2944175",
       "teacher": "tr2977862",
       "batch": "bh5873593",
-      "color": "#fff60c",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -193,7 +191,7 @@
       "subject": "st2000964",
       "teacher": "tr4218605",
       "batch": "bh6684699",
-      "color": "#fff60c",
+      "color": "rgba(66,133,244,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -216,7 +214,7 @@
       "subject": "st4206733",
       "teacher": "tr2977862",
       "batch": "bh7910571",
-      "color": "#a7e034",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -228,7 +226,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh0060369",
-      "color": "#6777eb",
+      "color": "rgba(244,160,0,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -251,7 +249,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -274,7 +272,7 @@
       "subject": "st2000964",
       "teacher": "tr6695021",
       "batch": "bh6684699",
-      "color": "#e0dfc7",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -286,7 +284,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -298,7 +296,7 @@
       "subject": "st4206733",
       "teacher": "tr4218605",
       "batch": "bh7910571",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -321,7 +319,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "rgba(66,133,244,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -345,7 +343,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#e0dfc7",
+      "color": "rgba(66,133,244,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -357,7 +355,7 @@
       "subject": "st4206733",
       "teacher": "tr2977862",
       "batch": "bh0060369",
-      "color": "#6777eb",
+      "color": "rgba(244,160,0,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -374,16 +372,15 @@
       "": "update"
     },
     "bk3753419": {
-      "id": "bk3753419",
-      "day": "dy3256093",
-      "time": "tm5024385",
-      "place": "pl9026267",
+      "batch": "bh5106239",
       "subject": "st9139652",
       "teacher": "tr1506142",
-      "batch": "bh5106239",
-      "color": "#a7e034",
+      "place": "pl9026267",
+      "day": "dy3256093",
+      "time": "tm5024385",
+      "color": "rgba(244,160,0,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "update"
+      "id": "bk3753419"
     },
     "bk6302167": {
       "id": "bk6302167",
@@ -393,7 +390,7 @@
       "subject": "st4206733",
       "teacher": "tr6695021",
       "batch": "bh7910571",
-      "color": "#e0dfc7",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -417,7 +414,7 @@
       "subject": "st2944175",
       "teacher": "tr2977862",
       "batch": "bh5873593",
-      "color": "#fff60c",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -429,7 +426,7 @@
       "subject": "st2000964",
       "teacher": "tr4218605",
       "batch": "bh6684699",
-      "color": "#fff60c",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -445,16 +442,15 @@
       "": "create"
     },
     "bk5136861": {
-      "id": "bk5136861",
-      "day": "dy3256093",
-      "time": "tm4190520",
-      "place": "pl3909920",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr2977862",
-      "batch": "bh7910571",
-      "color": "#a7e034",
+      "place": "pl3909920",
+      "day": "dy3256093",
+      "time": "tm4190520",
+      "color": "rgba(244,160,0,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "update"
+      "id": "bk5136861"
     },
     "bk6309715": {
       "id": "bk6309715",
@@ -464,7 +460,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh0060369",
-      "color": "#6777eb",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -487,7 +483,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -510,7 +506,7 @@
       "subject": "st2000964",
       "teacher": "tr6695021",
       "batch": "bh6684699",
-      "color": "#e0dfc7",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -522,21 +518,20 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
     "bk2658049": {
-      "id": "bk2658049",
-      "day": "dy3256093",
-      "time": "tm5771024",
-      "place": "pl8388577",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr4218605",
-      "batch": "bh7910571",
-      "color": "#ff5e52",
+      "place": "pl8388577",
+      "day": "dy3256093",
+      "time": "tm5771024",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "update"
+      "id": "bk2658049"
     },
     "bk0249499": {
       "id": "bk0249499",
@@ -557,7 +552,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "rgba(244,160,0,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -581,7 +576,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#e0dfc7",
+      "color": "rgba(15,157,88,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -593,7 +588,7 @@
       "subject": "st4206733",
       "teacher": "tr2977862",
       "batch": "bh0060369",
-      "color": "#6777eb",
+      "color": "rgba(66,133,244,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -617,21 +612,20 @@
       "subject": "st9139652",
       "teacher": "tr1506142",
       "batch": "bh5106239",
-      "color": "#a7e034",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
     "bk3137013": {
-      "id": "bk3137013",
-      "day": "dy4108701",
-      "time": "tm5024385",
-      "place": "pl3909920",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr6695021",
-      "batch": "bh7910571",
-      "color": "#e0dfc7",
+      "place": "pl3909920",
+      "day": "dy4108701",
+      "time": "tm5024385",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "create"
+      "id": "bk3137013"
     },
     "bk5870765": {
       "id": "bk5870765",
@@ -653,7 +647,7 @@
       "subject": "st2944175",
       "teacher": "tr2977862",
       "batch": "bh5873593",
-      "color": "#fff60c",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -665,7 +659,7 @@
       "subject": "st2000964",
       "teacher": "tr4218605",
       "batch": "bh6684699",
-      "color": "#fff60c",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -688,7 +682,7 @@
       "subject": "st4206733",
       "teacher": "tr2977862",
       "batch": "bh7910571",
-      "color": "#a7e034",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -700,7 +694,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh0060369",
-      "color": "#6777eb",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -723,7 +717,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -746,7 +740,7 @@
       "subject": "st2000964",
       "teacher": "tr6695021",
       "batch": "bh6684699",
-      "color": "#e0dfc7",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -758,21 +752,20 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
     "bk2194859": {
-      "id": "bk2194859",
-      "day": "dy4108701",
-      "time": "tm5771024",
-      "place": "pl8388577",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr4218605",
-      "batch": "bh7910571",
-      "color": "#ff5e52",
+      "place": "pl8388577",
+      "day": "dy4108701",
+      "time": "tm5771024",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "update"
+      "id": "bk2194859"
     },
     "bk3495316": {
       "id": "bk3495316",
@@ -793,7 +786,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -817,7 +810,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#e0dfc7",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -829,7 +822,7 @@
       "subject": "st4206733",
       "teacher": "tr2977862",
       "batch": "bh0060369",
-      "color": "#6777eb",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -853,21 +846,20 @@
       "subject": "st9139652",
       "teacher": "tr1506142",
       "batch": "bh5106239",
-      "color": "#a7e034",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
     "bk3422109": {
-      "id": "bk3422109",
-      "day": "dy1700065",
-      "time": "tm5024385",
-      "place": "pl3909920",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr6695021",
-      "batch": "bh7910571",
-      "color": "#e0dfc7",
+      "place": "pl3909920",
+      "day": "dy1700065",
+      "time": "tm5024385",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "create"
+      "id": "bk3422109"
     },
     "bk2556475": {
       "id": "bk2556475",
@@ -889,7 +881,7 @@
       "subject": "st2944175",
       "teacher": "tr2977862",
       "batch": "bh5873593",
-      "color": "#fff60c",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -901,7 +893,7 @@
       "subject": "st2000964",
       "teacher": "tr4218605",
       "batch": "bh6684699",
-      "color": "#fff60c",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -917,16 +909,15 @@
       "": "create"
     },
     "bk9435634": {
-      "id": "bk9435634",
-      "day": "dy1700065",
-      "time": "tm4190520",
-      "place": "pl3909920",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr2977862",
-      "batch": "bh7910571",
-      "color": "#a7e034",
+      "place": "pl3909920",
+      "day": "dy1700065",
+      "time": "tm4190520",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "update"
+      "id": "bk9435634"
     },
     "bk9214137": {
       "id": "bk9214137",
@@ -936,7 +927,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh0060369",
-      "color": "#6777eb",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -959,7 +950,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -982,7 +973,7 @@
       "subject": "st2000964",
       "teacher": "tr6695021",
       "batch": "bh6684699",
-      "color": "#e0dfc7",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -994,21 +985,20 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
     "bk0557459": {
-      "id": "bk0557459",
-      "day": "dy1700065",
-      "time": "tm5771024",
-      "place": "pl8388577",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr4218605",
-      "batch": "bh7910571",
-      "color": "#ff5e52",
+      "place": "pl8388577",
+      "day": "dy1700065",
+      "time": "tm5771024",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "update"
+      "id": "bk0557459"
     },
     "bk1702141": {
       "id": "bk1702141",
@@ -1029,7 +1019,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "rgba(15,157,88,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -1053,21 +1043,20 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#e0dfc7",
+      "color": "rgba(15,157,88,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
     "bk5714999": {
-      "id": "bk5714999",
-      "day": "dy7678812",
-      "time": "tm8685748",
-      "place": "pl8388577",
+      "batch": "bh0060369",
       "subject": "st4206733",
       "teacher": "tr2977862",
-      "batch": "bh0060369",
-      "color": "#6777eb",
+      "place": "pl8388577",
+      "day": "dy7678812",
+      "time": "tm8685748",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "create"
+      "id": "bk5714999"
     },
     "bk2149230": {
       "id": "bk2149230",
@@ -1089,21 +1078,20 @@
       "subject": "st9139652",
       "teacher": "tr1506142",
       "batch": "bh5106239",
-      "color": "#a7e034",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
     "bk4241560": {
-      "id": "bk4241560",
-      "day": "dy7678812",
-      "time": "tm5024385",
-      "place": "pl3909920",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr6695021",
-      "batch": "bh7910571",
-      "color": "#e0dfc7",
+      "place": "pl3909920",
+      "day": "dy7678812",
+      "time": "tm5024385",
+      "color": "rgba(66,133,244,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "create"
+      "id": "bk4241560"
     },
     "bk2938077": {
       "id": "bk2938077",
@@ -1125,7 +1113,7 @@
       "subject": "st2944175",
       "teacher": "tr2977862",
       "batch": "bh5873593",
-      "color": "#fff60c",
+      "color": "rgba(244,160,0,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -1137,7 +1125,7 @@
       "subject": "st2000964",
       "teacher": "tr4218605",
       "batch": "bh6684699",
-      "color": "#fff60c",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -1153,16 +1141,15 @@
       "": "create"
     },
     "bk8378486": {
-      "id": "bk8378486",
-      "day": "dy7678812",
-      "time": "tm4190520",
-      "place": "pl3909920",
+      "batch": "bh7910571",
       "subject": "st4206733",
       "teacher": "tr2977862",
-      "batch": "bh7910571",
-      "color": "#a7e034",
+      "place": "pl3909920",
+      "day": "dy7678812",
+      "time": "tm4190520",
+      "color": "rgba(219,68,55,.3)",
       "display": ["batch", "subject", "teacher"],
-      "": "update"
+      "id": "bk8378486"
     },
     "bk4775520": {
       "id": "bk4775520",
@@ -1172,7 +1159,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh0060369",
-      "color": "#6777eb",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -1195,7 +1182,7 @@
       "subject": "st9551921",
       "teacher": "tr1506142",
       "batch": "bh2407037",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },
@@ -1218,7 +1205,7 @@
       "subject": "st2000964",
       "teacher": "tr6695021",
       "batch": "bh6684699",
-      "color": "#e0dfc7",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -1230,7 +1217,7 @@
       "subject": "st2944175",
       "teacher": "tr7099462",
       "batch": "bh5873593",
-      "color": "#ff5e52",
+      "color": "rgba(15,157,88,.3)",
       "display": ["batch", "subject", "teacher"],
       "": "create"
     },
@@ -1242,7 +1229,7 @@
       "subject": "st4206733",
       "teacher": "tr4218605",
       "batch": "bh7910571",
-      "color": "#ff5e52",
+      "color": "transparent",
       "display": ["batch", "subject", "teacher"],
       "": "update"
     },

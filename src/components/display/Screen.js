@@ -281,22 +281,18 @@ class Screen extends Component {
                                     );
                                   }}
                                 >
-                                  <div>
-                                    {lecture.display.map(thing => {
-                                      let loot = this.props[
-                                        keyList(thing)
-                                      ].filter(
-                                        th => th.id === lecture[thing]
-                                      )[0];
-                                      return (
-                                        <span
-                                          key={loot.name + lecture.id + "thing"}
-                                        >
-                                          {loot.name}
-                                        </span>
-                                      );
-                                    })}
-                                  </div>
+                                  {lecture.display.map(thing => {
+                                    let loot = this.props[
+                                      keyList(thing)
+                                    ].filter(th => th.id === lecture[thing])[0];
+                                    return (
+                                      <span
+                                        key={loot.name + lecture.id + "thing"}
+                                      >
+                                        {loot.name}
+                                      </span>
+                                    );
+                                  })}
                                 </td>
                               );
                             }
@@ -313,6 +309,7 @@ class Screen extends Component {
                       <td
                         colSpan={cols.length + 1}
                         onContextMenu={x => {
+                          x.preventDefault();
                           return this.menu(
                             { x: x.clientX, y: x.clientY },
                             table,

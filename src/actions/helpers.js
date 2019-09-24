@@ -1,10 +1,9 @@
 export const COLORS = [
   "transparent",
-  "#ff5e52",
-  "#fff60c",
-  "#a7e034",
-  "#e0dfc7",
-  "#6777eb"
+  "rgba(66,133,244,.3)",
+  "rgba(219,68,55,.3)",
+  "rgba(244,160,0,.3)",
+  "rgba(15,157,88,.3)"
 ];
 
 export const LECTURE_COLOR = "transparent";

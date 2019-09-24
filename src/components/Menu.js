@@ -12,6 +12,13 @@ import {
   deletePlace,
   deleteSubject,
   deleteLecture,
+  updateTable,
+  updateDay,
+  updateBatch,
+  updateTeacher,
+  updateTime,
+  updatePlace,
+  updateSubject,
   updateLecture,
   swapDay,
   swapBatch,
@@ -22,17 +29,111 @@ import {
   swapTable
 } from "../actions";
 
+import AreaEditor from "./modals/AreaEditor";
+import ObjectEditor from "./modals/ObjectEditor";
+import LectureModal from "./modals/LectureModal";
+
 import {
   reverse,
   keyList,
   listKey,
-  lectureValidator
+  lectureValidator,
+  batchValidator,
+  dayValidator,
+  timeValidator,
+  placeValidator,
+  subjectValidator,
+  teacherValidator
 } from "../actions/helpers";
 
 import "../resources/menu.css";
 
 class Menu extends Component {
-  editor(tochange) {}
+  editor(obj) {
+    let tochange = obj.tochange;
+    let area = reverse(obj.element.id);
+    const switcher = (area, request) => {
+      let req = this.props[
+        `${request}${area[0].toUpperCase()}${listKey(area).substr(
+          1,
+          listKey(area).length
+        )}`
+      ];
+      return req;
+    };
+    if (tochange !== null) {
+      this.props.showModal(
+        "content",
+        <ObjectEditor
+          element={obj.element}
+          obj={obj.tochange}
+          update={data => {
+            switcher(keyList(area), "update")(obj.element.id, data);
+          }}
+          delete={null}
+        />
+      );
+    } else if (tochange === null && area === "lecture") {
+      let {
+        rname,
+        cname,
+        rindex,
+        rows,
+        base,
+        cols,
+        cindex,
+        tableBase,
+        lecture
+      } = obj.additional;
+      let params = {};
+      params[listKey(tableBase)] = base.id;
+      params[listKey(rname)] = rows[rindex].id;
+      params[listKey(cname)] = cols[cindex].id;
+      let toEdit = ["day", "time", "place", "batch", "subject", "teacher"];
+      toEdit = toEdit.filter(p => {
+        if (Object.keys(params).indexOf(p) < 0) {
+          return p;
+        }
+        return null;
+      });
+      params = { ...lecture, ...params };
+      this.props.showModal(
+        "content",
+        <LectureModal params={params} edit={toEdit} mode="update" />
+      );
+    } else {
+      this.props.showModal(
+        "content",
+        <AreaEditor
+          element={obj.element}
+          update={data => {
+            let vals = {
+              timeValidator,
+              placeValidator,
+              subjectValidator,
+              teacherValidator,
+              batchValidator,
+              dayValidator
+            };
+            let validator = vals[area + "Validator"](
+              this.props[keyList(area)],
+              data,
+              obj.element
+            );
+            if (validator.value) {
+              switcher(keyList(area), "update")(obj.element.id, data);
+            } else {
+              console.log("what");
+              this.props.showModal("content", validator.message);
+            }
+          }}
+          delete={() => {
+            switcher(keyList(area), "delete")(obj.element.id);
+          }}
+        />
+      );
+    }
+  }
   move(direction, thing, way = null) {
     let mover = (man, range) => {
       let {
@@ -166,12 +267,12 @@ class Menu extends Component {
     switch (dealing) {
       case "table":
         menuItems["Edit"] = () => {
-          this.editor(obj.tochange);
+          this.editor(obj);
         };
         break;
       case "lecture":
         menuItems["Edit"] = () => {
-          this.editor(obj.tochange);
+          this.editor(obj);
         };
         menuItems["Move Up"] = () => {
           this.move("up", "block", obj.additional);
@@ -221,7 +322,7 @@ class Menu extends Component {
           this.move("down", moveEle);
         };
         menuItems["Edit"] = () => {
-          this.editor(obj.tochange);
+          this.editor(obj);
         };
         menuItems["Delete"] = () => {
           this.delete(dealing, obj.element);
@@ -323,6 +424,13 @@ export default connect(
     deleteSubject,
     deleteLecture,
     updateLecture,
+    updateDay,
+    updateBatch,
+    updateTeacher,
+    updateTime,
+    updatePlace,
+    updateSubject,
+    updateTable,
     swapDay,
     swapBatch,
     swapTeacher,
