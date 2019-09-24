@@ -258,6 +258,9 @@ class Screen extends Component {
                                 <td
                                   key={"b" + col.id}
                                   className="table-block"
+                                  style={{
+                                    background: lecture.color
+                                  }}
                                   onContextMenu={x => {
                                     x.preventDefault();
                                     return this.menu(
@@ -278,18 +281,22 @@ class Screen extends Component {
                                     );
                                   }}
                                 >
-                                  {lecture.display.map(thing => {
-                                    let loot = this.props[
-                                      keyList(thing)
-                                    ].filter(th => th.id === lecture[thing])[0];
-                                    return (
-                                      <span
-                                        key={loot.name + lecture.id + "thing"}
-                                      >
-                                        {loot.name}
-                                      </span>
-                                    );
-                                  })}
+                                  <div>
+                                    {lecture.display.map(thing => {
+                                      let loot = this.props[
+                                        keyList(thing)
+                                      ].filter(
+                                        th => th.id === lecture[thing]
+                                      )[0];
+                                      return (
+                                        <span
+                                          key={loot.name + lecture.id + "thing"}
+                                        >
+                                          {loot.name}
+                                        </span>
+                                      );
+                                    })}
+                                  </div>
                                 </td>
                               );
                             }

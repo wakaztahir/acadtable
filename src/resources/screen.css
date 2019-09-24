@@ -8,6 +8,9 @@
   margin: 1rem 0;
 }
 
+.screen .screen-table tr {
+  background: #e4e4e4dc;
+}
 /* table td,
 table th {
   border: 2px solid rgb(104, 104, 104);
@@ -52,18 +55,24 @@ table th {
 }
 
 .table-block {
-  padding: 1rem;
   font-family: "Roboto", sans-serif;
   position: relative;
-  border-right: 1px solid #e3e3e3;
-  border-bottom: 1px solid #e3e3e3;
-  background: #b9b9b9;
   border-radius: 3px;
   cursor: pointer;
+  padding: 0;
+}
+.table-block > div {
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-right: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+  background: #e4e4e4dc;
   color: rgb(51, 51, 51);
 }
 
-.table-block:hover {
+.table-block > div:hover {
   background: #727272;
   color: rgb(235, 235, 235);
 }
@@ -71,23 +80,10 @@ table th {
 .empty-block {
   min-width: 2rem;
   padding: 0.6rem;
-}
-
-.table-sidebar td div {
-  height: max-content;
-  min-height: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-}
-
-.table-sidebar td div span {
-  min-width: max-content;
-  display: block;
-  transform: rotate(-90deg);
-  width: max-content;
+  border-right: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+  background: #b9b9b9;
+  color: rgb(51, 51, 51);
 }
 
 .table-header td,
@@ -103,7 +99,7 @@ table th {
 }
 
 .main-block > span,
-.table-block > span,
+.table-block > div > span,
 .row-block > span,
 .col-block > span {
   display: block;
