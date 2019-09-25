@@ -78,10 +78,10 @@ class LectureModal extends Component {
                 }
               } else if (this.props.mode === "update") {
                 let validator = lectureValidator(this.props.lectures, info, {
-                  id: this.state.params.id
+                  id: info.id
                 });
                 if (validator.value) {
-                  this.props.updateLecture(this.props.id, info);
+                  this.props.updateLecture(info.id, info);
 
                   this.props.unshowModal();
                 } else {
